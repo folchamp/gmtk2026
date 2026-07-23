@@ -47,36 +47,17 @@ class PhotoGame {
         // *************************
         // TESTING START
         // *************************
-
-        "test gravity, collisions and drag";
-        // this.insertGameObject(new GameObject(
-        //     "redSquare", { x: 10, y: 10, width: 200, height: 240 }, 1,
-        //     { isCollidable: false, isGravitable: true, isDraggable: true },
-        //     { image: undefined, color: "red" }));
-        // this.insertGameObject(new GameObject(
-        //     "blueSquare", { x: 30, y: 30, width: 200, height: 240 }, 3,
-        //     { isCollidable: false, isGravitable: true, isDraggable: true },
-        //     { image: undefined, color: "blue" }));
-        // this.insertGameObject(new GameObject(
-        //     "blackSquare", { x: 20, y: 20, width: 200, height: 240 }, 2,
-        //     { isCollidable: false, isGravitable: true, isDraggable: true },
-        //     { image: undefined, color: "black" }));
-        // this.insertGameObject(new GameObject(
-        //     "ground", { x: -1280, y: 600, width: 1280 * 4, height: 600 }, 0,
-        //     { isCollidable: true, isGravitable: false, isDraggable: false },
-        //     { image: undefined, color: "black" }));
-
-        "test missions";
-        this.mission = new MissionOne();
-        this.loadMission(this.mission.getMissionData());
-        this.startMission();
+        this.mission = new MissionTwo();
         // *************************
         // TESTING STOP
         // *************************
+        this.loadMission(this.mission.getMissionData());
+        this.startMission();
     }
 
     startMission() {
         this.missionDurationLeft = data.missionDuration;
+        this.missionDurationLeft = 999999999999999999999999;
     }
 
     loadMission(mission) {

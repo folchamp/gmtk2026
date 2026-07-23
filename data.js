@@ -7,7 +7,7 @@ const data = {
     fieldWidth: 750,
     fieldHeight: 500,
 
-    gravity: 0.015,
+    gravity: 0.008,
     friction: 0.9,
 
     missionDuration : 10000,
