@@ -20,10 +20,12 @@ class GameObject {
         this.vx = 0;
         this.totalDeltaPos = { x: 0, y: 0 };
         // TODO weigth
+
+        GameObject.loadImage(this);
     }
 
-    static load(objectData) {
-        if (objectData.style.imagePath !== undefined) {
+    static loadImage(objectData) {
+        if (objectData.style.imagePath !== undefined && objectData.style.image === undefined) {
             const img = new Image();
             img.src = `${data.imagesPath}${objectData.style.imagePath}`;
             objectData.style.image = img;
@@ -31,6 +33,10 @@ class GameObject {
             Util.hide(img);
             document.body.appendChild(img);
         }
+    }
+
+    static load(objectData) {
+        GameObject.loadImage(objectData);
         return new GameObject(objectData.id, objectData.bounds, objectData.zIndex, objectData.caracs, objectData.style, objectData.idealPosition);
     }
 

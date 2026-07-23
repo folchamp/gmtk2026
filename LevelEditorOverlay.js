@@ -63,9 +63,6 @@ class LevelEditorOverlay {
         });
 
         window.addEventListener("keydown", (event) => {
-            console.log(event.code);
-
-
             if (event.code === "KeyE") {
                 this.toggleVisibility();
             }
@@ -87,10 +84,13 @@ class LevelEditorOverlay {
             }
         });
 
+        this.active = true;
+
         this.toggleVisibility();
     }
 
     toggleVisibility() {
+        this.active = !this.active;
         this.levelEditorOverlayScreenContainer.classList.toggle("hidden");
         this.removeLastGameObject();
     }
@@ -169,7 +169,9 @@ class LevelEditorOverlay {
     load(gameObject) {
         this.removeLastGameObject();
         this.lastGameObject = gameObject;
-        gameObject.style.color = "rgba(100, 0, 0, 0.5)";
+        if (this.active) {
+            gameObject.style.color = "rgba(100, 0, 0, 0.5)";
+        }
 
         // fill
         this.gameObjectPathInput.value = gameObject.style.imagePath;

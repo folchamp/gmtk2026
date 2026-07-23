@@ -17,8 +17,31 @@ class PhotoGame {
 
         // not in gameObjects !!!
         this.canvasGameObject = new GameObject("canvas", { x: 0, y: 0, width: data.gameWidth, height: data.gameHeight }, 0, {}, {});
+        this.fieldGameObject = new GameObject("field",
+            {
+                x: (data.gameWidth - data.fieldWidth) / 2,
+                y: (data.gameHeight - data.fieldHeight) / 2,
+                width: data.fieldWidth,
+                height: data.fieldHeight
+            },
+            99,
+            { isCollidable: false, isGravitable: false, isDraggable: false },
+            // { color: "rgba(0,0,200, 0.3" });
+            { imagePath: "field.png" });
 
         this.gameObjects = [];
+        this.insertGameObject(this.fieldGameObject);
+
+        this.photoGameCanvas.addEventListener("mousedown", (event) => { this.mousedown(event); });
+        this.photoGameCanvas.addEventListener("mousemove", (event) => { this.mousemove(event); });
+        this.photoGameCanvas.addEventListener("mouseup", (event) => { this.mouseup(event); });
+        this.photoGameCanvas.addEventListener("mouseleave", (event) => { this.mouseup(event); });
+
+        this.grabbedGameObject = undefined;
+        this.lastMousePos = { x: 0, y: 0 };
+
+        this.lastTimeStamp = Date.now();
+        this.loop();
 
         // *************************
         // TESTING START
@@ -44,20 +67,14 @@ class PhotoGame {
 
         "test missions";
         this.loadMission(mission_one);
+        this.startMission();
         // *************************
         // TESTING STOP
         // *************************
+    }
 
-        this.photoGameCanvas.addEventListener("mousedown", (event) => { this.mousedown(event); });
-        this.photoGameCanvas.addEventListener("mousemove", (event) => { this.mousemove(event); });
-        this.photoGameCanvas.addEventListener("mouseup", (event) => { this.mouseup(event); });
-        this.photoGameCanvas.addEventListener("mouseleave", (event) => { this.mouseup(event); });
-
-        this.grabbedGameObject = undefined;
-        this.lastMousePos = { x: 0, y: 0 };
-
-        this.lastTimeStamp = Date.now();
-        this.loop();
+    startMission() {
+        this.missionEndTimestamp = Date.now() + 10 * 1000;
     }
 
     loadMission(mission) {
@@ -135,6 +152,15 @@ class PhotoGame {
         this.gameObjects.forEach((gameObject) => {
             gameObject.draw(this.context);
         });
+
+        this.context.font = "72px Arial";
+        this.context.textAlign = "center";
+        this.context.textBaseline = "middle";
+        this.context.fillStyle = "white";
+        this.context.strokeStyle = "black";
+        this.context.lineWidth = 3;
+        // TODO use dt instead of missionEndTimestamp
+        this.context.fillText(Math.ceil(Math.max(this.missionEndTimestamp - Date.now(), 0) / 1000), 930, 190);
 
         window.requestAnimationFrame(() => { this.loop(); });
     }
