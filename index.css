@@ -26,3 +26,32 @@
 .hidden {
     display: none !important;
 }
+
+.calendarScreenContainer {
+    background-image: url(images/calendar/placeholderBackground.png);
+}
+
+.circleImage.hidden {
+    opacity: 0;
+    scale: 0;
+    display: none;
+}
+
+.crossImage, .circleImage:not(.hidden) {
+    animation-duration: 0.5s;
+    animation-name: fade-in;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        scale: 0;
+        display: none;
+    }
+
+    100% {
+        opacity: 1;
+        scale: 1;
+        display: block;
+    }
+}

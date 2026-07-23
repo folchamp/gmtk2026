@@ -11,6 +11,18 @@ class Util {
         element.classList.remove("hidden");
     }
 
+    static image(name, path) {
+        if (Util.images === undefined) {
+            Util.images = {};
+        }
+        if (Util.images[name] === undefined) {
+            let img = new Image();
+            img.src = `images/${name}.png`;
+            Util.images[name] = img;
+        }
+        return Util.images[name];
+    }
+
     static saveToLocalStorage(name, data) {
         if (Settings.appName === undefined) {
             throw "Util.js requires an app name";
