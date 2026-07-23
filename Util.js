@@ -40,6 +40,16 @@ class Util {
         return list;
     }
 
+    static shuffleArray(array) {
+        let currentIndex = array.length;
+        while (currentIndex !== 0) {
+            let randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+        }
+    }
+
     static _createElement(name, parent) {
         let elementToReturn = undefined;
         if (name.endsWith("Text")) {

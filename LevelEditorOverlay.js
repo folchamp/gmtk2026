@@ -167,9 +167,9 @@ class LevelEditorOverlay {
     }
 
     load(gameObject) {
-        this.removeLastGameObject();
-        this.lastGameObject = gameObject;
         if (this.active) {
+            this.removeLastGameObject();
+            this.lastGameObject = gameObject;
             gameObject.style.color = "rgba(100, 0, 0, 0.5)";
         }
 

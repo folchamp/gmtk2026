@@ -8,7 +8,7 @@ class PhotoGame {
 
         Util.quickStructure(this.photoGameScreenContainer, this,
             ["photoGameCanvas"]
-        )
+        );
 
         this.context = this.photoGameCanvas.getContext("2d");
 
@@ -41,6 +41,7 @@ class PhotoGame {
         this.lastMousePos = { x: 0, y: 0 };
 
         this.lastTimeStamp = Date.now();
+        this.state = "playing";
         this.loop();
 
         // *************************
@@ -66,7 +67,8 @@ class PhotoGame {
         //     { image: undefined, color: "black" }));
 
         "test missions";
-        this.loadMission(mission_one);
+        this.mission = new MissionOne();
+        this.loadMission(this.mission.getMissionData());
         this.startMission();
         // *************************
         // TESTING STOP
@@ -74,12 +76,12 @@ class PhotoGame {
     }
 
     startMission() {
-        this.missionEndTimestamp = Date.now() + 10 * 1000;
+        this.missionDurationLeft = data.missionDuration;
     }
 
     loadMission(mission) {
         mission.objectsData.forEach((objectData) => {
-            // clean up existing objects
+            // TODO clean up existing objects, unload previous mission
             this.insertGameObject(GameObject.load(objectData));
         });
     }
@@ -128,12 +130,29 @@ class PhotoGame {
     }
     getTimeElapsed() {
         const now = Date.now();
-        const dt = now - this.lastTimeStamp;
+        let dt = now - this.lastTimeStamp;
         this.lastTimeStamp = now;
+        if (this.state === "paused") {
+            dt = 0;
+        }
         return dt;
     }
     clearCanvas() {
         this.context.clearRect(0, 0, this.photoGameCanvas.width, this.photoGameCanvas.height);
+    }
+    calcAndDisplayTimeLeft(dt) {
+        this.missionDurationLeft -= dt;
+        this.context.font = "72px Arial";
+        this.context.textAlign = "center";
+        this.context.textBaseline = "middle";
+        this.context.fillStyle = "black";
+        this.context.strokeStyle = "white";
+        this.context.lineWidth = 3;
+        this.context.fillText(Math.ceil(Math.max(this.missionDurationLeft, 0) / 1000), 930, 190);
+        this.context.strokeText(Math.ceil(Math.max(this.missionDurationLeft, 0) / 1000), 930, 190);
+    }
+    pause() {
+        this.state = "paused";
     }
     loop() {
         // TODO pause the game on lost focus
@@ -153,14 +172,11 @@ class PhotoGame {
             gameObject.draw(this.context);
         });
 
-        this.context.font = "72px Arial";
-        this.context.textAlign = "center";
-        this.context.textBaseline = "middle";
-        this.context.fillStyle = "white";
-        this.context.strokeStyle = "black";
-        this.context.lineWidth = 3;
-        // TODO use dt instead of missionEndTimestamp
-        this.context.fillText(Math.ceil(Math.max(this.missionEndTimestamp - Date.now(), 0) / 1000), 930, 190);
+        if (this.missionDurationLeft < 0 && dt > 0) {
+            this.mission.checkScore(this.gameObjects);
+            this.pause();
+        }
+        this.calcAndDisplayTimeLeft(dt);
 
         window.requestAnimationFrame(() => { this.loop(); });
     }
