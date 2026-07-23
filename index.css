@@ -3,3 +3,26 @@
         background-color: lightgreen;
     }
 }
+
+.levelEditorOverlayScreenContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 4px;
+    background: rgba(100, 100, 100, 0.5);
+
+    .addGameObjectFormContainer {
+        span {
+            display: block;
+        }
+    }
+}
+
+.levelEditorOverlayScreenContainer.right {
+    left: initial;
+    right: 0;
+}
+
+.hidden {
+    display: none !important;
+}

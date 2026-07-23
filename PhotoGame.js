@@ -1,10 +1,12 @@
 "use strict";
 
 class PhotoGame {
-    constructor(photoGameScreenContainer) {
+    constructor(photoGameScreenContainer, levelEditorOverlay) {
         this.photoGameScreenContainer = photoGameScreenContainer;
+        this.levelEditorOverlay = levelEditorOverlay;
+        this.levelEditorOverlay.insertGameObject = (gameObject) => { this.insertGameObject(gameObject) };
 
-        Util.quickStructure(photoGameScreenContainer, this,
+        Util.quickStructure(this.photoGameScreenContainer, this,
             ["photoGameCanvas"]
         )
 
@@ -21,22 +23,27 @@ class PhotoGame {
         // *************************
         // TESTING START
         // *************************
-        this.insertGameObject(new GameObject(
-            "redSquare", { x: 10, y: 10, width: 200, height: 240 }, 1,
-            { isCollidable: false, isGravitable: true, isDraggable: true },
-            { image: undefined, color: "red" }));
-        this.insertGameObject(new GameObject(
-            "blueSquare", { x: 30, y: 30, width: 200, height: 240 }, 3,
-            { isCollidable: false, isGravitable: true, isDraggable: true },
-            { image: undefined, color: "blue" }));
-        this.insertGameObject(new GameObject(
-            "blackSquare", { x: 20, y: 20, width: 200, height: 240 }, 2,
-            { isCollidable: false, isGravitable: true, isDraggable: true },
-            { image: undefined, color: "black" }));
-        this.insertGameObject(new GameObject(
-            "ground", { x: -1280, y: 600, width: 1280 * 4, height: 600 }, 0,
-            { isCollidable: true, isGravitable: false, isDraggable: false },
-            { image: undefined, color: "black" }));
+
+        "test gravity, collisions and drag";
+        // this.insertGameObject(new GameObject(
+        //     "redSquare", { x: 10, y: 10, width: 200, height: 240 }, 1,
+        //     { isCollidable: false, isGravitable: true, isDraggable: true },
+        //     { image: undefined, color: "red" }));
+        // this.insertGameObject(new GameObject(
+        //     "blueSquare", { x: 30, y: 30, width: 200, height: 240 }, 3,
+        //     { isCollidable: false, isGravitable: true, isDraggable: true },
+        //     { image: undefined, color: "blue" }));
+        // this.insertGameObject(new GameObject(
+        //     "blackSquare", { x: 20, y: 20, width: 200, height: 240 }, 2,
+        //     { isCollidable: false, isGravitable: true, isDraggable: true },
+        //     { image: undefined, color: "black" }));
+        // this.insertGameObject(new GameObject(
+        //     "ground", { x: -1280, y: 600, width: 1280 * 4, height: 600 }, 0,
+        //     { isCollidable: true, isGravitable: false, isDraggable: false },
+        //     { image: undefined, color: "black" }));
+
+        "test missions";
+        this.loadMission(mission_one);
         // *************************
         // TESTING STOP
         // *************************
@@ -52,6 +59,14 @@ class PhotoGame {
         this.lastTimeStamp = Date.now();
         this.loop();
     }
+
+    loadMission(mission) {
+        mission.objectsData.forEach((objectData) => {
+            // clean up existing objects
+            this.insertGameObject(GameObject.load(objectData));
+        });
+    }
+
     insertGameObject(gameObject) {
         this.gameObjects.push(gameObject);
 
@@ -81,6 +96,7 @@ class PhotoGame {
         const deltaPos = { x: mousePos.x - this.lastMousePos.x, y: mousePos.y - this.lastMousePos.y };
 
         if (this.grabbedGameObject !== undefined) {
+            this.levelEditorOverlay.load(this.grabbedGameObject);
             this.grabbedGameObject.displace(deltaPos);
         }
 
@@ -88,6 +104,7 @@ class PhotoGame {
     }
     mouseup(event) {
         if (this.grabbedGameObject) {
+            this.levelEditorOverlay.load(this.grabbedGameObject);
             this.grabbedGameObject.isDragged = false;
             this.grabbedGameObject = undefined;
         }

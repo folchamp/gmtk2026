@@ -1,7 +1,7 @@
 "use strict"
 
 class GameObject {
-    constructor(id, bounds, zIndex, caracs, style) {
+    constructor(id, bounds, zIndex, caracs, style, idealPosition) {
         this.id = id;
         this.x = bounds.x;
         this.y = bounds.y;
@@ -12,25 +12,31 @@ class GameObject {
         this.isGravitable = caracs.isGravitable;
         this.isDraggable = caracs.isDraggable;
         this.style = style;
+        this.idealPosition = idealPosition;
 
         this.startPosition = { x: bounds.x, y: bounds.y };
         this.isDragged = false;
         this.vy = 0;
         this.vx = 0;
         this.totalDeltaPos = { x: 0, y: 0 };
-        // this.lastDeltaPos = { x: 0, y: 0 };
-        // this.isOnGround = false;
         // TODO weigth
     }
 
-    displace(deltaPos) {
-        // this.x += deltaPos.x;
-        // this.y += deltaPos.y;
+    static load(objectData) {
+        if (objectData.style.imagePath !== undefined) {
+            const img = new Image();
+            img.src = `${data.imagesPath}${objectData.style.imagePath}`;
+            objectData.style.image = img;
 
+            Util.hide(img);
+            document.body.appendChild(img);
+        }
+        return new GameObject(objectData.id, objectData.bounds, objectData.zIndex, objectData.caracs, objectData.style, objectData.idealPosition);
+    }
+
+    displace(deltaPos) {
         this.totalDeltaPos.x += deltaPos.x;
         this.totalDeltaPos.y += deltaPos.y;
-
-        // this.vx = Util.average()
     }
 
     reset() {
@@ -65,7 +71,10 @@ class GameObject {
     draw(context) {
         if (this.style.color !== undefined) {
             context.fillStyle = this.style.color;
+            context.fillRect(this.x, this.y, this.width, this.height);
         }
-        context.fillRect(this.x, this.y, this.width, this.height);
+        if (this.style.image !== undefined) {
+            context.drawImage(this.style.image, this.x, this.y);
+        }
     }
 }
