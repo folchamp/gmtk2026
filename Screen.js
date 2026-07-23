@@ -9,8 +9,16 @@ class Screen {
         );
 
         this.mainContainer = this[`${name}Container`];
+        this.stop();
     }
 
-    // TODO
-    // start, stop, hide, show
+    start() {
+        this.active = true;
+        Util.show(this.mainContainer);
+    }
+
+    stop() {
+        this.active = false;
+        Util.hide(this.mainContainer);
+    }
 }
