@@ -13,6 +13,9 @@ class PhotoGame {
         this.photoGameCanvas.width = data.gameWidth;
         this.photoGameCanvas.height = data.gameHeight;
 
+        // not in gameObjects !!!
+        this.canvasGameObject = new GameObject(0, 0, data.gameWidth, data.gameHeight, 0, false, false, "white");
+
         this.gameObjects = [];
 
         // *************************
@@ -22,7 +25,7 @@ class PhotoGame {
         this.insertGameObject(new GameObject(30, 30, 200, 240, 3, false, true, "blue"));
         this.insertGameObject(new GameObject(20, 20, 200, 240, 2, false, true, "black"));
 
-        this.insertGameObject(new GameObject(0, 600, 1280, 155, 0, true, false, "black"));
+        this.insertGameObject(new GameObject(-1280, 600, 1280 * 4, 600, 0, true, false, "black"));
         // *************************
         // TESTING STOP
         // *************************
@@ -30,6 +33,7 @@ class PhotoGame {
         this.photoGameCanvas.addEventListener("mousedown", (event) => { this.mousedown(event); });
         this.photoGameCanvas.addEventListener("mousemove", (event) => { this.mousemove(event); });
         this.photoGameCanvas.addEventListener("mouseup", (event) => { this.mouseup(event); });
+        this.photoGameCanvas.addEventListener("mouseleave", (event) => { this.mouseup(event); });
 
         this.grabbedGameObject = undefined;
         this.lastMousePos = { x: 0, y: 0 };
@@ -66,14 +70,12 @@ class PhotoGame {
         const deltaPos = { x: mousePos.x - this.lastMousePos.x, y: mousePos.y - this.lastMousePos.y };
 
         if (this.grabbedGameObject !== undefined) {
-            this.grabbedGameObject.x += deltaPos.x;
-            this.grabbedGameObject.y += deltaPos.y;
+            this.grabbedGameObject.displace(deltaPos);
         }
 
         this.lastMousePos = mousePos;
     }
     mouseup(event) {
-        console.log("top");
         this.grabbedGameObject.isDragged = false;
         this.grabbedGameObject = undefined;
     }
@@ -95,6 +97,9 @@ class PhotoGame {
 
         this.gameObjects.forEach((gameObject) => {
             gameObject.move(this.gameObjects, dt);
+            if (!Util.rectsCollide(gameObject, this.canvasGameObject)) {
+                gameObject.reset();
+            }
         });
 
         this.gameObjects.forEach((gameObject) => {

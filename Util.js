@@ -180,4 +180,8 @@ class Util {
             a.y + a.height > b.y
         );
     }
+
+    static average(a, b) {
+        return (a + b) / 2;
+    }
 }
