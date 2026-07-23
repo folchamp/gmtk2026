@@ -84,6 +84,7 @@ class PhotoGame {
             // TODO clean up existing objects, unload previous mission
             this.insertGameObject(GameObject.load(objectData));
         });
+        console.log(this.gameObjects);
     }
 
     insertGameObject(gameObject) {
@@ -122,6 +123,9 @@ class PhotoGame {
         this.lastMousePos = mousePos;
     }
     mouseup(event) {
+        this.ungrab();
+    }
+    ungrab() {
         if (this.grabbedGameObject) {
             this.levelEditorOverlay.load(this.grabbedGameObject);
             this.grabbedGameObject.isDragged = false;
@@ -173,6 +177,7 @@ class PhotoGame {
         });
 
         if (this.missionDurationLeft < 0 && dt > 0) {
+            this.ungrab();
             this.mission.checkScore(this.gameObjects);
             this.pause();
         }
