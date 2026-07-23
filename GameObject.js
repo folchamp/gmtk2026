@@ -1,17 +1,19 @@
 "use strict"
 
 class GameObject {
-    constructor(x, y, width, height, zIndex, isCollidable, isGravitable, color) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+    constructor(id, bounds, zIndex, caracs, style) {
+        this.id = id;
+        this.x = bounds.x;
+        this.y = bounds.y;
+        this.width = bounds.width;
+        this.height = bounds.height;
         this.zIndex = zIndex;
-        this.isCollidable = isCollidable;
-        this.isGravitable = isGravitable;
-        this.color = color;
+        this.isCollidable = caracs.isCollidable;
+        this.isGravitable = caracs.isGravitable;
+        this.isDraggable = caracs.isDraggable;
+        this.style = style;
 
-        this.startPosition = { x: x, y: y };
+        this.startPosition = { x: bounds.x, y: bounds.y };
         this.isDragged = false;
         this.vy = 0;
         this.vx = 0;
@@ -61,7 +63,9 @@ class GameObject {
     }
 
     draw(context) {
-        context.fillStyle = this.color;
+        if (this.style.color !== undefined) {
+            context.fillStyle = this.style.color;
+        }
         context.fillRect(this.x, this.y, this.width, this.height);
     }
 }

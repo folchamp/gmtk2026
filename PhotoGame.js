@@ -14,18 +14,29 @@ class PhotoGame {
         this.photoGameCanvas.height = data.gameHeight;
 
         // not in gameObjects !!!
-        this.canvasGameObject = new GameObject(0, 0, data.gameWidth, data.gameHeight, 0, false, false, "white");
+        this.canvasGameObject = new GameObject("canvas", { x: 0, y: 0, width: data.gameWidth, height: data.gameHeight }, 0, {}, {});
 
         this.gameObjects = [];
 
         // *************************
         // TESTING START
         // *************************
-        this.insertGameObject(new GameObject(10, 10, 200, 240, 1, false, true, "red"));
-        this.insertGameObject(new GameObject(30, 30, 200, 240, 3, false, true, "blue"));
-        this.insertGameObject(new GameObject(20, 20, 200, 240, 2, false, true, "black"));
-
-        this.insertGameObject(new GameObject(-1280, 600, 1280 * 4, 600, 0, true, false, "black"));
+        this.insertGameObject(new GameObject(
+            "redSquare", { x: 10, y: 10, width: 200, height: 240 }, 1,
+            { isCollidable: false, isGravitable: true, isDraggable: true },
+            { image: undefined, color: "red" }));
+        this.insertGameObject(new GameObject(
+            "blueSquare", { x: 30, y: 30, width: 200, height: 240 }, 3,
+            { isCollidable: false, isGravitable: true, isDraggable: true },
+            { image: undefined, color: "blue" }));
+        this.insertGameObject(new GameObject(
+            "blackSquare", { x: 20, y: 20, width: 200, height: 240 }, 2,
+            { isCollidable: false, isGravitable: true, isDraggable: true },
+            { image: undefined, color: "black" }));
+        this.insertGameObject(new GameObject(
+            "ground", { x: -1280, y: 600, width: 1280 * 4, height: 600 }, 0,
+            { isCollidable: true, isGravitable: false, isDraggable: false },
+            { image: undefined, color: "black" }));
         // *************************
         // TESTING STOP
         // *************************
@@ -56,7 +67,7 @@ class PhotoGame {
 
         this.gameObjects.forEach((gameObject) => {
             if (Util.isInRect(mousePos, gameObject)) {
-                if (this.grabbedGameObject === undefined || this.grabbedGameObject.zIndex < gameObject.zIndex) {
+                if (gameObject.isDraggable && (this.grabbedGameObject === undefined || this.grabbedGameObject.zIndex < gameObject.zIndex)) {
                     this.grabbedGameObject = gameObject;
                     gameObject.isDragged = true;
                 }
@@ -76,8 +87,10 @@ class PhotoGame {
         this.lastMousePos = mousePos;
     }
     mouseup(event) {
-        this.grabbedGameObject.isDragged = false;
-        this.grabbedGameObject = undefined;
+        if (this.grabbedGameObject) {
+            this.grabbedGameObject.isDragged = false;
+            this.grabbedGameObject = undefined;
+        }
     }
     getTimeElapsed() {
         const now = Date.now();
