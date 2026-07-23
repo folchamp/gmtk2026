@@ -42,8 +42,7 @@ class PhotoGame {
 
         this.lastTimeStamp = Date.now();
         this.state = "playing";
-        this.loop();
-
+        
         // *************************
         // TESTING START
         // *************************
@@ -53,6 +52,7 @@ class PhotoGame {
         // *************************
         this.loadMission(this.mission.getMissionData());
         this.startMission();
+        this.loop();
     }
 
     startMission() {
@@ -152,6 +152,8 @@ class PhotoGame {
                 gameObject.reset();
             }
         });
+
+        this.mission.missionMove(dt, this.gameObjects);
 
         this.gameObjects.forEach((gameObject) => {
             gameObject.draw(this.context);

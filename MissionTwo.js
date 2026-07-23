@@ -12,12 +12,24 @@ class MissionTwo extends Mission {
         return missionData;
     }
     missionMove(dt, gameObjects) {
-        
+        gameObjects.forEach((gameObject) => {
+            const favoriteFood = MissionTwo.missionData.animals[gameObject.id];
+            gameObjects.forEach((foodIHope) => {
+                // console.log(gameObject.id, favoriteFood);
+                if (foodIHope.id === favoriteFood) {
+                    const animalToMove = gameObject;
+                    const foodToEat = foodIHope;
+                    const direction = Math.sign(foodToEat.x - animalToMove.x);
+
+                    animalToMove.vx = direction * MissionTwo.missionData.acceleration * dt;
+                }
+            })
+        });
     }
 
     static missionData = {
-        animals: ["cow", "goat", "dog", "horse"],
-        items: ["item1", "item2", "item3", "item4"],
+        acceleration: 0.003,
+        animals: { "cow": "item1", "goat": "item2", "dog": "item3", "horse": "item4" },
         objectsData: [
             {
                 id: "cow", bounds: { x: 10, y: 10, width: 194, height: 136 }, zIndex: 1,
