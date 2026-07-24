@@ -75,17 +75,20 @@ class LevelEditorOverlay {
             if (this.lastGameObject !== undefined) {
                 if (event.code === "KeyW") {
                     this.lastGameObject.y--;
+                    this.load(this.lastGameObject);
                 }
                 if (event.code === "KeyS") {
                     this.lastGameObject.y++;
+                    this.load(this.lastGameObject);
                 }
                 if (event.code === "KeyA") {
                     this.lastGameObject.x--;
+                    this.load(this.lastGameObject);
                 }
                 if (event.code === "KeyD") {
                     this.lastGameObject.x++;
+                    this.load(this.lastGameObject);
                 }
-                this.load(this.lastGameObject);
             }
         });
 
@@ -146,6 +149,7 @@ class LevelEditorOverlay {
     }
 
     change() {
+        console.log("change");
         this.lastGameObject.id = this.gameObjectNameInput.value;
         this.lastGameObject.x = this.gameObjectXInput.valueAsNumber;
         this.lastGameObject.y = this.gameObjectYInput.valueAsNumber;
@@ -162,6 +166,7 @@ class LevelEditorOverlay {
     }
 
     load(gameObject) {
+        console.log("load");
         if (this.active) {
             this.removeLastGameObject();
             this.lastGameObject = gameObject;

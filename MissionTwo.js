@@ -7,6 +7,7 @@ class MissionTwo extends Mission {
     checkScore(gameObjects) {
         let animalsInField = 0;
         let superpositions = 0;
+        let partiallyOutside = 0;
         const field = this.getField(gameObjects);
         // checker si tous les animaux sont dans le cadre
         // checker si les animaux sont bien éparpillés et ne se superposent pas
@@ -17,12 +18,15 @@ class MissionTwo extends Mission {
                     if (this.isAnimal(gameObject2) && gameObject.id !== gameObject2.id && Util.rectsCollide(gameObject, gameObject2)) {
                         superpositions++;
                     }
+                    if (((gameObject2.id === "left_boundary") || (gameObject2.id === "right_boundary")) && Util.rectsCollide(gameObject, gameObject2)) {
+                        partiallyOutside++;
+                    }
                 });
             }
         });
         // afficher le score en pourcentage
         // TODO
-        alert(`Animals in field 😊 : ${animalsInField}\nSuperpositions ☹️ : ${superpositions / 2}`);
+        alert(`Animals in field 😊 : ${animalsInField}\nSuperpositions ☹️ : ${superpositions / 2}\nAnimals partially outside ☹️ : ${partiallyOutside}`);
     }
     getMissionData() {
         const missionData = Util.deepCopy(MissionTwo.missionData);
@@ -46,7 +50,7 @@ class MissionTwo extends Mission {
         const directionToFood = Math.sign(food.x - animal.x);
         const directionToRun = Math.sign(animal.idealPosition.x - animal.x);
         if (Math.abs(food.x - animal.x) < MissionTwo.missionData.grabDistance) { // assez proche pour attraper la nourriture
-            if (Math.abs(animal.idealPosition.x - animal.x) > MissionTwo.missionData.grabDistance) { // encore loin du lieu de fuite
+            if (Math.abs(animal.idealPosition.x - animal.x) > MissionTwo.missionData.runDistance) { // encore loin du lieu de fuite
                 animal.vx = directionToRun * MissionTwo.missionData.acceleration[animal.id] * dt; // fuite
             }
             food.x = animal.x; // la bouffe colle à l'animal
@@ -68,7 +72,8 @@ class MissionTwo extends Mission {
     }
 
     static missionData = {
-        grabDistance: 30,
+        grabDistance: 10,
+        runDistance: 30,
         acceleration: { cow: 0.006, goat: 0.008, dog: 0.018, horse: 0.012 },
         animals: { "cow": "item1", "goat": "item2", "dog": "item3", "horse": "item4" },
         objectsData: [
@@ -126,6 +131,47 @@ class MissionTwo extends Mission {
                 style: { imagePath: "mission_two/ground.png", color: undefined },
                 idealPosition: { x: 1000, y: 10 }
             },
+            {
+                "id": "right_boundary",
+                "bounds": {
+                    "x": 992,
+                    "y": -14,
+                    "width": 500,
+                    "height": 1000
+                },
+                "zIndex": 3,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": false
+                },
+                "style": {
+                },
+                "idealPosition": {
+                    "x": 992,
+                    "y": -14
+                }
+            }, {
+                "id": "left_boundary",
+                "bounds": {
+                    "x": -11,
+                    "y": -22,
+                    "width": 300,
+                    "height": 1000
+                },
+                "zIndex": 3,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": false
+                },
+                "style": {
+                },
+                "idealPosition": {
+                    "x": -11,
+                    "y": -22
+                }
+            }
         ]
     }
 }
