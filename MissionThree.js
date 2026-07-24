@@ -561,6 +561,32 @@ class MissionThree extends Mission {
                     "x": 11,
                     "y": 11
                 }
+            },
+            {
+                "id": "field",
+                "bounds": {
+                    "x": 265,
+                    "y": 110,
+                    "width": 750,
+                    "height": 500
+                },
+                "zIndex": 99,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": false
+                },
+                "style": {
+                    "imagePath": "field.png"
+                },
+                "idealPosition": {
+                    "x": 265,
+                    "y": 110
+                },
+                "offset": {
+                    "x": 0,
+                    "y": 0
+                }
             }
         ]
     }

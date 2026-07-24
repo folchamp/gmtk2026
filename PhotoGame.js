@@ -21,8 +21,8 @@ class PhotoGame {
         // not in gameObjects
         this.canvasGameObject = new GameObject("canvas", { x: 0, y: 0, width: data.gameWidth, height: data.gameHeight }, 0, {}, {});
         // in gameObjects
-        this.fieldGameObject = new GameObject("field", { x: (data.gameWidth - data.fieldWidth) / 2, y: (data.gameHeight - data.fieldHeight) / 2, width: data.fieldWidth, height: data.fieldHeight }, 99, { isCollidable: false, isGravitable: false, isDraggable: false }, { imagePath: "field.png" });
-        this.insertGameObject(this.fieldGameObject);
+        // this.fieldGameObject = new GameObject("field", { x: (data.gameWidth - data.fieldWidth) / 2, y: (data.gameHeight - data.fieldHeight) / 2, width: data.fieldWidth, height: data.fieldHeight }, 99, { isCollidable: false, isGravitable: false, isDraggable: true }, { imagePath: "field.png" });
+        // this.insertGameObject(this.fieldGameObject);
 
 
         this.photoGameCanvas.addEventListener("mousedown", (event) => { this.mousedown(event); });
@@ -65,8 +65,8 @@ class PhotoGame {
     startMission() {
         this.missionDurationLeft = data.missionDuration;
         // for testing purposes
-        this.missionDurationLeft = 999999;
-        // this.missionDurationLeft = 999;
+        // this.missionDurationLeft = 999999;
+        this.missionDurationLeft = 30000;
     }
 
     loadMission(mission) {

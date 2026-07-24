@@ -28,36 +28,403 @@ class MissionFour extends Mission {
     getMissionData() {
         // copie des données de mission
         const missionData = Util.deepCopy(MissionFour.missionData);
-        // on shuffle la liste de positions possibles
-        Util.shuffleArray(missionData.randompositions);
-        // on donne une des positions à chaque objet
-        missionData.objectsData.forEach((objectData) => {
-            const randomPos = missionData.randompositions.shift();
-            objectData.bounds.x = randomPos.x;
-            objectData.bounds.y = randomPos.y;
-        });
-        // on shuffle les gameObjects
-        Util.shuffleArray(missionData.objectsData);
-        // on remet leur meilleurs position à un certain nombres d'objets (parce que le jeu est trop dur sinon), déterminé par la variable difficulty
-        for (let index = 0; index < missionData.objectsData.length; index++) {
-            const objectData = missionData.objectsData[index];
-            if (index < missionData.difficulty) {
-                objectData.bounds.x = objectData.idealPosition.x;
-                objectData.bounds.y = objectData.idealPosition.y;
-            }
-            // et on ajuste le zindex pour que les tuiles mal placées ne soient pas cachées en dessous des tuiles bien placéees
-            objectData.zIndex = index;
-        }
         return missionData;
     }
 
     static missionData = {
         pointsPerTile: 10,
         snapDistance: 15,
-        difficulty: 5, // 0 = hard
-        worst: 5000,
-        best: 10,
-        randompositions: [{ x: 0, y: 0 }, { x: 324, y: 0 }, { x: 620, y: 0 }, { "x": 803, "y": 0 }, { "x": 1024, "y": 372 }, { "x": 739, "y": 351 }, { "x": 482, "y": 319 }, { "x": 0, "y": 358 }, { "x": 125, "y": 362 }],
-        objectsData: []
+        objectsData: [
+            {
+                "id": "background",
+                "bounds": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 50,
+                    "height": 50
+                },
+                "zIndex": -2,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/M_Puzzle_Background.png"
+                },
+                "idealPosition": {
+                    "x": 0,
+                    "y": 0
+                },
+                "offset": {
+                    "x": 0,
+                    "y": 0
+                }
+            },
+            {
+                "id": "caracter",
+                "bounds": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 50,
+                    "height": 50
+                },
+                "zIndex": -1,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/M_Puzzle_Chara.png"
+                },
+                "idealPosition": {
+                    "x": 0,
+                    "y": 0
+                },
+                "offset": {
+                    "x": 0,
+                    "y": 0
+                }
+            },
+            {
+                "id": "box",
+                "bounds": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 50,
+                    "height": 50
+                },
+                "zIndex": 0,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": false
+                },
+                "style": {
+                    "imagePath": "mission_four/M_Puzzle_box.png"
+                },
+                "idealPosition": {
+                    "x": 0,
+                    "y": 0
+                },
+                "offset": {
+                    "x": 0,
+                    "y": 0
+                }
+            },
+            {
+                "id": "puzzle1",
+                "bounds": {
+                    "x": 630,
+                    "y": 338,
+                    "width": 127,
+                    "height": 52
+                },
+                "zIndex": 1,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/Puzzle_Piece_1.png"
+                },
+                "idealPosition": {
+                    "x": 370,
+                    "y": 348
+                },
+                "offset": {
+                    "x": 12,
+                    "y": 4
+                }
+            },
+            {
+                "id": "puzzle2",
+                "bounds": {
+                    "x": 705,
+                    "y": 394,
+                    "width": 128,
+                    "height": 94
+                },
+                "zIndex": 2,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/Puzzle_Piece_2.png"
+                },
+                "idealPosition": {
+                    "x": 359,
+                    "y": 400
+                },
+                "offset": {
+                    "x": 20,
+                    "y": 0
+                }
+            },
+            {
+                "id": "puzzle3",
+                "bounds": {
+                    "x": 726,
+                    "y": 290,
+                    "width": 148,
+                    "height": 130
+                },
+                "zIndex": 3,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/Puzzle_Piece_3.png"
+                },
+                "idealPosition": {
+                    "x": 326,
+                    "y": 494
+                },
+                "offset": {
+                    "x": 17,
+                    "y": 26
+                }
+            },
+            {
+                "id": "puzzle4",
+                "bounds": {
+                    "x": 338,
+                    "y": 397,
+                    "width": 119,
+                    "height": 66
+                },
+                "zIndex": 4,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/Puzzle_Piece_4.png"
+                },
+                "idealPosition": {
+                    "x": 503,
+                    "y": 344
+                },
+                "offset": {
+                    "x": 9,
+                    "y": 4
+                }
+            },
+            {
+                "id": "puzzle5",
+                "bounds": {
+                    "x": 361,
+                    "y": 160,
+                    "width": 129,
+                    "height": 87
+                },
+                "zIndex": 5,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/Puzzle_Piece_5.png"
+                },
+                "idealPosition": {
+                    "x": 493,
+                    "y": 408
+                },
+                "offset": {
+                    "x": 8,
+                    "y": 2
+                }
+            },
+            {
+                "id": "puzzle6",
+                "bounds": {
+                    "x": 62,
+                    "y": 333,
+                    "width": 141,
+                    "height": 128
+                },
+                "zIndex": 6,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/Puzzle_Piece_6.png"
+                },
+                "idealPosition": {
+                    "x": 477,
+                    "y": 496
+                },
+                "offset": {
+                    "x": 28,
+                    "y": 4
+                }
+            },
+            {
+                "id": "puzzle7",
+                "bounds": {
+                    "x": 58,
+                    "y": 323,
+                    "width": 134,
+                    "height": 68
+                },
+                "zIndex": 7,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/Puzzle_Piece_7.png"
+                },
+                "idealPosition": {
+                    "x": 621,
+                    "y": 340
+                },
+                "offset": {
+                    "x": 17,
+                    "y": 2
+                }
+            },
+            {
+                "id": "puzzle8",
+                "bounds": {
+                    "x": 546,
+                    "y": 424,
+                    "width": 134,
+                    "height": 102
+                },
+                "zIndex": 8,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/Puzzle_Piece_8.png"
+                },
+                "idealPosition": {
+                    "x": 621,
+                    "y": 408
+                },
+                "offset": {
+                    "x": 6,
+                    "y": 2
+                }
+            },
+            {
+                "id": "puzzle9",
+                "bounds": {
+                    "x": 707,
+                    "y": 309,
+                    "width": 140,
+                    "height": 114
+                },
+                "zIndex": 9,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/Puzzle_Piece_9.png"
+                },
+                "idealPosition": {
+                    "x": 615,
+                    "y": 509
+                },
+                "offset": {
+                    "x": 0,
+                    "y": 25
+                }
+            },
+            {
+                "id": "puzzle10",
+                "bounds": {
+                    "x": 503,
+                    "y": 444,
+                    "width": 169,
+                    "height": 60
+                },
+                "zIndex": 10,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/Puzzle_Piece_10.png"
+                },
+                "idealPosition": {
+                    "x": 754,
+                    "y": 338
+                },
+                "offset": {
+                    "x": 20,
+                    "y": 4
+                }
+            },
+            {
+                "id": "puzzle11",
+                "bounds": {
+                    "x": 1034,
+                    "y": 530,
+                    "width": 192,
+                    "height": 102
+                },
+                "zIndex": 11,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/Puzzle_Piece_11.png"
+                },
+                "idealPosition": {
+                    "x": 752,
+                    "y": 400
+                },
+                "offset": {
+                    "x": 0,
+                    "y": 26
+                }
+            },
+            {
+                "id": "puzzle12",
+                "bounds": {
+                    "x": 695,
+                    "y": 367,
+                    "width": 221,
+                    "height": 114
+                },
+                "zIndex": 12,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_four/Puzzle_Piece_12.png"
+                },
+                "idealPosition": {
+                    "x": 751,
+                    "y": 506
+                },
+                "offset": {
+                    "x": 29,
+                    "y": 6
+                }
+            }
+        ]
     }
 }

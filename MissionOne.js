@@ -37,9 +37,11 @@ class MissionOne extends Mission {
         Util.shuffleArray(missionData.randompositions);
         // on donne une des positions à chaque objet
         missionData.objectsData.forEach((objectData) => {
-            const randomPos = missionData.randompositions.shift();
-            objectData.bounds.x = randomPos.x;
-            objectData.bounds.y = randomPos.y;
+            if (objectData.id.startsWith("puzzle")) {
+                const randomPos = missionData.randompositions.shift();
+                objectData.bounds.x = randomPos.x;
+                objectData.bounds.y = randomPos.y;
+            }
         });
         // on shuffle les gameObjects
         Util.shuffleArray(missionData.objectsData);
@@ -255,6 +257,32 @@ class MissionOne extends Mission {
                 "idealPosition": {
                     "x": 768,
                     "y": 610
+                }
+            },
+            {
+                "id": "field",
+                "bounds": {
+                    "x": 265,
+                    "y": 110,
+                    "width": 750,
+                    "height": 500
+                },
+                "zIndex": 99,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": false
+                },
+                "style": {
+                    "imagePath": "field.png"
+                },
+                "idealPosition": {
+                    "x": 265,
+                    "y": 110
+                },
+                "offset": {
+                    "x": 0,
+                    "y": 0
                 }
             }]
     }
