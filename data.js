@@ -10,7 +10,10 @@ const data = {
     gravity: 0.008,
     friction: 0.9,
 
-    missionDuration : 10000,
+    missionDuration: 10000,
 
-    imagesPath: "images/"
+    imagesPath: "images/",
+
+    arrowAmplitude: 8,
+    arrowSpeed: 0.010
 }

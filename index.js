@@ -1,6 +1,15 @@
 "use strict";
 
+Util.image("arrow", "images/arrow.png")
+
 Util.texts = {
+    "scoreExplanationOneText": "blah blah",
+    "scoreExplanationTwoText": "blah blahblah blah",
+    "scoreExplanationThreeText": "blah blahblah blah",
+    "scoreExplanationFourText": "blah blah",
+    "scoringTitle": "scores",
+    "gameObjectOffsetXText": "offsetX",
+    "gameObjectOffsetYText": "offsetY",
     "explanationsText": "E : toggle level editor\nM: move level editor\nP : display game\nO : display calendar\nN : next day",
     "setIdealButton": "ideal",
     "gameObjectDownloadFeedbackText": "",

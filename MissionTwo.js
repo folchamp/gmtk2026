@@ -4,7 +4,7 @@ class MissionTwo extends Mission {
     constructor() {
         super();
     }
-    checkScore(gameObjects) {
+    getScore(gameObjects) {
         let animalsInField = 0;
         let superpositions = 0;
         let partiallyOutside = 0;
@@ -25,7 +25,7 @@ class MissionTwo extends Mission {
             }
         });
         // TODO afficher le score en pourcentage
-        alert(`Animals in field 😊 : ${animalsInField}\nSuperpositions ☹️ : ${superpositions / 2}\nAnimals partially outside ☹️ : ${partiallyOutside}`);
+        return { text: `Animals in field 😊 : ${animalsInField}\nSuperpositions ☹️ : ${superpositions / 2}\nAnimals partially outside ☹️ : ${partiallyOutside}` };
     }
     getMissionData() {
         const missionData = Util.deepCopy(MissionTwo.missionData);
@@ -56,15 +56,6 @@ class MissionTwo extends Mission {
         } else {
             animal.vx = directionToFood * MissionTwo.missionData.acceleration[animal.id] * dt; // course vers la bouffe
         }
-    }
-    getField(gameObjects) {
-        let gameObjectToReturn;
-        gameObjects.forEach((gameObject) => {
-            if (gameObject.id === "field") {
-                gameObjectToReturn = gameObject;
-            }
-        });
-        return gameObjectToReturn;
     }
     isAnimal(gameObject) {
         return MissionTwo.missionData.animals[gameObject.id] !== undefined;

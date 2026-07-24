@@ -12,7 +12,7 @@ class MissionOne extends Mission {
             }
         });
     }
-    checkScore(gameObjects) {
+    getScore(gameObjects) {
         let malus = 0;
         let percentage = 0;
         gameObjects.forEach((gameObject) => {
@@ -22,10 +22,7 @@ class MissionOne extends Mission {
         });
         malus = Math.max(Math.min(MissionOne.missionData.worst, malus), MissionOne.missionData.best);
         percentage = (MissionOne.missionData.worst - (malus - MissionOne.missionData.best)) / MissionOne.missionData.worst;
-        console.log(MissionOne.missionData.worst - (malus - MissionOne.missionData.best));
-        console.log(MissionOne.missionData.worst)
-        console.log(malus);
-        alert(`${Math.floor(percentage * 100)}%`);
+        return { text: `${Math.floor(percentage * 100)}%` };
     }
     getMissionData() {
         // copie des données de mission

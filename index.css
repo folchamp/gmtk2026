@@ -2,11 +2,49 @@
     display: none !important;
 }
 
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #111;
+    margin: 0;
+}
+
+/* ********************************************** */
+/* scoring */
+/* ********************************************** */
+
+.scoringScreenContainer {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: darkgreen;
+    padding: 4px;
+
+    .scoreExplanationOneText,
+    .scoreExplanationTwoText,
+    .scoreExplanationThreeText,
+    .scoreExplanationFourText {
+        background: rgb(1, 56, 1);
+        margin: 4px;
+        padding: 4px;
+    }
+}
+
+/* ********************************************** */
+/* photo game */
+/* ********************************************** */
+
 .photoGameScreenContainer {
     .photoGameCanvas {
         background-color: lightgreen;
     }
 }
+
+/* ********************************************** */
+/* level editor */
+/* ********************************************** */
 
 .levelEditorOverlayScreenContainer {
     position: absolute;
@@ -27,20 +65,24 @@
     right: 0;
 }
 
+/* ********************************************** */
+/* calendar */
+/* ********************************************** */
+
 .calendarScreenContainer {
     background-image: url(images/calendar/placeholderBackground.png);
-}
 
-.circleImage.hidden {
-    opacity: 0;
-    scale: 0;
-    display: none;
-}
+    .circleImage.hidden {
+        opacity: 0;
+        scale: 0;
+        display: none;
+    }
 
-.crossImage,
-.circleImage:not(.hidden) {
-    animation-duration: 0.5s;
-    animation-name: fade-in;
+    .crossImage,
+    .circleImage:not(.hidden) {
+        animation-duration: 0.5s;
+        animation-name: fade-in;
+    }
 }
 
 @keyframes fade-in {

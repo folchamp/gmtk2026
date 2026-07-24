@@ -15,6 +15,11 @@ class LevelEditorOverlay {
                     ["gameObjectYLabel", "gameObjectYText", "gameObjectYInput"],
                     // "gameObjectUploadPositionButton"
                 ],
+                ["gameObjectOffsetContainer",
+                    ["gameObjectOffsetXLabel", "gameObjectOffsetXText", "gameObjectOffsetXInput"],
+                    ["gameObjectOffsetYLabel", "gameObjectOffsetYText", "gameObjectOffsetYInput"],
+                    // "gameObjectUploadPositionButton"
+                ],
                 ["gameObjectWidthLabel", "gameObjectWidthText", "gameObjectWidthInput"],
                 ["gameObjectHeightLabel", "gameObjectHeightText", "gameObjectHeightInput"],
                 ["gameObjectZIndexLabel", "gameObjectZIndexText", "gameObjectZIndexInput"],
@@ -31,18 +36,24 @@ class LevelEditorOverlay {
 
         this.gameObjectXInput.type = "number";
         this.gameObjectYInput.type = "number";
+        this.gameObjectOffsetXInput.type = "number";
+        this.gameObjectOffsetYInput.type = "number";
         this.gameObjectWidthInput.type = "number";
         this.gameObjectHeightInput.type = "number";
         this.gameObjectZIndexInput.type = "number";
 
         this.gameObjectXInput.step = 1;
         this.gameObjectYInput.step = 1;
+        this.gameObjectOffsetXInput.step = 1;
+        this.gameObjectOffsetYInput.step = 1;
         this.gameObjectWidthInput.step = 1;
         this.gameObjectHeightInput.step = 1;
         this.gameObjectZIndexInput.step = 1;
 
         this.gameObjectXInput.addEventListener("change", (event) => { this.change(); });
         this.gameObjectYInput.addEventListener("change", (event) => { this.change(); });
+        this.gameObjectOffsetXInput.addEventListener("change", (event) => { this.change(); });
+        this.gameObjectOffsetYInput.addEventListener("change", (event) => { this.change(); });
         this.gameObjectWidthInput.addEventListener("change", (event) => { this.change(); });
         this.gameObjectHeightInput.addEventListener("change", (event) => { this.change(); });
         this.gameObjectZIndexInput.addEventListener("change", (event) => { this.change(); });
@@ -109,7 +120,8 @@ class LevelEditorOverlay {
             zIndex: 3,
             caracs: { isCollidable: false, isGravitable: false, isDraggable: true },
             style: { color: undefined, imagePath: this.gameObjectPathInput.value },
-            idealPosition: { x: 0, y: 0 }
+            idealPosition: { x: 0, y: 0 },
+            offset: { x: 0, y: 0 }
         }
         const gameObject = GameObject.load(basicObjectData);
         this.load(gameObject);
@@ -132,6 +144,10 @@ class LevelEditorOverlay {
             idealPosition: {
                 x: this.gameObjectXInput.valueAsNumber,
                 y: this.gameObjectYInput.valueAsNumber,
+            },
+            offset: {
+                x: this.gameObjectOffsetXInput.valueAsNumber,
+                y: this.gameObjectOffsetYInput.valueAsNumber
             }
         };
         await navigator.clipboard.writeText(JSON.stringify(objectData, null, 4));
@@ -139,7 +155,6 @@ class LevelEditorOverlay {
         setTimeout(() => {
             this.gameObjectDownloadFeedbackText.innerText = "";
         }, 750);
-
     }
 
     setIdeal() {
@@ -149,10 +164,12 @@ class LevelEditorOverlay {
     }
 
     change() {
-        console.log("change");
+        // console.log("change");
         this.lastGameObject.id = this.gameObjectNameInput.value;
         this.lastGameObject.x = this.gameObjectXInput.valueAsNumber;
         this.lastGameObject.y = this.gameObjectYInput.valueAsNumber;
+        this.lastGameObject.offset.x = this.gameObjectOffsetXInput.valueAsNumber;
+        this.lastGameObject.offset.y = this.gameObjectOffsetYInput.valueAsNumber;
         this.lastGameObject.width = this.gameObjectWidthInput.valueAsNumber;
         this.lastGameObject.height = this.gameObjectHeightInput.valueAsNumber;
         this.lastGameObject.zIndex = this.gameObjectZIndexInput.valueAsNumber;
@@ -166,11 +183,15 @@ class LevelEditorOverlay {
     }
 
     load(gameObject) {
-        console.log("load");
+        // console.log("load");
         if (this.active) {
             this.removeLastGameObject();
             this.lastGameObject = gameObject;
             gameObject.style.color = "rgba(100, 0, 0, 0.5)";
+        }
+
+        if (gameObject.offset === undefined) {
+            gameObject.offset = { x: 0, y: 0 };
         }
 
         // fill
@@ -178,6 +199,8 @@ class LevelEditorOverlay {
         this.gameObjectNameInput.value = gameObject.id;
         this.gameObjectXInput.value = gameObject.x;
         this.gameObjectYInput.value = gameObject.y;
+        this.gameObjectOffsetXInput.value = gameObject.offset.x;
+        this.gameObjectOffsetYInput.value = gameObject.offset.y;
         this.gameObjectWidthInput.value = gameObject.width;
         this.gameObjectHeightInput.value = gameObject.height;
         this.gameObjectZIndexInput.value = gameObject.zIndex;

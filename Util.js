@@ -19,6 +19,8 @@ class Util {
             let img = new Image();
             img.src = `images/${name}.png`;
             Util.images[name] = img;
+            document.body.appendChild(img);
+            Util.hide(img);
         }
         return Util.images[name];
     }

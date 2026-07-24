@@ -1,12 +1,13 @@
 "use strict";
 
 class PhotoGame {
-    constructor(photoGameScreenContainer, levelEditorOverlay) {
-        this.photoGameScreenContainer = photoGameScreenContainer;
+    constructor(photoGameScreen, levelEditorOverlay, scoring) {
+        this.photoGameScreen = photoGameScreen;
         this.levelEditorOverlay = levelEditorOverlay;
         this.levelEditorOverlay.insertGameObject = (gameObject) => { this.insertGameObject(gameObject) };
+        this.scoring = scoring;
 
-        Util.quickStructure(this.photoGameScreenContainer, this,
+        Util.quickStructure(this.photoGameScreen.mainContainer, this,
             ["photoGameCanvas"]
         );
 
@@ -28,6 +29,17 @@ class PhotoGame {
         this.photoGameCanvas.addEventListener("mousemove", (event) => { this.mousemove(event); });
         this.photoGameCanvas.addEventListener("mouseup", (event) => { this.mouseup(event); });
         this.photoGameCanvas.addEventListener("mouseleave", (event) => { this.mouseup(event); });
+
+        window.addEventListener("blur", (event) => { this.pause(); });
+        window.addEventListener("focus", (event) => { this.resume(); });
+
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                this.pause();
+            } else {
+                this.resume();
+            }
+        });
 
         this.grabbedGameObject = undefined;
         this.lastMousePos = { x: 0, y: 0 };
@@ -52,7 +64,8 @@ class PhotoGame {
     startMission() {
         this.missionDurationLeft = data.missionDuration;
         // for testing purposes
-        this.missionDurationLeft = 999999;
+        // this.missionDurationLeft = 999999;
+        this.missionDurationLeft = 999;
     }
 
     loadMission(mission) {
@@ -112,9 +125,6 @@ class PhotoGame {
         const now = Date.now();
         let dt = now - this.lastTimeStamp;
         this.lastTimeStamp = now;
-        if (this.state === "paused") {
-            dt = 0;
-        }
         return dt;
     }
     clearCanvas() {
@@ -134,33 +144,43 @@ class PhotoGame {
     pause() {
         this.state = "paused";
     }
+    end() {
+        this.state = "ended";
+        this.ungrab();
+        this.scoring.displayScore(this.mission.getScore(this.gameObjects));
+    }
+    resume() {
+        if (this.state === "paused") {
+            this.state = "playing";
+            this.lastTimeStamp = Date.now();
+        }
+    }
     loop() {
-        // TODO pause the game on lost focus
-
         const dt = this.getTimeElapsed();
-
-        this.clearCanvas();
-
+        if (this.state === "playing") {
+            this.move(dt);
+            this.calcAndDisplayTimeLeft(dt);
+            if (this.missionDurationLeft < 0) {
+                this.end();
+            }
+        }
+        this.draw();
+        window.requestAnimationFrame(() => { this.loop(); });
+    }
+    move(dt) {
         this.gameObjects.forEach((gameObject) => {
             gameObject.move(this.gameObjects, dt);
+            // si les objets quittent le canvas, on les y remet
             if (!Util.rectsCollide(gameObject, this.canvasGameObject)) {
                 gameObject.reset();
             }
         });
-
         this.mission.missionMove(dt, this.gameObjects);
-
+    }
+    draw() {
+        this.clearCanvas();
         this.gameObjects.forEach((gameObject) => {
             gameObject.draw(this.context);
         });
-
-        if (this.missionDurationLeft < 0 && dt > 0) {
-            this.ungrab();
-            this.mission.checkScore(this.gameObjects);
-            this.pause();
-        }
-        this.calcAndDisplayTimeLeft(dt);
-
-        window.requestAnimationFrame(() => { this.loop(); });
     }
 }

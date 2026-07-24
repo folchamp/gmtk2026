@@ -7,10 +7,19 @@ class Mission {
     getMissionData() {
         throw "all methods must be implemented";
     }
-    checkScore() {
+    getScore() {
         throw "all methods must be implemented";
     }
     missionMove() {
         throw "all methods must be implemented";
+    }
+    getField(gameObjects) {
+        let gameObjectToReturn;
+        gameObjects.forEach((gameObject) => {
+            if (gameObject.id === "field") {
+                gameObjectToReturn = gameObject;
+            }
+        });
+        return gameObjectToReturn;
     }
 }

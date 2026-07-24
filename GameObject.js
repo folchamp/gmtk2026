@@ -1,7 +1,7 @@
 "use strict"
 
 class GameObject {
-    constructor(id, bounds, zIndex, caracs, style, idealPosition) {
+    constructor(id, bounds, zIndex, caracs, style, idealPosition, offset) {
         this.id = id;
         this.x = bounds.x;
         this.y = bounds.y;
@@ -14,6 +14,7 @@ class GameObject {
         this.style = style;
         console.log(id, idealPosition);
         this.idealPosition = idealPosition;
+        this.offset = offset;
 
         this.startPosition = { x: bounds.x, y: bounds.y };
         this.isDragged = false;
@@ -21,6 +22,8 @@ class GameObject {
         this.vx = 0;
         this.totalDeltaPos = { x: 0, y: 0 };
         // TODO weigth
+
+        this.highlighted = true;
 
         GameObject.loadImage(this);
     }
@@ -38,7 +41,7 @@ class GameObject {
 
     static load(objectData) {
         GameObject.loadImage(objectData);
-        return new GameObject(objectData.id, objectData.bounds, objectData.zIndex, objectData.caracs, objectData.style, objectData.idealPosition);
+        return new GameObject(objectData.id, objectData.bounds, objectData.zIndex, objectData.caracs, objectData.style, objectData.idealPosition, objectData.offset);
     }
 
     displace(deltaPos) {
@@ -81,7 +84,15 @@ class GameObject {
             context.fillRect(this.x, this.y, this.width, this.height);
         }
         if (this.style.image !== undefined) {
-            context.drawImage(this.style.image, this.x, this.y);
+            if (this.offset !== undefined) {
+                context.drawImage(this.style.image, this.x - this.offset.x, this.y - this.offset.y);
+            } else {
+                context.drawImage(this.style.image, this.x, this.y);
+            }
+        }
+        if (this.highlighted) {
+            const arrowAnimationHeight = Math.sin(Date.now() * data.arrowSpeed) * data.arrowAmplitude;
+            context.drawImage(Util.images["arrow"], this.x, this.y - this.height + arrowAnimationHeight);
         }
     }
 }
