@@ -15,22 +15,14 @@ class PhotoGame {
         this.photoGameCanvas.width = data.gameWidth;
         this.photoGameCanvas.height = data.gameHeight;
 
-        // not in gameObjects !!!
-        this.canvasGameObject = new GameObject("canvas", { x: 0, y: 0, width: data.gameWidth, height: data.gameHeight }, 0, {}, {});
-        this.fieldGameObject = new GameObject("field",
-            {
-                x: (data.gameWidth - data.fieldWidth) / 2,
-                y: (data.gameHeight - data.fieldHeight) / 2,
-                width: data.fieldWidth,
-                height: data.fieldHeight
-            },
-            99,
-            { isCollidable: false, isGravitable: false, isDraggable: false },
-            // { color: "rgba(0,0,200, 0.3" });
-            { imagePath: "field.png" });
-
         this.gameObjects = [];
+
+        // not in gameObjects
+        this.canvasGameObject = new GameObject("canvas", { x: 0, y: 0, width: data.gameWidth, height: data.gameHeight }, 0, {}, {});
+        // in gameObjects
+        this.fieldGameObject = new GameObject("field", { x: (data.gameWidth - data.fieldWidth) / 2, y: (data.gameHeight - data.fieldHeight) / 2, width: data.fieldWidth, height: data.fieldHeight }, 99, { isCollidable: false, isGravitable: false, isDraggable: false }, { imagePath: "field.png" });
         this.insertGameObject(this.fieldGameObject);
+
 
         this.photoGameCanvas.addEventListener("mousedown", (event) => { this.mousedown(event); });
         this.photoGameCanvas.addEventListener("mousemove", (event) => { this.mousemove(event); });
@@ -42,7 +34,7 @@ class PhotoGame {
 
         this.lastTimeStamp = Date.now();
         this.state = "playing";
-        
+
         // *************************
         // TESTING START
         // *************************
@@ -57,7 +49,8 @@ class PhotoGame {
 
     startMission() {
         this.missionDurationLeft = data.missionDuration;
-        this.missionDurationLeft = 999999999999999999999999;
+        // for testing purposes
+        // this.missionDurationLeft = 999999999999999999999999;
     }
 
     loadMission(mission) {
