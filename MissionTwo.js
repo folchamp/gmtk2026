@@ -76,28 +76,72 @@ class MissionTwo extends Mission {
         allAnimals: ["cow", "dog", "horse", "goat"],
         objectsData: [
             {
-                id: "cow", bounds: { x: 10, y: 10, width: 194, height: 136 }, zIndex: 1,
+                id: "cow", bounds: {
+                    x: 10, y: 10,
+                    "width": 137,
+                    "height": 136
+                }, zIndex: 1,
                 caracs: { isCollidable: false, isGravitable: true, isDraggable: false },
                 style: { imagePath: "mission_two/cow.png", color: undefined },
-                idealPosition: { x: 10, y: 10 }
+                idealPosition: { x: 10, y: 10 },
+                "offset": {
+                    "x": 28,
+                    "y": 0
+                }
             },
             {
-                id: "goat", bounds: { x: 30, y: 30, width: 192, height: 158 }, zIndex: 2,
+                id: "goat", bounds: {
+                    x: 30, y: 30,
+                    "width": 138,
+                    "height": 136
+                }, zIndex: 2,
                 caracs: { isCollidable: false, isGravitable: true, isDraggable: false },
                 style: { imagePath: "mission_two/goat.png", color: undefined },
-                idealPosition: { x: 1100, y: 10 }
+                idealPosition: { x: 1100, y: 10 },
+                "offset": {
+                    "x": 27,
+                    "y": 22
+                }
             },
             {
-                id: "dog", bounds: { x: 1000, y: 20, width: 136, height: 169 }, zIndex: 3,
+                id: "dog", bounds: {
+                    x: 1000, y: 20,
+                    "width": 136,
+                    "height": 136
+                }, zIndex: 3,
                 caracs: { isCollidable: false, isGravitable: true, isDraggable: false },
                 style: { imagePath: "mission_two/dog.png", color: undefined },
-                idealPosition: { x: 100, y: 10 }
+                idealPosition: { x: 100, y: 10 },
+                "offset": {
+                    "x": 0,
+                    "y": 33
+                }
             },
             {
-                id: "horse", bounds: { x: 1000, y: 20, width: 136, height: 151 }, zIndex: 4,
-                caracs: { isCollidable: false, isGravitable: true, isDraggable: false },
-                style: { imagePath: "mission_two/horse.png", color: undefined },
-                idealPosition: { x: 1215, y: 10 }
+                "id": "horse",
+                "bounds": {
+                    "x": 1000,
+                    "y": 20,
+                    "width": 136,
+                    "height": 134
+                },
+                "zIndex": 4,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": true,
+                    "isDraggable": false
+                },
+                "style": {
+                    "imagePath": "mission_two/horse.png"
+                },
+                "idealPosition": {
+                    "x": 1215,
+                    "y": 10
+                },
+                "offset": {
+                    "x": 0,
+                    "y": 17
+                }
             },
             {
                 id: "item1", bounds: { x: 10, y: 10, width: 146, height: 52 }, zIndex: 5,
