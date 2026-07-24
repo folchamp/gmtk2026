@@ -116,8 +116,8 @@ class MissionFour extends Mission {
             {
                 "id": "puzzle1",
                 "bounds": {
-                    "x": 630,
-                    "y": 338,
+                    "x": 370,
+                    "y": 348,
                     "width": 127,
                     "height": 52
                 },
@@ -142,8 +142,8 @@ class MissionFour extends Mission {
             {
                 "id": "puzzle2",
                 "bounds": {
-                    "x": 705,
-                    "y": 394,
+                    "x": 359,
+                    "y": 400,
                     "width": 128,
                     "height": 94
                 },
@@ -168,8 +168,8 @@ class MissionFour extends Mission {
             {
                 "id": "puzzle3",
                 "bounds": {
-                    "x": 726,
-                    "y": 290,
+                    "x": 1053,
+                    "y": 335,
                     "width": 148,
                     "height": 130
                 },
@@ -194,8 +194,8 @@ class MissionFour extends Mission {
             {
                 "id": "puzzle4",
                 "bounds": {
-                    "x": 338,
-                    "y": 397,
+                    "x": 455,
+                    "y": 138,
                     "width": 119,
                     "height": 66
                 },
@@ -220,8 +220,8 @@ class MissionFour extends Mission {
             {
                 "id": "puzzle5",
                 "bounds": {
-                    "x": 361,
-                    "y": 160,
+                    "x": 235,
+                    "y": 150,
                     "width": 129,
                     "height": 87
                 },
@@ -246,8 +246,8 @@ class MissionFour extends Mission {
             {
                 "id": "puzzle6",
                 "bounds": {
-                    "x": 62,
-                    "y": 333,
+                    "x": 477,
+                    "y": 496,
                     "width": 141,
                     "height": 128
                 },
@@ -272,8 +272,8 @@ class MissionFour extends Mission {
             {
                 "id": "puzzle7",
                 "bounds": {
-                    "x": 58,
-                    "y": 323,
+                    "x": 138,
+                    "y": 291,
                     "width": 134,
                     "height": 68
                 },
@@ -298,8 +298,8 @@ class MissionFour extends Mission {
             {
                 "id": "puzzle8",
                 "bounds": {
-                    "x": 546,
-                    "y": 424,
+                    "x": 100,
+                    "y": 440,
                     "width": 134,
                     "height": 102
                 },
@@ -324,8 +324,8 @@ class MissionFour extends Mission {
             {
                 "id": "puzzle9",
                 "bounds": {
-                    "x": 707,
-                    "y": 309,
+                    "x": 1013,
+                    "y": 163,
                     "width": 140,
                     "height": 114
                 },
@@ -350,8 +350,8 @@ class MissionFour extends Mission {
             {
                 "id": "puzzle10",
                 "bounds": {
-                    "x": 503,
-                    "y": 444,
+                    "x": 619,
+                    "y": 137,
                     "width": 169,
                     "height": 60
                 },
@@ -376,8 +376,8 @@ class MissionFour extends Mission {
             {
                 "id": "puzzle11",
                 "bounds": {
-                    "x": 1034,
-                    "y": 530,
+                    "x": 1043,
+                    "y": 548,
                     "width": 192,
                     "height": 102
                 },
@@ -402,8 +402,8 @@ class MissionFour extends Mission {
             {
                 "id": "puzzle12",
                 "bounds": {
-                    "x": 695,
-                    "y": 367,
+                    "x": 751,
+                    "y": 506,
                     "width": 221,
                     "height": 114
                 },

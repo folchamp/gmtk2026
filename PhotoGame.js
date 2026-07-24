@@ -66,7 +66,7 @@ class PhotoGame {
         this.missionDurationLeft = data.missionDuration;
         // for testing purposes
         // this.missionDurationLeft = 999999;
-        this.missionDurationLeft = 30000;
+        // this.missionDurationLeft = 30000;
     }
 
     loadMission(mission) {
