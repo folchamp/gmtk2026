@@ -38,7 +38,9 @@ class PhotoGame {
         // *************************
         // TESTING START
         // *************************
-        this.mission = new MissionTwo();
+        this.mission = new MissionThree();
+        // this.mission = new MissionTwo();
+        // this.mission = new MissionOne();
         // *************************
         // TESTING STOP
         // *************************
@@ -50,7 +52,7 @@ class PhotoGame {
     startMission() {
         this.missionDurationLeft = data.missionDuration;
         // for testing purposes
-        // this.missionDurationLeft = 999999999999999999999999;
+        this.missionDurationLeft = 999999;
     }
 
     loadMission(mission) {

@@ -24,8 +24,7 @@ class MissionTwo extends Mission {
                 });
             }
         });
-        // afficher le score en pourcentage
-        // TODO
+        // TODO afficher le score en pourcentage
         alert(`Animals in field 😊 : ${animalsInField}\nSuperpositions ☹️ : ${superpositions / 2}\nAnimals partially outside ☹️ : ${partiallyOutside}`);
     }
     getMissionData() {

@@ -4,6 +4,14 @@ class MissionOne extends Mission {
     constructor() {
         super();
     }
+    missionMove(dt, gameObjects) {
+        gameObjects.forEach((gameObject) => {
+            if (gameObject.idealPosition !== undefined && (Util.distance(gameObject, gameObject.idealPosition) < MissionOne.missionData.snapDistance)) {
+                gameObject.x = gameObject.idealPosition.x;
+                gameObject.y = gameObject.idealPosition.y;
+            }
+        });
+    }
     checkScore(gameObjects) {
         let malus = 0;
         let percentage = 0;
@@ -46,6 +54,7 @@ class MissionOne extends Mission {
     }
 
     static missionData = {
+        snapDistance: 15,
         difficulty: 5, // 0 = hard
         worst: 5000,
         best: 10,

@@ -12,13 +12,13 @@ class Main {
 
         window.addEventListener("keydown", (event) => {
             // console.log(`Pressed ${event.code}`);
-            if (event.code === "KeyP") {
-                this.setScreen("photoGameScreen");
-            } else if (event.code === "KeyO") {
-                this.setScreen("calendarScreen");
-            } else if (event.code === "KeyN") {
-                this.calendar.nextDay();
-            }
+            // if (event.code === "KeyP") {
+            //     this.setScreen("photoGameScreen");
+            // } else if (event.code === "KeyO") {
+            //     this.setScreen("calendarScreen");
+            // } else if (event.code === "KeyN") {
+            //     this.calendar.nextDay();
+            // }
         });
 
         // testing
