@@ -1,3 +1,7 @@
+.hidden {
+    display: none !important;
+}
+
 .photoGameScreenContainer {
     .photoGameCanvas {
         background-color: lightgreen;
@@ -23,10 +27,6 @@
     right: 0;
 }
 
-.hidden {
-    display: none !important;
-}
-
 .calendarScreenContainer {
     background-image: url(images/calendar/placeholderBackground.png);
 }
@@ -37,7 +37,8 @@
     display: none;
 }
 
-.crossImage, .circleImage:not(.hidden) {
+.crossImage,
+.circleImage:not(.hidden) {
     animation-duration: 0.5s;
     animation-name: fade-in;
 }

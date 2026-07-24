@@ -1,12 +1,13 @@
 "use strict";
 
 class LevelEditorOverlay {
-    constructor(levelEditorOverlayScreenContainer) {
-        this.levelEditorOverlayScreenContainer = levelEditorOverlayScreenContainer;
+    constructor(levelEditorOverlayScreen) {
+        this.levelEditorOverlayScreen = levelEditorOverlayScreen;
 
-        Util.quickStructure(this.levelEditorOverlayScreenContainer, this,
+        Util.quickStructure(this.levelEditorOverlayScreen.mainContainer, this,
             ["addGameObjectFormContainer",
-                "addGameObjectMoveButton",
+                "explanationsText",
+                // "addGameObjectMoveButton",
                 ["gameObjectPathLabel", "gameObjectPathText", "gameObjectPathInput", "gameObjectPathButton"],
                 ["gameObjectNameLabel", "gameObjectNameText", "gameObjectNameInput"],
                 ["gameObjectPositionContainer",
@@ -46,9 +47,9 @@ class LevelEditorOverlay {
         this.gameObjectHeightInput.addEventListener("change", (event) => { this.change(); });
         this.gameObjectZIndexInput.addEventListener("change", (event) => { this.change(); });
 
-        this.addGameObjectMoveButton.addEventListener("click", (event) => {
-            this.levelEditorOverlayScreenContainer.classList.toggle("right");
-        });
+        // this.addGameObjectMoveButton.addEventListener("click", (event) => {
+        //     this.levelEditorOverlayScreenContainer.classList.toggle("right");
+        // });
 
         this.gameObjectDownloadButton.addEventListener("click", (event) => {
             this.download();
@@ -63,8 +64,12 @@ class LevelEditorOverlay {
         });
 
         window.addEventListener("keydown", (event) => {
+            // console.log(event.code);
             if (event.code === "KeyE") {
                 this.toggleVisibility();
+            }
+            if (event.code === "Semicolon") {
+                this.levelEditorOverlayScreen.mainContainer.classList.toggle("right");
             }
 
             if (this.lastGameObject !== undefined) {
@@ -84,14 +89,13 @@ class LevelEditorOverlay {
             }
         });
 
-        this.active = true;
-
-        this.toggleVisibility();
+        // this level editor is a Screen.js, thus inactive when created
+        this.active = false;
     }
 
     toggleVisibility() {
         this.active = !this.active;
-        this.levelEditorOverlayScreenContainer.classList.toggle("hidden");
+        this.levelEditorOverlayScreen.mainContainer.classList.toggle("hidden");
         this.removeLastGameObject();
     }
 
@@ -111,15 +115,6 @@ class LevelEditorOverlay {
     }
 
     async download() {
-        // {
-        //     id: "puzzle3",
-        //     bounds: { x: 10, y: 10, width: 363, height: 463 },
-        //     zIndex: 3,
-        //     caracs: { isCollidable: false, isGravitable: false, isDraggable: true },
-        //     style: { color: undefined, imagePath: "mission_one/puzzle3.png" },
-        //     idealPosition: { x: 620, y: 0 }
-        // }
-
         const objectData = {
             id: this.gameObjectNameInput.value,
             bounds: {

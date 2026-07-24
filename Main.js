@@ -3,16 +3,15 @@
 class Main {
     constructor() {
         this.levelEditorOverlayScreen = new Screen("levelEditorOverlayScreen");
-        this.levelEditorOverlay = new LevelEditorOverlay(this.levelEditorOverlayScreen.mainContainer);
+        this.levelEditorOverlay = new LevelEditorOverlay(this.levelEditorOverlayScreen);
+        this.calendarScreen = new Screen("calendarScreen");
+        this.calendar = new Calendar(this.calendarScreen);
         this.photoGameScreen = new Screen("photoGameScreen");
         this.photoGame = new PhotoGame(this.photoGameScreen.mainContainer, this.levelEditorOverlay);
 
-        this.calendarScreen = new Screen("calendarScreen");
-
-        this.calendar = new Calendar(this.calendarScreen);
 
         window.addEventListener("keydown", (event) => {
-            console.log(`Pressed ${event.code}`);
+            // console.log(`Pressed ${event.code}`);
             if (event.code === "KeyP") {
                 this.setScreen("photoGameScreen");
             } else if (event.code === "KeyO") {
@@ -21,6 +20,10 @@ class Main {
                 this.calendar.nextDay();
             }
         });
+
+        // testing
+        this.setScreen("photoGameScreen");
+        // end testing
     }
 
     setScreen(name) {

@@ -1,6 +1,7 @@
 "use strict";
 
 Util.texts = {
+    "explanationsText": "E : toggle level editor\nM: move level editor\nP : display game\nO : display calendar\nN : next day",
     "setIdealButton": "ideal",
     "gameObjectDownloadFeedbackText": "",
     "addGameObjectMoveButton": "dégage",
