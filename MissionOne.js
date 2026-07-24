@@ -13,16 +13,22 @@ class MissionOne extends Mission {
         });
     }
     getScore(gameObjects) {
-        let malus = 0;
-        let percentage = 0;
+        // let malus = 0;
+        // let percentage = 0;
+        let wellPlacedTiles = 0;
+        let totalTiles = 0;
         gameObjects.forEach((gameObject) => {
             if (gameObject.id.startsWith("puzzle")) {
-                malus += Util.distance(gameObject, gameObject.idealPosition);
+                totalTiles++;
+                if (gameObject.idealPosition.x === gameObject.x && gameObject.idealPosition.y === gameObject.y) {
+                    wellPlacedTiles++;
+                }
+                // malus += Util.distance(gameObject, gameObject.idealPosition);
             }
         });
-        malus = Math.max(Math.min(MissionOne.missionData.worst, malus), MissionOne.missionData.best);
-        percentage = (MissionOne.missionData.worst - (malus - MissionOne.missionData.best)) / MissionOne.missionData.worst;
-        return { text: `${Math.floor(percentage * 100)}%` };
+        // malus = Math.max(Math.min(MissionOne.missionData.worst, malus), MissionOne.missionData.best);
+        // percentage = (MissionOne.missionData.worst - (malus - MissionOne.missionData.best)) / MissionOne.missionData.worst;
+        return [{ points: MissionOne.missionData.pointsPerTile, text: `Correctly placed tiles 🙂`, total: totalTiles, value: wellPlacedTiles, highlights: [] }];
     }
     getMissionData() {
         // copie des données de mission
@@ -51,6 +57,7 @@ class MissionOne extends Mission {
     }
 
     static missionData = {
+        pointsPerTile: 10,
         snapDistance: 15,
         difficulty: 5, // 0 = hard
         worst: 5000,

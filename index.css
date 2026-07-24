@@ -21,14 +21,31 @@ body {
     transform: translateX(-50%);
     background: darkgreen;
     padding: 4px;
+    width: 400px;
+    /* height: 75px; */
 
+    .scoreExplanationOneContainer,
+    .scoreExplanationTwoContainer,
+    .scoreExplanationThreeContainer,
+    .scoreExplanationFourContainer {
+        display: flex;
+        justify-content: space-between;
+    }
+
+
+    .scoreOnePointsText,
+    .scoreTwoPointsText,
+    .scoreThreePointsText,
+    .scoreFourPointsText,
     .scoreExplanationOneText,
     .scoreExplanationTwoText,
     .scoreExplanationThreeText,
     .scoreExplanationFourText {
-        background: rgb(1, 56, 1);
+        display: inline-block;
+        /* background: rgb(1, 56, 1); */
         margin: 4px;
         padding: 4px;
+        color: white;
     }
 }
 

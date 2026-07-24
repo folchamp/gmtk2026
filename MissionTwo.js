@@ -5,27 +5,31 @@ class MissionTwo extends Mission {
         super();
     }
     getScore(gameObjects) {
-        let animalsInField = 0;
-        let superpositions = 0;
-        let partiallyOutside = 0;
+        let animalsInField = [];
+        let superpositions = [];
+        let partiallyOutside = [];
+
         const field = this.getField(gameObjects);
         // checker si tous les animaux sont dans le cadre
         // checker si les animaux sont bien éparpillés et ne se superposent pas
         gameObjects.forEach((gameObject) => {
             if (this.isAnimal(gameObject) && Util.rectsCollide(gameObject, field)) {
-                animalsInField++;
+                animalsInField.push(gameObject);
                 gameObjects.forEach((gameObject2) => {
                     if (this.isAnimal(gameObject2) && gameObject.id !== gameObject2.id && Util.rectsCollide(gameObject, gameObject2)) {
-                        superpositions++;
+                        superpositions.push(gameObject);
                     }
                     if (((gameObject2.id === "left_boundary") || (gameObject2.id === "right_boundary")) && Util.rectsCollide(gameObject, gameObject2)) {
-                        partiallyOutside++;
+                        partiallyOutside.push(gameObject);
                     }
                 });
             }
         });
-        // TODO afficher le score en pourcentage
-        return { text: `Animals in field 😊 : ${animalsInField}\nSuperpositions ☹️ : ${superpositions / 2}\nAnimals partially outside ☹️ : ${partiallyOutside}` };
+        return [
+            { points: MissionTwo.missionData.pointsPerCharacterInField, text: `Animals in field 🙂`, total: MissionTwo.missionData.allAnimals.length, value: animalsInField.length, highlights: animalsInField },
+            { points: MissionTwo.missionData.pointsPerSuperposition, text: `Superpositions ☹️`, total: MissionTwo.missionData.allAnimals.length, value: superpositions.length, highlights: superpositions },
+            { points: MissionTwo.missionData.pointsPerOutside, text: `Partially outside ☹️`, total: MissionTwo.missionData.allAnimals.length, value: partiallyOutside.length, highlights: partiallyOutside }
+        ];
     }
     getMissionData() {
         const missionData = Util.deepCopy(MissionTwo.missionData);
@@ -62,10 +66,14 @@ class MissionTwo extends Mission {
     }
 
     static missionData = {
+        pointsPerCharacterInField: 20,
+        pointsPerSuperposition: -5,
+        pointsPerOutside: -5,
         grabDistance: 10,
         runDistance: 30,
         acceleration: { cow: 0.006, goat: 0.008, dog: 0.018, horse: 0.012 },
         animals: { "cow": "item1", "goat": "item2", "dog": "item3", "horse": "item4" },
+        allAnimals: ["cow", "dog", "horse", "goat"],
         objectsData: [
             {
                 id: "cow", bounds: { x: 10, y: 10, width: 194, height: 136 }, zIndex: 1,

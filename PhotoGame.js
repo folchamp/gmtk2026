@@ -65,7 +65,7 @@ class PhotoGame {
         this.missionDurationLeft = data.missionDuration;
         // for testing purposes
         // this.missionDurationLeft = 999999;
-        this.missionDurationLeft = 999;
+        // this.missionDurationLeft = 999;
     }
 
     loadMission(mission) {
@@ -142,7 +142,9 @@ class PhotoGame {
         this.context.strokeText(Math.ceil(Math.max(this.missionDurationLeft, 0) / 1000), 930, 190);
     }
     pause() {
-        this.state = "paused";
+        if (this.state === "playing") {
+            this.state = "paused";
+        }
     }
     end() {
         this.state = "ended";
@@ -159,12 +161,12 @@ class PhotoGame {
         const dt = this.getTimeElapsed();
         if (this.state === "playing") {
             this.move(dt);
-            this.calcAndDisplayTimeLeft(dt);
             if (this.missionDurationLeft < 0) {
                 this.end();
             }
         }
         this.draw();
+        this.calcAndDisplayTimeLeft(dt);
         window.requestAnimationFrame(() => { this.loop(); });
     }
     move(dt) {

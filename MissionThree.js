@@ -13,12 +13,13 @@ class MissionThree extends Mission {
         const field = this.getField(gameObjects);
         let superpositionsIDs = {};
         let charactersSuperposed = [];
-        let charactersNotInField = [];
+        let charactersInField = [];
         let amountOfSuperpositions = 0;
         gameObjects.forEach((gameObject) => {
             if (MissionThree.missionData.characters.includes(gameObject.id)) {
                 if (Util.rectsCollide(gameObject, field)) {
                     charactersOnScreen++;
+                    charactersInField.push(gameObject);
                     gameObjects.forEach((gameObject2) => {
                         if (MissionThree.missionData.characters.includes(gameObject2.id)
                             && superpositionsIDs[gameObject.id] === undefined
@@ -29,23 +30,32 @@ class MissionThree extends Mission {
                             charactersSuperposed.push(gameObject);
                         }
                     });
-                } else {
-                    charactersNotInField.push(gameObject);
                 }
+                // else {
+                //     charactersNotInField.push(gameObject);
+                // }
             }
         });
         return [
-            { bonus: true, text: `Characters in field`, total: MissionThree.missionData.characters.length, value: charactersOnScreen, highlights: charactersNotInField },
-            { malus: true, text: `Superpositions`, total: MissionThree.missionData.characters.length, value: amountOfSuperpositions, highlights: charactersSuperposed }
+            { points: MissionThree.missionData.pointsPerCharacterInField, text: `Characters in field 🙂`, total: MissionThree.missionData.characters.length, value: charactersOnScreen, highlights: charactersInField },
+            { points: MissionThree.missionData.pointsPerSuperposition, text: `Superpositions ☹️`, total: MissionThree.missionData.characters.length, value: amountOfSuperpositions, highlights: charactersSuperposed }
         ];
     }
     getMissionData() {
         // copie des données de mission
         const missionData = Util.deepCopy(MissionThree.missionData);
+        missionData.objectsData.forEach((objectData) => {
+            if (MissionThree.missionData.characters.includes(objectData.id)) {
+                objectData.bounds.x = Util.randomValue(0 + objectData.bounds.width, data.gameWidth - objectData.bounds.width);
+                objectData.bounds.y = Util.randomValue(0 + objectData.bounds.height, data.gameHeight - objectData.bounds.height);
+            }
+        });
         return missionData;
     }
 
     static missionData = {
+        pointsPerCharacterInField: 5,
+        pointsPerSuperposition: -2,
         characters: [
             "robot2",
             "robot3",

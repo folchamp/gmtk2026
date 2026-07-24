@@ -15,5 +15,9 @@ const data = {
     imagesPath: "images/",
 
     arrowAmplitude: 8,
-    arrowSpeed: 0.010
+    arrowSpeed: 0.010,
+
+    scoringTimer: 3000,
+    arrowTimer: 2000,
+    scoreTimer : 2000
 }

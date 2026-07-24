@@ -23,7 +23,7 @@ class GameObject {
         this.totalDeltaPos = { x: 0, y: 0 };
         // TODO weigth
 
-        this.highlighted = true;
+        this.highlighted = false;
 
         GameObject.loadImage(this);
     }
