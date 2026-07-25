@@ -35,7 +35,7 @@ class Calendar {
     }
 
     createStartDayButton() {
-        this.startDayButton = Util.createDOMElement("startDayButton", "button", this.calendarScreen.mainContainer);
+        this.startDayButton = Util.createDOMElement("startDayButton", "div", this.calendarScreen.mainContainer);
         this.startDayButton.innerText = "";
 
         this.startDayButton.addEventListener("click", (event) => {

@@ -40,6 +40,23 @@ class MissionFour extends Mission {
     getMissionData() {
         // copie des données de mission
         const missionData = Util.deepCopy(MissionFour.missionData);
+        Util.shuffleArray(missionData.objectsData);
+        Util.shuffleArray(missionData.randomPositions);
+        for (let index = 0; index < missionData.objectsData.length; index++) {
+            const objectData = missionData.objectsData[index];
+            if (objectData.id.startsWith("puzzle")) {
+                if (Util.randomValue(1, 4) === 1) {
+                    objectData.bounds.x = objectData.idealPosition.x;
+                    objectData.bounds.y = objectData.idealPosition.y;
+                } else {
+                    let randomPosition = missionData.randomPositions.shift();
+                    console.log(missionData.randomPositions);
+                    console.log(index);
+                    objectData.bounds.x = randomPosition.x;
+                    objectData.bounds.y = randomPosition.y;
+                }
+            }
+        }
         return missionData;
     }
 
@@ -48,6 +65,43 @@ class MissionFour extends Mission {
     }
 
     static missionData = {
+        randomPositions: [{
+            "x": 67,
+            "y": 592
+        }, {
+            "x": 112,
+            "y": 251
+        }, {
+            "x": 152,
+            "y": 31
+        }, {
+            "x": 374,
+            "y": 24
+        }, {
+            "x": 569,
+            "y": 22
+        }, {
+            "x": 1076,
+            "y": 31
+        }, {
+            "x": 1087,
+            "y": 186
+        }, {
+            "x": 1063,
+            "y": 354
+        }, {
+            "x": 1106,
+            "y": 511
+        }, {
+            "x": 809,
+            "y": 14
+        }, {
+            "x": 114,
+            "y": 349
+        }, {
+            "x": 116,
+            "y": 477
+        }],
         pointsPerTile: 10,
         snapDistance: 15,
         objectsData: [

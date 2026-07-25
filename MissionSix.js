@@ -118,7 +118,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat16.png"
+                    "imagePath": "mission_six/Cat16.png"
                 },
                 "idealPosition": {
                     "x": 586,
@@ -144,7 +144,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat15.png"
+                    "imagePath": "mission_six/Cat15.png"
                 },
                 "idealPosition": {
                     "x": 301,
@@ -170,7 +170,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat14.png"
+                    "imagePath": "mission_six/Cat14.png"
                 },
                 "idealPosition": {
                     "x": 740,
@@ -196,7 +196,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat13.png"
+                    "imagePath": "mission_six/Cat13.png"
                 },
                 "idealPosition": {
                     "x": 252,
@@ -222,7 +222,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat12.png"
+                    "imagePath": "mission_six/Cat12.png"
                 },
                 "idealPosition": {
                     "x": 466,
@@ -248,7 +248,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat11.png"
+                    "imagePath": "mission_six/Cat11.png"
                 },
                 "idealPosition": {
                     "x": 943,
@@ -274,7 +274,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat10.png"
+                    "imagePath": "mission_six/Cat10.png"
                 },
                 "idealPosition": {
                     "x": 672,
@@ -300,7 +300,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat9.png"
+                    "imagePath": "mission_six/Cat9.png"
                 },
                 "idealPosition": {
                     "x": 299,
@@ -326,7 +326,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat8.png"
+                    "imagePath": "mission_six/Cat8.png"
                 },
                 "idealPosition": {
                     "x": 900,
@@ -352,7 +352,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat7.png"
+                    "imagePath": "mission_six/Cat7.png"
                 },
                 "idealPosition": {
                     "x": 445,
@@ -378,7 +378,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat6.png"
+                    "imagePath": "mission_six/Cat6.png"
                 },
                 "idealPosition": {
                     "x": 536,
@@ -404,7 +404,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat5.png"
+                    "imagePath": "mission_six/Cat5.png"
                 },
                 "idealPosition": {
                     "x": 843,
@@ -430,7 +430,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat4.png"
+                    "imagePath": "mission_six/Cat4.png"
                 },
                 "idealPosition": {
                     "x": 697,
@@ -456,7 +456,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat3.png"
+                    "imagePath": "mission_six/Cat3.png"
                 },
                 "idealPosition": {
                     "x": 664,
@@ -482,7 +482,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat2.png"
+                    "imagePath": "mission_six/Cat2.png"
                 },
                 "idealPosition": {
                     "x": 787,
@@ -508,7 +508,7 @@ class MissionSix extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_six/cat1.png"
+                    "imagePath": "mission_six/Cat1.png"
                 },
                 "idealPosition": {
                     "x": 549,

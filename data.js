@@ -77,6 +77,7 @@ const data = {
 Util.image("arrow", "images/common/arrow.png");
 
 Util.texts = {
+    "downloadPositionButton": "dl pos",
     "scoringTotalText": "Total :",
     "scoringNextDayButton": "Go to bed",
     "startButton": "Start",

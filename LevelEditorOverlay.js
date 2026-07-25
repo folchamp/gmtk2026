@@ -12,6 +12,7 @@ class LevelEditorOverlay {
                 ["gameObjectPositionContainer",
                     ["gameObjectXLabel", "gameObjectXText", "gameObjectXInput"],
                     ["gameObjectYLabel", "gameObjectYText", "gameObjectYInput"],
+                    "downloadPositionButton"
                 ],
                 ["gameObjectOffsetContainer",
                     ["gameObjectOffsetXLabel", "gameObjectOffsetXText", "gameObjectOffsetXInput"],
@@ -50,6 +51,10 @@ class LevelEditorOverlay {
         this.gameObjectWidthInput.addEventListener("change", (event) => { this.change(); });
         this.gameObjectHeightInput.addEventListener("change", (event) => { this.change(); });
         this.gameObjectZIndexInput.addEventListener("change", (event) => { this.change(); });
+
+        this.downloadPositionButton.addEventListener("click", (event) => {
+            this.downloadPosition();
+        });
 
         // this.addGameObjectMoveButton.addEventListener("click", (event) => {
         //     this.levelEditorOverlayScreenContainer.classList.toggle("right");
@@ -143,11 +148,21 @@ class LevelEditorOverlay {
                 y: this.gameObjectOffsetYInput.valueAsNumber
             }
         };
-        await navigator.clipboard.writeText(JSON.stringify(objectData, null, 4));
+        this.addToClipboard(objectData);
+    }
+
+    async downloadPosition() {
+        let position = { x: this.gameObjectXInput.valueAsNumber, y: this.gameObjectYInput.valueAsNumber };
+        this.addToClipboard(position);
+    }
+
+    async addToClipboard(objectThingy) {
+        await navigator.clipboard.writeText(JSON.stringify(objectThingy, null, 4));
         this.gameObjectDownloadFeedbackText.innerText = "téléchargé !";
         setTimeout(() => {
             this.gameObjectDownloadFeedbackText.innerText = "";
         }, 750);
+
     }
 
     setIdeal() {

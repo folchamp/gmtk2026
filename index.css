@@ -166,18 +166,27 @@ body {
         height: 602px;
         bottom: -530px;
         left: 0px;
-        transition: bottom ease-in-out 350ms;
+        transition: bottom ease-in-out 500ms;
         z-index: 10;
         cursor: pointer;
+        transition: transform 0.1s;
 
         .moneyDisplay {
             font-family: pirkkala;
-            color: red;
+            color: #ff5597;
             position: absolute;
             left: 240px;
             top: 178px;
             font-size: 60px;
         }
+    }
+
+    .smartphone:hover {
+        transform: scale(1.05);
+    }
+
+    .smartphone:active {
+        transform: scale(0.95);
     }
 
     .smartphone.showSmartphone {
@@ -213,14 +222,15 @@ body {
 
     .startDayButton {
         position: absolute;
-        top: 620px;
-        left: 380px;
-        background: url("images/calendar/startDayButton.png");
-        width: 315px;
-        height: 58px;
+        right: 0;
+        bottom: 0;
+        background: url("images/calendar/ToTheNextDay.png");
+        width: 514px;
+        height: 350px;
         border: none;
-        transition: transform 0.1s;
         cursor: pointer;
+        z-index: 5;
+        transition: transform 0.1s;
     }
 
     .startDayButton:hover {
