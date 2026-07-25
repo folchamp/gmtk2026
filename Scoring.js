@@ -1,15 +1,18 @@
 "use strict";
 
 class Scoring {
-    constructor(scoringScreen) {
+    constructor(scoringScreen, startNextDayCallback) {
         this.scoringScreen = scoringScreen;
+        this.startNextDayCallback = startNextDayCallback;
         Util.quickStructure(scoringScreen.mainContainer, this,
             ["scoringContainer",
                 ["scoresContainer",
                     ["scoreExplanationOneContainer", "scoreExplanationOneText", "scoreOnePointsText"],
                     ["scoreExplanationTwoContainer", "scoreExplanationTwoText", "scoreTwoPointsText"],
                     ["scoreExplanationThreeContainer", "scoreExplanationThreeText", "scoreThreePointsText"],
-                    ["scoreExplanationFourContainer", "scoreExplanationFourText", "scoreFourPointsText"]]
+                    ["scoreExplanationFourContainer", "scoreExplanationFourText", "scoreFourPointsText"]],
+                "scoringTotalText",
+                "scoringNextDayButton"
             ]
         );
         this.explanationElements = [
@@ -23,6 +26,19 @@ class Scoring {
             this.scoreThreePointsText,
             this.scoreFourPointsText
         ]
+
+        this.scoringNextDayButton.addEventListener("click", (event) => {
+            this.endDay();
+        });
+
+        this.total = 0;
+    }
+    endDay() {
+        // passer au jour suivant
+        this.scoringScreen.stop();
+        this.scoringTotalText.innerText = Util.texts["scoringTotalText"];
+        this.startNextDayCallback(this.total);
+        this.total = 0;
     }
     clearScore() {
         this.scoreExplanationOneText.innerText = "";
@@ -47,7 +63,7 @@ class Scoring {
     displayScore(scores) {
         this.clearScore();
         for (let index = 0; index < scores.length; index++) {
-            setTimeout(() => {
+            setTimeout(() => { // montrer les éléments avec des flèches
                 const scoreData = scores[index];
                 const explanationElement = this.explanationElements[index];
                 const scoreElement = this.scoreElements[index];
@@ -57,11 +73,15 @@ class Scoring {
                     const element = scoreData.highlights[index];
                     this.highlightObject(element);
                 }
-                setTimeout(() => {
-                    scoreElement.innerText += `score : ${scoreData.points * scoreData.value} $`;
+                setTimeout(() => { // afficher le score final
+                    const partialScore = scoreData.points * scoreData.value;
+                    this.total += partialScore;
+                    scoreElement.innerText += `score : ${partialScore} $`;
+                    this.scoringTotalText.innerText = `total : ${this.total} $`;
                 }, data.scoreTimer);
             }, data.scoringTimer * index);
         }
         this.scoringScreen.start();
+
     }
 }

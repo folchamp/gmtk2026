@@ -12,7 +12,7 @@ body {
 }
 
 .screen {
-    position:relative;
+    position: relative;
     height: 720px;
     width: 1280px;
 }
@@ -21,7 +21,7 @@ body {
 /* scoring */
 /* ********************************************** */
 
-.scoringScreenContainer {
+.scoringScreenContainer.screen {
     position: absolute;
     top: 0;
     left: 50%;
@@ -30,6 +30,8 @@ body {
     padding: 4px;
     width: 400px;
     /* height: 75px; */
+    z-index: 10;
+    height: initial;
 
     .scoreExplanationOneContainer,
     .scoreExplanationTwoContainer,
@@ -49,6 +51,15 @@ body {
     .scoreExplanationThreeText,
     .scoreExplanationFourText {
         display: inline-block;
+        /* background: rgb(1, 56, 1); */
+        margin: 4px;
+        padding: 4px;
+        color: white;
+    }
+
+    .scoringTotalText {
+        display: block;
+        text-align: right;
         /* background: rgb(1, 56, 1); */
         margin: 4px;
         padding: 4px;
@@ -99,16 +110,38 @@ body {
     height: 720px;
     position: "relative";
 
-    .circleImage.hidden {
-        opacity: 0;
-        scale: 0;
-        display: none;
+    .moneyDisplay {
+        color: red;
+        position: absolute;
+        left: 1000px;
+        top: 50px;
+        font-size: 60px;
     }
 
-    .crossImage,
-    .circleImage:not(.hidden) {
-        animation-duration: 0.5s;
-        animation-name: fade-in;
+    .crossImage {
+        opacity: 0;
+        transform: scale(0, 0);
+        transition:
+            opacity 250ms ease,
+            transform 250ms ease;
+    }
+
+    .crossImage.crossAnimation {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+
+    .circleImage {
+        opacity: 0;
+        transform: scale(0, 0);
+        transition:
+            opacity 250ms ease,
+            transform 250ms ease;
+    }
+
+    .circleImage.circleAnimation {
+        opacity: 1;
+        transform: scale(1, 1);
     }
 
     .startDayButton {
@@ -128,16 +161,6 @@ body {
     }
 }
 
-@keyframes fade-in {
-    0% {
-        opacity: 0;
-        scale: 0;
-        display: none;
-    }
-
-    100% {
-        opacity: 1;
-        scale: 1;
-        display: block;
-    }
+.titleScreenContainer {
+    background: url('images/title/placeholderTitle.png');
 }

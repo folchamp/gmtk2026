@@ -6,8 +6,24 @@ class Calendar {
         this.startTheDayMissionCallback = startTheDayMissionCallback;
         this.day = 1;
 
+        this.money = data.startingMoney;
+
         this.createCircle();
         this.createStartDayButton();
+        this.createMoneyDisplay();
+    }
+
+    start() {
+        this.circle.classList.add("circleAnimation");
+    }
+
+    createMoneyDisplay() {
+        this.moneyDisplay = Util.createDOMElement("moneyDisplay", "span", this.calendarScreen.mainContainer);
+        this.updateMoneyDisplay();
+    }
+
+    updateMoneyDisplay() {
+        this.moneyDisplay.innerText = `${this.money} $`;
     }
 
     createStartDayButton() {
@@ -16,6 +32,7 @@ class Calendar {
 
         this.startDayButton.addEventListener("click", (event) => {
             this.startTheDayMissionCallback();
+            this.circle.classList.remove("circleAnimation");
         });
     }
 
@@ -31,7 +48,6 @@ class Calendar {
         const newCross = Util.createDOMElement(`crossImage`, "img", this.calendarScreen.mainContainer);
         newCross.style.position = "absolute";
         newCross.src = "images/calendar/placeholderCross.png";
-
         newCross.style.top = this.circle.style.top;
         newCross.style.left = this.circle.style.left;
         return newCross;
@@ -43,16 +59,20 @@ class Calendar {
         this.circle.style.top = `${circlePos.top}px`;
     }
 
-    nextDay() {
+    nextDay(moneyWon) {
+        this.money += moneyWon;
+        this.updateMoneyDisplay();
         if (this.day > 0) {
-            this.createCross();
+            const cross = this.createCross();
+            // setTimeout(() => {
+            cross.classList.add("crossAnimation");
+            // }, 250);
         }
         this.day += 1;
-        Util.hide(this.circle);
         this.moveCircle();
         setTimeout(
             () => {
-                Util.show(this.circle);
+                this.circle.classList.add("circleAnimation");
             },
             500
         );

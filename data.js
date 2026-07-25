@@ -1,6 +1,8 @@
 "use strict";
 
 const data = {
+    startingMoney: -300,
+
     gameWidth: 1280,
     gameHeight: 720,
 
@@ -11,6 +13,7 @@ const data = {
     friction: 0.9,
 
     missionDuration: 10000,
+    // missionDuration: 1000,
 
     imagesPath: "images/",
 
@@ -35,13 +38,16 @@ const data = {
     scoreTimer: 2000,
 
     sources: [
-        "https://pixabay.com/sound-effects/technology-camera-13695/",
+        "https://pixabay.com/sound-effects/technology-camera-13695/", // camera stutter effect
     ],
 }
 
-Util.image("arrow", "images/common/arrow.png")
+Util.image("arrow", "images/common/arrow.png");
 
 Util.texts = {
+    "scoringTotalText": "Total :",
+    "scoringNextDayButton": "Go to bed",
+    "startButton": "Start",
     "scoreExplanationOneText": "blah blah",
     "scoreExplanationTwoText": "blah blahblah blah",
     "scoreExplanationThreeText": "blah blahblah blah",
@@ -60,6 +66,6 @@ Util.texts = {
     "gameObjectWidthText": "largeur",
     "gameObjectHeightText": "hauteur",
     "gameObjectZIndexText": "zIndex",
-}
+};
 
 

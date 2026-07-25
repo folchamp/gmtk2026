@@ -1,16 +1,13 @@
 "use strict";
 
 class Title {
-    constructor(callbacks, titleScreen) {
-        this.callbacks = callbacks;
-        this.screen = titleScreen;
-        this.screen.mainContainer.style.backgroundImage = "url('images/title/placeholderTitle.png')";
+    constructor(titleScreen, openCalendarCallback) {
+        this.openCalendarCallback = openCalendarCallback;
+        this.titleScreen = titleScreen;
 
-
-        this.startButton = Util._createElement("startButton", this.screen.mainContainer);
+        this.startButton = Util.createDOMElement("startButton", "button", this.titleScreen.mainContainer);
         this.startButton.addEventListener("click", () => {
-            this.callbacks.playSound("button");
-            this.callbacks.setScreen("introScreen");
+            this.openCalendarCallback();
         });
         this.startButton.style.position = "absolute";
         this.startButton.style.top = "400px";
