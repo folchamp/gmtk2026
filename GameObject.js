@@ -1,7 +1,7 @@
 "use strict"
 
 class GameObject {
-    constructor(id, bounds, zIndex, caracs, style, idealPosition, offset) {
+    constructor(id, bounds, zIndex, caracs, style, idealPosition, offset, sounds) {
         this.id = id;
         this.x = bounds.x;
         this.y = bounds.y;
@@ -14,6 +14,7 @@ class GameObject {
         this.style = style;
         this.idealPosition = idealPosition;
         this.offset = offset;
+        this.sounds = sounds;
 
         this.startPosition = { x: bounds.x, y: bounds.y };
         this.isDragged = false;
@@ -40,7 +41,14 @@ class GameObject {
 
     static load(objectData) {
         GameObject.loadImage(objectData);
-        return new GameObject(objectData.id, objectData.bounds, objectData.zIndex, objectData.caracs, objectData.style, objectData.idealPosition, objectData.offset);
+        return new GameObject(objectData.id, objectData.bounds, objectData.zIndex, objectData.caracs, objectData.style, objectData.idealPosition, objectData.offset, objectData.sounds);
+    }
+
+    drag() {
+        this.isDragged = true;
+        if (this.sounds) {
+            soundManager.playRandomSound(this.sounds);
+        }
     }
 
     displace(deltaPos) {

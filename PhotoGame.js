@@ -62,6 +62,7 @@ class PhotoGame {
         // *************************
 
         this.loadMission(this.mission.getMissionData());
+        this.mission.startMusic();
         this.resume();
     }
     getTimeElapsed() {
@@ -98,8 +99,8 @@ class PhotoGame {
             this.shutterBottom.classList.add("open");
         }, 100);
         this.state = "ended";
-        this.ungrab();
         this.scoring.displayScore(this.mission.getScore(this.gameObjects));
+        this.ungrab();
     }
     resume() {
         if (this.state === "paused") {
@@ -161,7 +162,7 @@ class PhotoGame {
             if (Util.isInRect(mousePos, gameObject)) {
                 if (gameObject.isDraggable && (this.grabbedGameObject === undefined || this.grabbedGameObject.zIndex < gameObject.zIndex)) {
                     this.grabbedGameObject = gameObject;
-                    gameObject.isDragged = true;
+                    gameObject.drag();
                 }
             }
         });

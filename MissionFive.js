@@ -8,6 +8,7 @@ class MissionFive extends Mission {
         let animalsInField = [];
         let superpositions = [];
         let partiallyOutside = [];
+        let score = [];
 
         const field = this.getField(gameObjects);
         // checker si tous les animaux sont dans le cadre
@@ -25,11 +26,27 @@ class MissionFive extends Mission {
                 });
             }
         });
-        return [
-            { points: MissionFive.missionData.pointsPerCharacterInField, text: `Animals in field 🙂`, total: MissionFive.missionData.allAnimals.length, value: animalsInField.length, highlights: animalsInField },
-            { points: MissionFive.missionData.pointsPerSuperposition, text: `Superpositions ☹️`, total: MissionFive.missionData.allAnimals.length, value: superpositions.length, highlights: superpositions },
-            { points: MissionFive.missionData.pointsPerOutside, text: `Partially outside ☹️`, total: MissionFive.missionData.allAnimals.length, value: partiallyOutside.length, highlights: partiallyOutside }
-        ];
+        score.push({ points: MissionFive.missionData.pointsPerCharacterInField, text: `Animals in field 🙂`, total: MissionFive.missionData.allAnimals.length, value: animalsInField.length, highlights: animalsInField });
+        score.push({ points: MissionFive.missionData.pointsPerSuperposition, text: `Superpositions ☹️`, total: MissionFive.missionData.allAnimals.length, value: superpositions.length, highlights: superpositions });
+        score.push({ points: MissionFive.missionData.pointsPerOutside, text: `Partially outside ☹️`, total: MissionFive.missionData.allAnimals.length, value: partiallyOutside.length, highlights: partiallyOutside });
+        if (this.isMoneyGrabbed(gameObjects)) {
+            score.push({ points: MissionFive.missionData.pointsIfMoneyGrabbed, text: `Money grabbed 🙂`, total: 1, value: 1, highlights: [this.getMoney(gameObjects)] });
+
+        }
+        return score;
+    }
+    isMoneyGrabbed(gameObjects) {
+        const money = this.getMoney(gameObjects);
+        return money.isDragged;
+    }
+    getMoney(gameObjects) {
+        let item;
+        gameObjects.forEach((gameObject) => {
+            if (gameObject.id === "item2") {
+                item = gameObject;
+            }
+        });
+        return item;
     }
     getMissionData() {
         const missionData = Util.deepCopy(MissionFive.missionData);
@@ -54,24 +71,29 @@ class MissionFive extends Mission {
         const directionToRun = Math.sign(animal.idealPosition.x - animal.x);
         if (Math.abs(food.x - animal.x) < MissionFive.missionData.grabDistance) { // assez proche pour attraper la nourriture
             if (Math.abs(animal.idealPosition.x - animal.x) > MissionFive.missionData.runDistance) { // encore loin du lieu de fuite
-                animal.vx = directionToRun * MissionFive.missionData.acceleration[animal.id] * dt; // fuite
+                animal.vx = directionToRun * MissionFive.missionData.acceleration[animal.id]; // fuite
             }
             food.x = animal.x; // la bouffe colle à l'animal
         } else {
-            animal.vx = directionToFood * MissionFive.missionData.acceleration[animal.id] * dt; // course vers la bouffe
+            animal.vx = directionToFood * MissionFive.missionData.acceleration[animal.id]; // course vers la bouffe
         }
     }
     isAnimal(gameObject) {
         return MissionFive.missionData.animals[gameObject.id] !== undefined;
     }
 
+    startMusic() {
+        soundManager.playSound("oldmac", 0.15);
+    }
+
     static missionData = {
         pointsPerCharacterInField: 20,
         pointsPerSuperposition: -5,
         pointsPerOutside: -5,
+        pointsIfMoneyGrabbed: 100,
         grabDistance: 10,
         runDistance: 30,
-        acceleration: { chicken: 0.006, cow: 0.008, donkey: 0.018, wolf: 0.012 },
+        acceleration: { chicken: 0.06, cow: 0.08, donkey: 0.18, wolf: 0.12 },
         animals: { "chicken": "item3", "cow": "item4", "donkey": "item2", "wolf": "item1" },
         allAnimals: ["chicken", "donkey", "wolf", "cow"],
         objectsData: [{
@@ -98,7 +120,10 @@ class MissionFive extends Mission {
             "offset": {
                 "x": 55,
                 "y": 106
-            }
+            },
+            "sounds": [
+                "kot", "kot2", "kot3"
+            ]
         },
         {
             "id": "cow",
@@ -202,7 +227,10 @@ class MissionFive extends Mission {
             "offset": {
                 "x": 0,
                 "y": 0
-            }
+            },
+            "sounds": [
+                "ouaf", "aouh"
+            ]
         },
         {
             "id": "item2",
@@ -228,7 +256,10 @@ class MissionFive extends Mission {
             "offset": {
                 "x": 0,
                 "y": 0
-            }
+            },
+            "sounds": [
+                "han", "hihan", "hii"
+            ]
         },
         {
             "id": "item3",
@@ -254,7 +285,10 @@ class MissionFive extends Mission {
             "offset": {
                 "x": 0,
                 "y": 0
-            }
+            },
+            "sounds": [
+                "kot", "kot2", "kot3", "kodek"
+            ]
         },
         {
             "id": "item4",
@@ -280,7 +314,10 @@ class MissionFive extends Mission {
             "offset": {
                 "x": 0,
                 "y": 0
-            }
+            },
+            "sounds": [
+                "meuh", "meuh2"
+            ]
         },
         {
             id: "ground", bounds: { x: -200, y: 550, width: 1980, height: 10 }, zIndex: -2,

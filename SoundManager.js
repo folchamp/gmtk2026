@@ -15,9 +15,12 @@ class SoundManager {
         this.soundMute = !this.soundMute;
     }
 
-    playSound(sound) {
+    playSound(sound, volume) {
         if (this.soundMute) { return; }
         const audio = this.sounds[sound]; // on utilise la version pré-chargée pour éviter une latence la première fois qu'on joue un son
+        if (volume !== undefined) {
+            audio.volume = volume;
+        }
         audio.play();
         this.sounds[sound] = new Audio(this.sounds[sound].src); // on remplace pour s'assurer de pouvoir jouer le même son (sans devoir attendre la fin du précédent)
     }
