@@ -54,11 +54,11 @@ class MissionTwo extends Mission {
         const directionToRun = Math.sign(animal.idealPosition.x - animal.x);
         if (Math.abs(food.x - animal.x) < MissionTwo.missionData.grabDistance) { // assez proche pour attraper la nourriture
             if (Math.abs(animal.idealPosition.x - animal.x) > MissionTwo.missionData.runDistance) { // encore loin du lieu de fuite
-                animal.vx = directionToRun * MissionTwo.missionData.acceleration[animal.id] * dt; // fuite
+                animal.vx = directionToRun * MissionTwo.missionData.acceleration[animal.id]; // * dt; // fuite
             }
             food.x = animal.x; // la bouffe colle à l'animal
         } else {
-            animal.vx = directionToFood * MissionTwo.missionData.acceleration[animal.id] * dt; // course vers la bouffe
+            animal.vx = directionToFood * MissionTwo.missionData.acceleration[animal.id]; // * dt; // course vers la bouffe
         }
     }
     isAnimal(gameObject) {
