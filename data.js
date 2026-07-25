@@ -14,6 +14,10 @@ const data = {
 
     imagesPath: "images/",
 
+    sounds: [
+        "button",
+    ],
+
     arrowAmplitude: 8,
     arrowSpeed: 0.010,
 
@@ -27,7 +31,12 @@ const data = {
     calendarTopBaseOffset: 135,
     calendarTopShift: 160,
     calendarLeftBaseOffset: 100,
-    calendarLeftShift: 190
+    calendarLeftShift: 190,
+    scoreTimer: 2000,
+
+    sources: [
+        "https://pixabay.com/sound-effects/technology-camera-13695/",
+    ],
 }
 
 Util.image("arrow", "images/common/arrow.png")
@@ -52,3 +61,5 @@ Util.texts = {
     "gameObjectHeightText": "hauteur",
     "gameObjectZIndexText": "zIndex",
 }
+
+

@@ -9,6 +9,7 @@ class Screen {
         );
 
         this.mainContainer = this[`${name}Container`];
+        this.mainContainer.classList.add("screen");
         this.stop();
     }
 
