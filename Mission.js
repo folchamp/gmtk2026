@@ -2,7 +2,8 @@
 
 class Mission {
     constructor() {
-
+        this.countdownX = 0;
+        this.countdownY = 0;
     }
     getMissionData() {
         throw "all methods must be implemented";

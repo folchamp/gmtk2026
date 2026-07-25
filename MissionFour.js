@@ -4,6 +4,8 @@ class MissionFour extends Mission {
     constructor() {
         super();
         this.chklokTimestamp = Date.now();
+        this.countdownX = 50;
+        this.countdownY = -30;
     }
     startCooldownedChklok() {
         if (Date.now() - this.chklokTimestamp > data.chklokCooldown) {
@@ -15,7 +17,7 @@ class MissionFour extends Mission {
         gameObjects.forEach((gameObject) => {
             if (gameObject.idealPosition !== undefined
                 && (Util.distance(gameObject, gameObject.idealPosition) < MissionFour.missionData.snapDistance)
-                && gameObject.x !== gameObject.idealPosition.x && gameObject.y !== gameObject.idealPosition.y) {
+                && (gameObject.x !== gameObject.idealPosition.x || gameObject.y !== gameObject.idealPosition.y)) {
                 this.startCooldownedChklok();
                 gameObject.x = gameObject.idealPosition.x;
                 gameObject.y = gameObject.idealPosition.y;
@@ -49,6 +51,32 @@ class MissionFour extends Mission {
         pointsPerTile: 10,
         snapDistance: 15,
         objectsData: [
+            {
+                "id": "field",
+                "bounds": {
+                    "x": 285,
+                    "y": 132,
+                    "width": 750,
+                    "height": 500
+                },
+                "zIndex": 99,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": false
+                },
+                "style": {
+                    "imagePath": "common/Camera_Overlay.png"
+                },
+                "idealPosition": {
+                    "x": 230,
+                    "y": 113
+                },
+                "offset": {
+                    "x": 264,
+                    "y": 102
+                }
+            },
             {
                 "id": "background",
                 "bounds": {

@@ -3,12 +3,14 @@
 class MissionFive extends Mission {
     constructor() {
         super();
+        this.countdownY = -47;
     }
     getScore(gameObjects) {
         let animalsInField = [];
         let superpositions = [];
         let partiallyOutside = [];
         let score = [];
+        let alreadyCounted = [];
 
         const field = this.getField(gameObjects);
         // checker si tous les animaux sont dans le cadre
@@ -17,8 +19,12 @@ class MissionFive extends Mission {
             if (this.isAnimal(gameObject) && Util.rectsCollide(gameObject, field)) {
                 animalsInField.push(gameObject);
                 gameObjects.forEach((gameObject2) => {
-                    if (this.isAnimal(gameObject2) && gameObject.id !== gameObject2.id && Util.rectsCollide(gameObject, gameObject2)) {
+                    if (this.isAnimal(gameObject2)
+                        && gameObject.id !== gameObject2.id
+                        && Util.rectsCollide(gameObject, gameObject2)
+                        && !alreadyCounted.includes(gameObject.id)) {
                         superpositions.push(gameObject);
+                        alreadyCounted.push(gameObject.id);
                     }
                     if (((gameObject2.id === "left_boundary") || (gameObject2.id === "right_boundary")) && Util.rectsCollide(gameObject, gameObject2)) {
                         partiallyOutside.push(gameObject);

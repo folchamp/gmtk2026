@@ -2,6 +2,13 @@
     display: none !important;
 }
 
+@font-face {
+    font-family: "countdownfont";
+    src: url("fonts/BittypixCountdown.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -188,6 +195,10 @@ body {
         cursor: pointer;
     }
 
+    .startDayButton:hover {
+        transform: scale(1.05);
+    }
+
     .startDayButton:active {
         transform: scale(0.95);
     }
@@ -208,5 +219,15 @@ body {
         height: 80px;
         background: red;
         cursor: pointer;
+        transition: transform 0.1s;
+        transform: scale(1);
+    }
+
+    .startButton:hover {
+        transform: scale(1.05);
+    }
+
+    .startButton:active {
+        transform: scale(0.95);
     }
 }

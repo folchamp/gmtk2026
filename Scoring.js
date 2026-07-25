@@ -38,9 +38,10 @@ class Scoring {
         this.scoringScreen.stop();
         this.scoringTotalText.innerText = Util.texts["scoringTotalText"]; // reset du texte
         this.startNextDayCallback(this.total);
-        this.total = 0;
+        // this.total = 0;
     }
     clearScore() {
+        // this.total = 0;
         this.scoreExplanationOneText.innerText = "";
         this.scoreExplanationTwoText.innerText = "";
         this.scoreExplanationThreeText.innerText = "";
@@ -60,8 +61,17 @@ class Scoring {
             object.highlighted = false;
         }, data.arrowTimer);
     }
+    calcTotalScore(scores) {
+        this.total = 0;
+        scores.forEach((scoreData) => {
+            const partialScore = scoreData.points * scoreData.value;
+            this.total += partialScore;
+        });
+    }
     displayScore(scores) {
         this.clearScore();
+        this.calcTotalScore(scores);
+        this.scoringTotalText.innerText = `total : ${this.total} $`;
         for (let index = 0; index < scores.length; index++) {
             setTimeout(() => { // montrer les éléments avec des flèches
                 const scoreData = scores[index];
@@ -75,17 +85,14 @@ class Scoring {
                 }
                 setTimeout(() => { // afficher le score final
                     const partialScore = scoreData.points * scoreData.value;
-                    this.total += partialScore;
                     if (scoreData.points < 0) {
                         scoreElement.innerText += `malus : ${partialScore} $`;
                     } else {
                         scoreElement.innerText += `bonus : ${partialScore} $`;
                     }
-                    this.scoringTotalText.innerText = `total : ${this.total} $`;
                 }, data.scoreTimer);
             }, data.scoringTimer * index);
         }
         this.scoringScreen.start();
-
     }
 }
