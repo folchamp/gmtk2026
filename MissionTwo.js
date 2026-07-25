@@ -71,7 +71,7 @@ class MissionTwo extends Mission {
         pointsPerOutside: -5,
         grabDistance: 10,
         runDistance: 30,
-        acceleration: { cow: 0.006, goat: 0.008, dog: 0.018, horse: 0.012 },
+        acceleration: { cow: 0.06, goat: 0.08, dog: 0.18, horse: 0.12 },
         animals: { "cow": "item1", "goat": "item2", "dog": "item3", "horse": "item4" },
         allAnimals: ["cow", "dog", "horse", "goat"],
         objectsData: [
