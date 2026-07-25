@@ -17,6 +17,33 @@ body {
     width: 1280px;
 }
 
+#shutterTop,
+#shutterBottom {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 720px;
+    width: 1280px;
+    background-color: black;
+    z-index: 13;
+    transition: transform 80ms ease-in;
+    transform: translateX(-50%) scaleY(1);
+}
+
+#shutterTop {
+    transform-origin: top;
+}
+
+#shutterBottom {
+    transform-origin: bottom;
+}
+
+#shutterTop.open,
+#shutterBottom.open {
+    transform: translateX(-50%) scaleY(0);
+}
+
+
 /* ********************************************** */
 /* scoring */
 /* ********************************************** */
@@ -87,6 +114,9 @@ body {
     left: 0;
     padding: 4px;
     background: rgba(100, 100, 100, 0.5);
+    z-index: 11;
+    height: initial;
+    width: initial;
 
     .addGameObjectFormContainer {
         span {
@@ -132,6 +162,7 @@ body {
     }
 
     .circleImage {
+        position: absolute;
         opacity: 0;
         transform: scale(0, 0);
         transition:
@@ -161,6 +192,19 @@ body {
     }
 }
 
+/* ********************************************** */
+/* title */
+/* ********************************************** */
+
 .titleScreenContainer {
-    background: url('images/title/placeholderTitle.png');
+    background: url('images/title/title.png');
+
+    .startButton {
+        position: absolute;
+        top: 600px;
+        left: 550px;
+        width: 180px;
+        height: 80px;
+        background: red;
+    }
 }

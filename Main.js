@@ -10,13 +10,6 @@ class Main {
         //     "soundMute": () => this.toggleSoundMute(),
         // }
 
-        // Sound
-        this.soundMute = false;
-        this.sounds = {}
-        data.sounds.forEach((name) => {
-            this.sounds[name] = new Audio(`sounds/${name}.mp3`);
-        });
-
         // Screens
         this.titleScreen = new Screen("titleScreen");
         this.title = new Title(this.titleScreen, () => { this.openCalendarCallback(); });
@@ -32,7 +25,7 @@ class Main {
         this.photoGame = new PhotoGame(this.photoGameScreen, this.levelEditorOverlay, this.scoring);
 
         this.actualMission = 0;
-        this.gameList = [new MissionFour(), new MissionThree(), new MissionTwo(), new MissionOne()];
+        this.gameList = [new MissionFive(), new MissionFour(), new MissionThree(), new MissionTwo(), new MissionOne()];
 
         this.screens = [
             this.titleScreen,
@@ -55,7 +48,7 @@ class Main {
             } else if (event.code === "KeyI") {
                 this.setScreen("titleScreen");
             } else if (event.code === "KeyM") {
-                this.toggleSoundMute();
+                soundManager.toggleSoundMute();
             }
         });
         // ********************************************
@@ -67,7 +60,7 @@ class Main {
     }
 
     openCalendarCallback() {
-        this.playSound("button");
+        soundManager.playSound("button");
         this.setScreen("calendarScreen");
         setTimeout(() => {
             this.calendar.start();
@@ -100,22 +93,5 @@ class Main {
         } else {
             console.error(`No screen named ${name}`);
         }
-    }
-
-    //Sound Management
-    toggleSoundMute() {
-        this.soundMute = !this.soundMute;
-    }
-
-    playSound(sound) {
-        if (this.soundMute) { return; }
-        const audio = this.sounds[sound]; // on utilise la version pré-chargée pour éviter une latence la première fois qu'on joue un son
-        audio.play();
-        this.sounds[sound] = new Audio(this.sounds[sound].src); // on remplace pour s'assurer de pouvoir jouer le même son (sans devoir attendre la fin du précédent)
-    }
-
-    playRandomSound(array) {
-        const sound = Util.randomFromArray(array);
-        this.playSound(sound);
     }
 }

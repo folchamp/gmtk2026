@@ -38,7 +38,6 @@ class Calendar {
 
     createCircle() {
         this.circle = Util.createDOMElement(`circleImage`, "img", this.calendarScreen.mainContainer);
-        this.circle.style.position = "absolute";
         this.circle.src = "images/calendar/circle.png";
         this.circle.style.top = `${data.calendarTopBaseOffset}px`;
         this.circle.style.left = `${data.calendarLeftBaseOffset}px`;

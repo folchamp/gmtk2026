@@ -30,6 +30,11 @@ class PhotoGame {
             }
         });
 
+        this.shutterTop = document.getElementById("shutterTop");
+        this.shutterBottom = document.getElementById("shutterBottom");
+        // this.shutterTop.classList.add("open");
+        // this.shutterBottom.classList.add("open");
+
         this.gameObjects = [];
         this.loop();
     }
@@ -84,6 +89,14 @@ class PhotoGame {
         }
     }
     end() {
+        // TODO shutter animation
+        this.shutterTop.classList.remove("open");
+        this.shutterBottom.classList.remove("open");
+        soundManager.playSound("button");
+        setTimeout(() => {
+            this.shutterTop.classList.add("open");
+            this.shutterBottom.classList.add("open");
+        }, 100);
         this.state = "ended";
         this.ungrab();
         this.scoring.displayScore(this.mission.getScore(this.gameObjects));
