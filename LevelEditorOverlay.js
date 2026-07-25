@@ -7,26 +7,19 @@ class LevelEditorOverlay {
         Util.quickStructure(this.levelEditorOverlayScreen.mainContainer, this,
             ["addGameObjectFormContainer",
                 "explanationsText",
-                // "addGameObjectMoveButton",
                 ["gameObjectPathLabel", "gameObjectPathText", "gameObjectPathInput", "gameObjectPathButton"],
                 ["gameObjectNameLabel", "gameObjectNameText", "gameObjectNameInput"],
                 ["gameObjectPositionContainer",
                     ["gameObjectXLabel", "gameObjectXText", "gameObjectXInput"],
                     ["gameObjectYLabel", "gameObjectYText", "gameObjectYInput"],
-                    // "gameObjectUploadPositionButton"
                 ],
                 ["gameObjectOffsetContainer",
                     ["gameObjectOffsetXLabel", "gameObjectOffsetXText", "gameObjectOffsetXInput"],
                     ["gameObjectOffsetYLabel", "gameObjectOffsetYText", "gameObjectOffsetYInput"],
-                    // "gameObjectUploadPositionButton"
                 ],
                 ["gameObjectWidthLabel", "gameObjectWidthText", "gameObjectWidthInput"],
                 ["gameObjectHeightLabel", "gameObjectHeightText", "gameObjectHeightInput"],
                 ["gameObjectZIndexLabel", "gameObjectZIndexText", "gameObjectZIndexInput"],
-                // ["gameObjectIdealPositionContainer",
-                //     ["gameObjectIdealXLabel", "gameObjectIdealXText", "gameObjectIdealXInput"],
-                //     ["gameObjectIdealYLabel", "gameObjectIdealYText", "gameObjectIdealYInput"],
-                //     "gameObjectUploadIdealButton"],
                 "setIdealButton",
                 ["gameObjectDownloadContainer", "gameObjectDownloadButton", "gameObjectDownloadFeedbackText"]
             ]

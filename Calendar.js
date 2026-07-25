@@ -1,58 +1,66 @@
 "use strict";
 
-const WEEK_LENGTH = 5;
-const WEEK_AMOUNT = 1;
-
-const TOP_BASE_OFFSET = 100;
-const TOP_SHIFT = 160;
-const LEFT_BASE_OFFSET = 100;
-const LEFT_SHIFT = 190;
-
 class Calendar {
-    constructor(calendarScreen) {
-        this.screen = calendarScreen;
-        this.screen.mainContainer.style.width = `${data.gameWidth}px`;
-        this.screen.mainContainer.style.height = `${data.gameHeight}px`;
-        this.screen.mainContainer.style.position = "relative";
+    constructor(calendarScreen, startTheDayMissionCallback) {
+        this.calendarScreen = calendarScreen;
+        this.startTheDayMissionCallback = startTheDayMissionCallback;
         this.day = 1;
 
-        this.circle = Util._createElement(`circleImage`, this.screen.mainContainer);
+        this.createCircle();
+        this.createStartDayButton();
+    }
+
+    createStartDayButton() {
+        this.startDayButton = Util.createDOMElement("startDayButton", "button", this.calendarScreen.mainContainer);
+        this.startDayButton.innerText = "";
+
+        this.startDayButton.addEventListener("click", (event) => {
+            this.startTheDayMissionCallback();
+        });
+    }
+
+    createCircle() {
+        this.circle = Util.createDOMElement(`circleImage`, "img", this.calendarScreen.mainContainer);
         this.circle.style.position = "absolute";
-        this.circle.src = "images/calendar/placeholderCircle.png";
-        this.circle.style.top = `${TOP_BASE_OFFSET}px`;
-        this.circle.style.left = `${LEFT_BASE_OFFSET}px`;
+        this.circle.src = "images/calendar/circle.png";
+        this.circle.style.top = `${data.calendarTopBaseOffset}px`;
+        this.circle.style.left = `${data.calendarLeftBaseOffset}px`;
+    }
+
+    createCross() {
+        const newCross = Util.createDOMElement(`crossImage`, "img", this.calendarScreen.mainContainer);
+        newCross.style.position = "absolute";
+        newCross.src = "images/calendar/placeholderCross.png";
+
+        newCross.style.top = this.circle.style.top;
+        newCross.style.left = this.circle.style.left;
+        return newCross;
+    }
+
+    moveCircle() {
+        const circlePos = this.getPos(this.day);
+        this.circle.style.left = `${circlePos.left}px`;
+        this.circle.style.top = `${circlePos.top}px`;
     }
 
     nextDay() {
-        Util.hide(this.circle);
-
-        if(this.day > 0) {
-            const newCross = Util._createElement(`crossImage`, this.screen.mainContainer);
-            newCross.style.position = "absolute";
-            newCross.src = "images/calendar/placeholderCross.png";
-
-            newCross.style.top = this.circle.style.top;
-            newCross.style.left = this.circle.style.left;
+        if (this.day > 0) {
+            this.createCross();
         }
-
         this.day += 1;
-
+        Util.hide(this.circle);
+        this.moveCircle();
         setTimeout(
             () => {
-
-                const circlePos = this.getPos(this.day);
-                this.circle.style.top = `${circlePos.top}px`;
-                this.circle.style.left = `${circlePos.left}px`;
                 Util.show(this.circle);
             },
             500
-        )
-
+        );
     }
 
     getPos(offset) {
-        const top = TOP_BASE_OFFSET + Math.floor((offset - 1) / WEEK_LENGTH) * TOP_SHIFT;
-        const left = LEFT_BASE_OFFSET + ((offset - 1) % WEEK_LENGTH) * LEFT_SHIFT;
-        return {top, left};
+        const top = data.calendarTopBaseOffset + Math.floor((offset - 1) / data.weekLength) * data.calendarTopShift;
+        const left = data.calendarLeftBaseOffset + ((offset - 1) % data.weekLength) * data.calendarLeftShift;
+        return { top, left };
     }
 }

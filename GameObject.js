@@ -12,7 +12,6 @@ class GameObject {
         this.isGravitable = caracs.isGravitable;
         this.isDraggable = caracs.isDraggable;
         this.style = style;
-        console.log(id, idealPosition);
         this.idealPosition = idealPosition;
         this.offset = offset;
 

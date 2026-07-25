@@ -577,7 +577,7 @@ class MissionThree extends Mission {
                     "isDraggable": false
                 },
                 "style": {
-                    "imagePath": "field.png"
+                    "imagePath": "common/field.png"
                 },
                 "idealPosition": {
                     "x": 265,

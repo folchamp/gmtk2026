@@ -48,12 +48,14 @@ class MissionOne extends Mission {
         // on remet leur meilleurs position à un certain nombres d'objets (parce que le jeu est trop dur sinon), déterminé par la variable difficulty
         for (let index = 0; index < missionData.objectsData.length; index++) {
             const objectData = missionData.objectsData[index];
-            if (index < missionData.difficulty) {
-                objectData.bounds.x = objectData.idealPosition.x;
-                objectData.bounds.y = objectData.idealPosition.y;
+            if (objectData.id.startsWith("puzzle")) {
+                if (index < missionData.difficulty) {
+                    objectData.bounds.x = objectData.idealPosition.x;
+                    objectData.bounds.y = objectData.idealPosition.y;
+                }
+                // et on ajuste le zindex pour que les tuiles mal placées ne soient pas cachées en dessous des tuiles bien placéees
+                objectData.zIndex = index;
             }
-            // et on ajuste le zindex pour que les tuiles mal placées ne soient pas cachées en dessous des tuiles bien placéees
-            objectData.zIndex = index;
         }
         return missionData;
     }
@@ -274,7 +276,7 @@ class MissionOne extends Mission {
                     "isDraggable": false
                 },
                 "style": {
-                    "imagePath": "field.png"
+                    "imagePath": "common/field.png"
                 },
                 "idealPosition": {
                     "x": 265,

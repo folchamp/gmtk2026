@@ -7,23 +7,12 @@ class PhotoGame {
         this.levelEditorOverlay.insertGameObject = (gameObject) => { this.insertGameObject(gameObject) };
         this.scoring = scoring;
 
-        Util.quickStructure(this.photoGameScreen.mainContainer, this,
-            ["photoGameCanvas"]
-        );
+        Util.quickStructure(this.photoGameScreen.mainContainer, this, ["photoGameCanvas"]);
 
         this.context = this.photoGameCanvas.getContext("2d");
 
         this.photoGameCanvas.width = data.gameWidth;
         this.photoGameCanvas.height = data.gameHeight;
-
-        this.gameObjects = [];
-
-        // not in gameObjects
-        this.canvasGameObject = new GameObject("canvas", { x: 0, y: 0, width: data.gameWidth, height: data.gameHeight }, 0, {}, {});
-        // in gameObjects
-        // this.fieldGameObject = new GameObject("field", { x: (data.gameWidth - data.fieldWidth) / 2, y: (data.gameHeight - data.fieldHeight) / 2, width: data.fieldWidth, height: data.fieldHeight }, 99, { isCollidable: false, isGravitable: false, isDraggable: true }, { imagePath: "field.png" });
-        // this.insertGameObject(this.fieldGameObject);
-
 
         this.photoGameCanvas.addEventListener("mousedown", (event) => { this.mousedown(event); });
         this.photoGameCanvas.addEventListener("mousemove", (event) => { this.mousemove(event); });
@@ -41,32 +30,98 @@ class PhotoGame {
             }
         });
 
+        this.gameObjects = [];
+        this.loop();
+    }
+
+    startMission(givenMission) {
+        this.gameObjects = [];
+
+        this.canvasGameObject = new GameObject("canvas", { x: 0, y: 0, width: data.gameWidth, height: data.gameHeight }, 0, {}, {});
+
         this.grabbedGameObject = undefined;
         this.lastMousePos = { x: 0, y: 0 };
 
         this.lastTimeStamp = Date.now();
-        this.state = "playing";
+        this.state = "paused";
+        this.missionDurationLeft = data.missionDuration;
 
+        this.mission = givenMission;
         // *************************
         // TESTING START
         // *************************
-        this.mission = new MissionFour();
-        // this.mission = new MissionThree();
-        // this.mission = new MissionTwo();
-        // this.mission = new MissionOne();
+        // this.missionDurationLeft = 999999;
+        // this.missionDurationLeft = 30000;
         // *************************
         // TESTING STOP
         // *************************
-        this.loadMission(this.mission.getMissionData());
-        this.startMission();
-        this.loop();
-    }
 
-    startMission() {
-        this.missionDurationLeft = data.missionDuration;
-        // for testing purposes
-        // this.missionDurationLeft = 999999;
-        // this.missionDurationLeft = 30000;
+        this.loadMission(this.mission.getMissionData());
+        this.resume();
+    }
+    getTimeElapsed() {
+        const now = Date.now();
+        let dt = now - this.lastTimeStamp;
+        this.lastTimeStamp = now;
+        return dt;
+    }
+    clearCanvas() {
+        this.context.clearRect(0, 0, this.photoGameCanvas.width, this.photoGameCanvas.height);
+    }
+    displayTimeLeft(dt) {
+        this.context.font = "72px Arial";
+        this.context.textAlign = "center";
+        this.context.textBaseline = "middle";
+        this.context.fillStyle = "black";
+        this.context.strokeStyle = "white";
+        this.context.lineWidth = 3;
+        this.context.fillText(Math.ceil(Math.max(this.missionDurationLeft, 0) / 1000), 930, 190);
+        this.context.strokeText(Math.ceil(Math.max(this.missionDurationLeft, 0) / 1000), 930, 190);
+    }
+    pause() {
+        if (this.state === "playing") {
+            this.state = "paused";
+        }
+    }
+    end() {
+        this.state = "ended";
+        this.ungrab();
+        this.scoring.displayScore(this.mission.getScore(this.gameObjects));
+    }
+    resume() {
+        if (this.state === "paused") {
+            this.state = "playing";
+            this.lastTimeStamp = Date.now();
+        }
+    }
+    loop() {
+        const dt = this.getTimeElapsed();
+        if (this.state === "playing") {
+            this.missionDurationLeft -= dt;
+            this.move(dt);
+            if (this.missionDurationLeft < 0) {
+                this.end();
+            }
+        }
+        this.draw();
+        this.displayTimeLeft(dt);
+        window.requestAnimationFrame(() => { this.loop(); });
+    }
+    move(dt) {
+        this.gameObjects.forEach((gameObject) => {
+            gameObject.move(this.gameObjects, dt);
+            // si les objets quittent le canvas, on les y remet
+            if (!Util.rectsCollide(gameObject, this.canvasGameObject)) {
+                gameObject.reset();
+            }
+        });
+        this.mission.missionMove(dt, this.gameObjects);
+    }
+    draw() {
+        this.clearCanvas();
+        this.gameObjects.forEach((gameObject) => {
+            gameObject.draw(this.context);
+        });
     }
 
     loadMission(mission) {
@@ -74,7 +129,6 @@ class PhotoGame {
             // TODO clean up existing objects, unload previous mission
             this.insertGameObject(GameObject.load(objectData));
         });
-        console.log(this.gameObjects);
     }
 
     insertGameObject(gameObject) {
@@ -121,69 +175,5 @@ class PhotoGame {
             this.grabbedGameObject.isDragged = false;
             this.grabbedGameObject = undefined;
         }
-    }
-    getTimeElapsed() {
-        const now = Date.now();
-        let dt = now - this.lastTimeStamp;
-        this.lastTimeStamp = now;
-        return dt;
-    }
-    clearCanvas() {
-        this.context.clearRect(0, 0, this.photoGameCanvas.width, this.photoGameCanvas.height);
-    }
-    calcAndDisplayTimeLeft(dt) {
-        this.missionDurationLeft -= dt;
-        this.context.font = "72px Arial";
-        this.context.textAlign = "center";
-        this.context.textBaseline = "middle";
-        this.context.fillStyle = "black";
-        this.context.strokeStyle = "white";
-        this.context.lineWidth = 3;
-        this.context.fillText(Math.ceil(Math.max(this.missionDurationLeft, 0) / 1000), 930, 190);
-        this.context.strokeText(Math.ceil(Math.max(this.missionDurationLeft, 0) / 1000), 930, 190);
-    }
-    pause() {
-        if (this.state === "playing") {
-            this.state = "paused";
-        }
-    }
-    end() {
-        this.state = "ended";
-        this.ungrab();
-        this.scoring.displayScore(this.mission.getScore(this.gameObjects));
-    }
-    resume() {
-        if (this.state === "paused") {
-            this.state = "playing";
-            this.lastTimeStamp = Date.now();
-        }
-    }
-    loop() {
-        const dt = this.getTimeElapsed();
-        if (this.state === "playing") {
-            this.move(dt);
-            if (this.missionDurationLeft < 0) {
-                this.end();
-            }
-        }
-        this.draw();
-        this.calcAndDisplayTimeLeft(dt);
-        window.requestAnimationFrame(() => { this.loop(); });
-    }
-    move(dt) {
-        this.gameObjects.forEach((gameObject) => {
-            gameObject.move(this.gameObjects, dt);
-            // si les objets quittent le canvas, on les y remet
-            if (!Util.rectsCollide(gameObject, this.canvasGameObject)) {
-                gameObject.reset();
-            }
-        });
-        this.mission.missionMove(dt, this.gameObjects);
-    }
-    draw() {
-        this.clearCanvas();
-        this.gameObjects.forEach((gameObject) => {
-            gameObject.draw(this.context);
-        });
     }
 }

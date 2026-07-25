@@ -17,7 +17,7 @@ class Util {
         }
         if (Util.images[name] === undefined) {
             let img = new Image();
-            img.src = `images/${name}.png`;
+            img.src = path;
             Util.images[name] = img;
             document.body.appendChild(img);
             Util.hide(img);

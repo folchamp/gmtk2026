@@ -7,6 +7,7 @@ body {
     justify-content: center;
     align-items: center;
     background: #111;
+    background: #333333;
     margin: 0;
 }
 
@@ -87,7 +88,10 @@ body {
 /* ********************************************** */
 
 .calendarScreenContainer {
-    background-image: url(images/calendar/placeholderBackground.png);
+    background-image: url(images/calendar/background.png);
+    width: 1280px;
+    height: 720px;
+    position: "relative";
 
     .circleImage.hidden {
         opacity: 0;
@@ -99,6 +103,22 @@ body {
     .circleImage:not(.hidden) {
         animation-duration: 0.5s;
         animation-name: fade-in;
+    }
+
+    .startDayButton {
+        position: absolute;
+        top: 660px;
+        left: 500px;
+        background: url("images/calendar/startDayButton.png");
+        width: 315px;
+        height: 58px;
+        border: none;
+        transition: transform 0.1s;
+        cursor: pointer;
+    }
+
+    .startDayButton:active {
+        transform: scale(0.95);
     }
 }
 
