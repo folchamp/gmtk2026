@@ -7,14 +7,23 @@ class Scoring {
         Util.quickStructure(scoringScreen.mainContainer, this,
             ["scoringContainer",
                 ["scoresContainer",
-                    ["scoreExplanationOneContainer", "scoreExplanationOneText", "scoreOnePointsText"],
-                    ["scoreExplanationTwoContainer", "scoreExplanationTwoText", "scoreTwoPointsText"],
-                    ["scoreExplanationThreeContainer", "scoreExplanationThreeText", "scoreThreePointsText"],
-                    ["scoreExplanationFourContainer", "scoreExplanationFourText", "scoreFourPointsText"]],
+                    ["scoreExplanationsContainer", "scoreExplanationOneText", "scoreExplanationTwoText", "scoreExplanationThreeText", "scoreExplanationFourText"],
+                    ["scorePointsContainer", "scoreOnePointsText", "scoreTwoPointsText", "scoreThreePointsText", "scoreFourPointsText"]],
                 "scoringTotalText",
                 "scoringNextDayButton"
             ]
         );
+        // Util.quickStructure(scoringScreen.mainContainer, this,
+        //     ["scoringContainer",
+        //         ["scoresContainer",
+        //             ["scoreExplanationOneContainer", "scoreExplanationOneText", "scoreOnePointsText"],
+        //             ["scoreExplanationTwoContainer", "scoreExplanationTwoText", "scoreTwoPointsText"],
+        //             ["scoreExplanationThreeContainer", "scoreExplanationThreeText", "scoreThreePointsText"],
+        //             ["scoreExplanationFourContainer", "scoreExplanationFourText", "scoreFourPointsText"]],
+        //         "scoringTotalText",
+        //         "scoringNextDayButton"
+        //     ]
+        // );
         this.explanationElements = [
             this.scoreExplanationOneText,
             this.scoreExplanationTwoText,
@@ -26,6 +35,10 @@ class Scoring {
             this.scoreThreePointsText,
             this.scoreFourPointsText
         ]
+
+        this.scoringContainer.addEventListener("click", (event) => {
+            this.scoringContainer.classList.toggle("closed");
+        });
 
         this.scoringNextDayButton.addEventListener("click", (event) => {
             this.endDay();
@@ -71,7 +84,7 @@ class Scoring {
     displayScore(scores) {
         this.clearScore();
         this.calcTotalScore(scores);
-        this.scoringTotalText.innerText = `total : ${this.total}€`;
+        this.scoringTotalText.innerText = `${this.total}€`;
         for (let index = 0; index < scores.length; index++) {
             setTimeout(() => { // montrer les éléments avec des flèches
                 const scoreData = scores[index];
@@ -86,9 +99,9 @@ class Scoring {
                 setTimeout(() => { // afficher le score final
                     const partialScore = scoreData.points * scoreData.value;
                     if (scoreData.points < 0) {
-                        scoreElement.innerText += `malus : ${partialScore}€`;
+                        scoreElement.innerText += `-${Math.abs(partialScore)}€`;
                     } else {
-                        scoreElement.innerText += `bonus : ${partialScore}€`;
+                        scoreElement.innerText += `+${partialScore}€`;
                     }
                 }, data.scoreTimer);
             }, data.scoringTimer * index);
