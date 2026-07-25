@@ -10,33 +10,18 @@ class MissionSix extends Mission {
         });
     }
     getScore(gameObjects) {
-        let charactersOnScreen = 0;
         const field = this.getField(gameObjects);
-        let superpositionsIDs = {};
-        let charactersSuperposed = [];
         let charactersInField = [];
-        let amountOfSuperpositions = 0;
         gameObjects.forEach((gameObject) => {
-            if (MissionSix.missionData.characters.includes(gameObject.id)) {
-                if (Util.rectsCollide(gameObject, field)) {
-                    charactersOnScreen++;
-                    charactersInField.push(gameObject);
-                    gameObjects.forEach((gameObject2) => {
-                        if (MissionSix.missionData.characters.includes(gameObject2.id)
-                            && superpositionsIDs[gameObject.id] === undefined
-                            && Util.rectsCollide(gameObject, gameObject2)
-                            && gameObject.id !== gameObject2.id) {
-                            amountOfSuperpositions++;
-                            superpositionsIDs[gameObject.id] = true;
-                            charactersSuperposed.push(gameObject);
-                        }
-                    });
-                }
+            if (this.isCat(gameObject) && Util.rectsCollide(gameObject, field)) {
+                charactersInField.push(gameObject);
             }
         });
+        const charactersSuperposed = this.getSuperposedSubjects(gameObjects, this.isCat);
+
         return [
-            { points: MissionSix.missionData.pointsPerCharacterInField, text: `Cats in field 🙂`, total: MissionSix.missionData.characters.length, value: charactersOnScreen, highlights: charactersInField },
-            { points: MissionSix.missionData.pointsPerSuperposition, text: `Superpositions ☹️`, total: MissionSix.missionData.characters.length, value: amountOfSuperpositions, highlights: charactersSuperposed }
+            { points: MissionSix.missionData.pointsPerCharacterInField, text: `Cats in field 🙂`, total: MissionSix.missionData.characters.length, value: charactersInField.length, highlights: charactersInField },
+            { points: MissionSix.missionData.pointsPerSuperposition, text: `Superpositions ☹️`, total: MissionSix.missionData.characters.length, value: charactersSuperposed.length, highlights: charactersSuperposed }
         ];
     }
     getMissionData() {
@@ -49,6 +34,10 @@ class MissionSix extends Mission {
             }
         });
         return missionData;
+    }
+
+    isCat(gameObject) {
+        return MissionSix.missionData.characters.includes(gameObject.id);
     }
 
     startMusic() {

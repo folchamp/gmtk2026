@@ -6,38 +6,29 @@ class MissionFive extends Mission {
         this.countdownY = -47;
     }
     getScore(gameObjects) {
+        const field = this.getField(gameObjects);
         let animalsInField = [];
-        let superpositions = [];
         let partiallyOutside = [];
         let score = [];
-        let alreadyCounted = [];
 
-        const field = this.getField(gameObjects);
         // checker si tous les animaux sont dans le cadre
-        // checker si les animaux sont bien éparpillés et ne se superposent pas
         gameObjects.forEach((gameObject) => {
             if (this.isAnimal(gameObject) && Util.rectsCollide(gameObject, field)) {
                 animalsInField.push(gameObject);
                 gameObjects.forEach((gameObject2) => {
-                    if (this.isAnimal(gameObject2)
-                        && gameObject.id !== gameObject2.id
-                        && Util.rectsCollide(gameObject, gameObject2)
-                        && !alreadyCounted.includes(gameObject.id)) {
-                        superpositions.push(gameObject);
-                        alreadyCounted.push(gameObject.id);
-                    }
                     if (((gameObject2.id === "left_boundary") || (gameObject2.id === "right_boundary")) && Util.rectsCollide(gameObject, gameObject2)) {
                         partiallyOutside.push(gameObject);
                     }
                 });
             }
         });
+        const superpositions = this.getSuperposedSubjects(gameObjects, (gameObject) => this.isAnimal(gameObject));
+
         score.push({ points: MissionFive.missionData.pointsPerCharacterInField, text: `Animals in field 🙂`, total: MissionFive.missionData.allAnimals.length, value: animalsInField.length, highlights: animalsInField });
         score.push({ points: MissionFive.missionData.pointsPerSuperposition, text: `Superpositions ☹️`, total: MissionFive.missionData.allAnimals.length, value: superpositions.length, highlights: superpositions });
         score.push({ points: MissionFive.missionData.pointsPerOutside, text: `Partially outside ☹️`, total: MissionFive.missionData.allAnimals.length, value: partiallyOutside.length, highlights: partiallyOutside });
         if (this.isMoneyGrabbed(gameObjects)) {
             score.push({ points: MissionFive.missionData.pointsIfMoneyGrabbed, text: `Money grabbed 🙂`, total: 1, value: 1, highlights: [this.getMoney(gameObjects)] });
-
         }
         return score;
     }
