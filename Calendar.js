@@ -11,9 +11,6 @@ const LEFT_SHIFT = 190;
 class Calendar {
     constructor(calendarScreen) {
         this.screen = calendarScreen;
-        this.screen.mainContainer.style.width = `${data.gameWidth}px`;
-        this.screen.mainContainer.style.height = `${data.gameHeight}px`;
-        this.screen.mainContainer.style.position = "relative";
         this.day = 1;
 
         this.circle = Util._createElement(`circleImage`, this.screen.mainContainer);

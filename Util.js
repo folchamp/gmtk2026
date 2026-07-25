@@ -1,7 +1,26 @@
 "use strict";
 
 class Util {
-    static texts = {};
+    static texts = {
+        "startButton": "Start",
+        "explanationsText": "E : toggle level editor\nM: move level editor\nP : display game\nO : display calendar\nN : next day",
+        "setIdealButton": "ideal",
+        "gameObjectDownloadFeedbackText": "",
+        "addGameObjectMoveButton": "dégage",
+        "gameObjectDownloadButton": "télécharger",
+        "gameObjectPathText": "chemin :",
+        "gameObjectPathButton": "ajouter l'objet",
+        // "gameObjectUploadPositionButton": "importer",
+        // "gameObjectUploadIdealButton": "importer",
+        "gameObjectNameText": "nom : ",
+        "gameObjectXText": "x :",
+        "gameObjectYText": "y :",
+        "gameObjectWidthText": "largeur",
+        "gameObjectHeightText": "hauteur",
+        "gameObjectZIndexText": "zIndex",
+        "gameObjectIdealXText": "x idéal",
+        "gameObjectIdealYText": "y idéal",
+    };
 
     static hide(element) {
         element.classList.add("hidden");
@@ -109,6 +128,7 @@ class Util {
         parent.appendChild(element);
         if (type === "span" || type === "p" || type === "button") {
             element.innerText = Util.texts[name];
+            console.log(name, Util.texts[name]);
         }
         return element;
     }
