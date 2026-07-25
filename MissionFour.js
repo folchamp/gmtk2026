@@ -3,10 +3,20 @@
 class MissionFour extends Mission {
     constructor() {
         super();
+        this.chklokTimestamp = Date.now();
+    }
+    startCooldownedChklok() {
+        if (Date.now() - this.chklokTimestamp > data.chklokCooldown) {
+            this.chklokTimestamp = Date.now();
+            soundManager.playSound("chklok");
+        }
     }
     missionMove(dt, gameObjects) {
         gameObjects.forEach((gameObject) => {
-            if (gameObject.idealPosition !== undefined && (Util.distance(gameObject, gameObject.idealPosition) < MissionFour.missionData.snapDistance)) {
+            if (gameObject.idealPosition !== undefined
+                && (Util.distance(gameObject, gameObject.idealPosition) < MissionFour.missionData.snapDistance)
+                && gameObject.x !== gameObject.idealPosition.x && gameObject.y !== gameObject.idealPosition.y) {
+                this.startCooldownedChklok();
                 gameObject.x = gameObject.idealPosition.x;
                 gameObject.y = gameObject.idealPosition.y;
             }
@@ -29,6 +39,10 @@ class MissionFour extends Mission {
         // copie des données de mission
         const missionData = Util.deepCopy(MissionFour.missionData);
         return missionData;
+    }
+
+    startMusic() {
+        soundManager.playSound("speed", 0.15);
     }
 
     static missionData = {

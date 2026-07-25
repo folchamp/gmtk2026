@@ -14,6 +14,7 @@ class Calendar {
     }
 
     start() {
+        this.welcomeAudio = soundManager.playSound("evele", 0.15);
         this.circle.classList.add("circleAnimation");
     }
 
@@ -31,6 +32,8 @@ class Calendar {
         this.startDayButton.innerText = "";
 
         this.startDayButton.addEventListener("click", (event) => {
+            this.welcomeAudio.pause();
+            soundManager.shutter();
             this.startTheDayMissionCallback();
             this.circle.classList.remove("circleAnimation");
         });
@@ -59,6 +62,7 @@ class Calendar {
     }
 
     nextDay(moneyWon) {
+        this.start();
         this.money += moneyWon;
         this.updateMoneyDisplay();
         if (this.day > 0) {

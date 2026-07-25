@@ -25,7 +25,7 @@ class Main {
         this.photoGame = new PhotoGame(this.photoGameScreen, this.levelEditorOverlay, this.scoring);
 
         this.actualMission = 0;
-        this.gameList = [new MissionFive(), new MissionFour(), new MissionThree(), new MissionTwo(), new MissionOne()];
+        this.gameList = [new MissionFour(), new MissionFive(), new MissionThree(), new MissionTwo(), new MissionOne()];
 
         this.screens = [
             this.titleScreen,
@@ -60,7 +60,7 @@ class Main {
     }
 
     openCalendarCallback() {
-        soundManager.playSound("button");
+        // soundManager.playSound("button");
         this.setScreen("calendarScreen");
         setTimeout(() => {
             this.calendar.start();

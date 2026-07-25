@@ -47,8 +47,11 @@ const data = {
         "speed",
         "ugh",
         "ugh2",
-        "yay"
+        "yay",
+        "evele"
     ],
+
+    chklokCooldown: 350,
 
     arrowAmplitude: 8,
     arrowSpeed: 0.010,

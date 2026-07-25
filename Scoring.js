@@ -36,7 +36,7 @@ class Scoring {
     endDay() {
         // passer au jour suivant
         this.scoringScreen.stop();
-        this.scoringTotalText.innerText = Util.texts["scoringTotalText"];
+        this.scoringTotalText.innerText = Util.texts["scoringTotalText"]; // reset du texte
         this.startNextDayCallback(this.total);
         this.total = 0;
     }
@@ -76,7 +76,11 @@ class Scoring {
                 setTimeout(() => { // afficher le score final
                     const partialScore = scoreData.points * scoreData.value;
                     this.total += partialScore;
-                    scoreElement.innerText += `score : ${partialScore} $`;
+                    if (scoreData.points < 0) {
+                        scoreElement.innerText += `malus : ${partialScore} $`;
+                    } else {
+                        scoreElement.innerText += `bonus : ${partialScore} $`;
+                    }
                     this.scoringTotalText.innerText = `total : ${this.total} $`;
                 }, data.scoreTimer);
             }, data.scoringTimer * index);

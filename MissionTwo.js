@@ -65,6 +65,10 @@ class MissionTwo extends Mission {
         return MissionTwo.missionData.animals[gameObject.id] !== undefined;
     }
 
+    startMusic() {
+        soundManager.playSound("furet", 0.15);
+    }
+
     static missionData = {
         pointsPerCharacterInField: 20,
         pointsPerSuperposition: -5,

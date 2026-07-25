@@ -53,6 +53,10 @@ class MissionThree extends Mission {
         return missionData;
     }
 
+    startMusic() {
+        soundManager.playSound("cancan", 0.15);
+    }
+
     static missionData = {
         pointsPerCharacterInField: 5,
         pointsPerSuperposition: -2,

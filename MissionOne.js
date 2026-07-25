@@ -60,6 +60,10 @@ class MissionOne extends Mission {
         return missionData;
     }
 
+    startMusic() {
+        soundManager.playSound("deprime", 0.15);
+    }
+
     static missionData = {
         pointsPerTile: 10,
         snapDistance: 15,
