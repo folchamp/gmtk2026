@@ -149,13 +149,17 @@ class PhotoGame {
         const mousePos = Util.getMousePosition(this.photoGameCanvas, event);
 
         this.gameObjects.forEach((gameObject) => {
-            if (Util.isInRect(mousePos, gameObject)) {
-                if (gameObject.isDraggable && (this.grabbedGameObject === undefined || this.grabbedGameObject.zIndex < gameObject.zIndex)) {
-                    this.grabbedGameObject = gameObject;
-                    gameObject.drag();
-                }
+            if (gameObject.isDraggable && Util.isInRect(mousePos, gameObject)) {
+                this.grabbedGameObject = gameObject;
             }
         });
+
+        // on passe l'objet attrapé devant les autres
+        if (this.grabbedGameObject !== undefined) {
+            this.grabbedGameObject.drag();
+            this.gameObjects.splice(this.gameObjects.indexOf(this.grabbedGameObject), 1);
+            this.gameObjects.splice(this.gameObjects.length - 1, 0, this.grabbedGameObject);
+        }
 
         this.lastMousePos = mousePos;
     }

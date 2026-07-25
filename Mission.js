@@ -23,4 +23,26 @@ class Mission {
         });
         return gameObjectToReturn;
     }
+
+    // Retourne les sujets partiellement cachés par un autre sujet dans le cadre
+    getSuperposedSubjects(gameObjects, isSubject) {
+        const field = this.getField(gameObjects);
+        const superposed = [];
+        gameObjects.forEach((subject, subjectIndex) => {
+            if (!isSubject(subject) || !Util.rectsCollide(subject, field)) {
+                return;
+            }
+            const hiddenByAnother = gameObjects.some((other, otherIndex) => {
+                return isSubject(other)
+                    && other.id !== subject.id
+                    && otherIndex > subjectIndex
+                    && Util.rectsCollide(other, field)
+                    && Util.rectsCollide(subject, other);
+            });
+            if (hiddenByAnother) {
+                superposed.push(subject);
+            }
+        });
+        return superposed;
+    }
 }
