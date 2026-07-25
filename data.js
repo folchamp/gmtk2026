@@ -63,10 +63,10 @@ const data = {
     weekLength: 5,
     amountOfWeeks: 1,
 
-    calendarTopBaseOffset: 135,
-    calendarTopShift: 160,
-    calendarLeftBaseOffset: 100,
-    calendarLeftShift: 190,
+    calendarTopBaseOffset: 145,
+    calendarTopShift: 70,
+    calendarLeftBaseOffset: 295,
+    calendarLeftShift: 90,
     scoreTimer: 2000,
 
     sources: [

@@ -8,23 +8,30 @@ class Calendar {
 
         this.money = data.startingMoney;
 
+        this.smartphone = Util.createDOMElement("smartphone", "div", calendarScreen.mainContainer);
+
         this.createCircle();
         this.createStartDayButton();
         this.createMoneyDisplay();
+
+        this.smartphone.addEventListener("click", (event) => {
+            this.smartphone.classList.toggle("showSmartphone");
+        });
     }
 
     start() {
         this.welcomeAudio = soundManager.playSound("evele", 0.15);
         this.circle.classList.add("circleAnimation");
+        this.smartphone.classList.add("showSmartphone");
     }
 
     createMoneyDisplay() {
-        this.moneyDisplay = Util.createDOMElement("moneyDisplay", "span", this.calendarScreen.mainContainer);
+        this.moneyDisplay = Util.createDOMElement("moneyDisplay", "span", this.smartphone);
         this.updateMoneyDisplay();
     }
 
     updateMoneyDisplay() {
-        this.moneyDisplay.innerText = `${this.money} $`;
+        this.moneyDisplay.innerText = `${this.money}€`;
     }
 
     createStartDayButton() {
@@ -41,7 +48,7 @@ class Calendar {
 
     createCircle() {
         this.circle = Util.createDOMElement(`circleImage`, "img", this.calendarScreen.mainContainer);
-        this.circle.src = "images/calendar/circle.png";
+        this.circle.src = "images/calendar/circle2.png";
         this.circle.style.top = `${data.calendarTopBaseOffset}px`;
         this.circle.style.left = `${data.calendarLeftBaseOffset}px`;
     }
@@ -49,7 +56,7 @@ class Calendar {
     createCross() {
         const newCross = Util.createDOMElement(`crossImage`, "img", this.calendarScreen.mainContainer);
         newCross.style.position = "absolute";
-        newCross.src = "images/calendar/placeholderCross.png";
+        newCross.src = "images/calendar/cross.png";
         newCross.style.top = this.circle.style.top;
         newCross.style.left = this.circle.style.left;
         return newCross;

@@ -71,7 +71,7 @@ class Scoring {
     displayScore(scores) {
         this.clearScore();
         this.calcTotalScore(scores);
-        this.scoringTotalText.innerText = `total : ${this.total} $`;
+        this.scoringTotalText.innerText = `total : ${this.total}€`;
         for (let index = 0; index < scores.length; index++) {
             setTimeout(() => { // montrer les éléments avec des flèches
                 const scoreData = scores[index];
@@ -86,9 +86,9 @@ class Scoring {
                 setTimeout(() => { // afficher le score final
                     const partialScore = scoreData.points * scoreData.value;
                     if (scoreData.points < 0) {
-                        scoreElement.innerText += `malus : ${partialScore} $`;
+                        scoreElement.innerText += `malus : ${partialScore}€`;
                     } else {
-                        scoreElement.innerText += `bonus : ${partialScore} $`;
+                        scoreElement.innerText += `bonus : ${partialScore}€`;
                     }
                 }, data.scoreTimer);
             }, data.scoringTimer * index);

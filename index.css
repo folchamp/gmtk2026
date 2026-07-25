@@ -4,7 +4,14 @@
 
 @font-face {
     font-family: "countdownfont";
-    src: url("fonts/BittypixCountdown.otf") format("opentype");
+    src: url("fonts/BittypixCountdown/BittypixCountdown.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "pirkkala";
+    src: url("fonts/pirkkala/pirkkala.ttf") format("opentype");
     font-weight: normal;
     font-style: normal;
 }
@@ -143,17 +150,38 @@ body {
 /* ********************************************** */
 
 .calendarScreenContainer {
-    background-image: url(images/calendar/background.png);
+    background-image: url(images/calendar/calendar.png);
+    background-repeat: no-repeat;
+    background-position: center;
     width: 1280px;
     height: 720px;
-    position: "relative";
+    position: relative;
+    overflow: hidden;
 
-    .moneyDisplay {
-        color: red;
+
+    .smartphone {
+        background: url(images/calendar/bank_smartphone.png);
         position: absolute;
-        left: 1000px;
-        top: 50px;
-        font-size: 60px;
+        width: 540px;
+        height: 602px;
+        bottom: -530px;
+        left: 0px;
+        transition: bottom ease-in-out 350ms;
+        z-index: 10;
+        cursor: pointer;
+
+        .moneyDisplay {
+            font-family: pirkkala;
+            color: red;
+            position: absolute;
+            left: 240px;
+            top: 178px;
+            font-size: 60px;
+        }
+    }
+
+    .smartphone.showSmartphone {
+        bottom: 0;
     }
 
     .crossImage {
@@ -185,8 +213,8 @@ body {
 
     .startDayButton {
         position: absolute;
-        top: 660px;
-        left: 500px;
+        top: 620px;
+        left: 380px;
         background: url("images/calendar/startDayButton.png");
         width: 315px;
         height: 58px;
