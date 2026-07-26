@@ -169,6 +169,9 @@ class PhotoGame {
         this.lastMousePos = mousePos;
     }
     mousemove(event) {
+        if(this.state != "playing") {
+            return;
+        }
         const mousePos = Util.getMousePosition(this.photoGameCanvas, event);
         const deltaPos = { x: mousePos.x - this.lastMousePos.x, y: mousePos.y - this.lastMousePos.y };
 
