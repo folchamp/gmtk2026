@@ -23,8 +23,9 @@ class MissionSeven extends Mission {
                 text: `Pixel Perfect Picture 🙂`,
                 total: MissionSeven.missionData.maxScore,
                 value: Math.max(0, MissionSeven.missionData.maxScore - (Math.abs(MissionSeven.missionData.perfectDistance - Math.round(distance)))),
-                highlights: [tower, person],
-                flash: true
+                highlights: [person, tower],
+                flash: true,
+                popupScoreTotal: true
             }
         );
         if (mountainsMoved) {
@@ -34,7 +35,8 @@ class MissionSeven extends Mission {
                 total: 1,
                 value: 1,
                 highlights: [tower],
-                flash: true
+                flash: true,
+                popupScoreTotal: true
             });
         }
 

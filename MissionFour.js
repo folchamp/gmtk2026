@@ -28,17 +28,17 @@ class MissionFour extends Mission {
         });
     }
     getScore(gameObjects) {
-        let wellPlacedTiles = 0;
+        let wellPlacedTiles = [];
         let totalTiles = 0;
         gameObjects.forEach((gameObject) => {
             if (gameObject.id.startsWith("puzzle")) {
                 totalTiles++;
                 if (gameObject.idealPosition.x === gameObject.x && gameObject.idealPosition.y === gameObject.y) {
-                    wellPlacedTiles++;
+                    wellPlacedTiles.push(gameObject);
                 }
             }
         });
-        return [{ points: MissionFour.missionData.pointsPerTile, text: `Correctly placed tiles 🙂`, total: totalTiles, value: wellPlacedTiles, highlights: [] }];
+        return [{ points: MissionFour.missionData.pointsPerTile, text: `Correctly placed tiles 🙂`, total: totalTiles, value: wellPlacedTiles.length, highlights: wellPlacedTiles, flash: true, popupScore: true, arrow: false }];
     }
     getMissionData() {
         // copie des données de mission

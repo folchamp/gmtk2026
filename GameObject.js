@@ -122,21 +122,23 @@ class GameObject {
             const spriteTop = this.y - offsetY;
             const arrowY = Math.min(this.y - this.height, spriteTop) - 10;
             context.drawImage(Util.images["arrow"], this.x, arrowY + arrowAnimationHeight);
-            const popupDelay = 600;
-            const popupDuration = 2400;
-            const popupElapsed = Date.now() - this.popupStart - popupDelay;
-            if (this.popupText && popupElapsed >= 0 && popupElapsed < popupDuration) {
-                const progress = popupElapsed / popupDuration;
-                context.font = "28px pirkkala";
-                context.textAlign = "center";
-                context.strokeStyle = "white";
-                context.fillStyle = this.popupText.startsWith("-") ? "red" : "green";
-                context.globalAlpha = 1 - progress; // le score disparaît progressivement...
-                const popupY = Math.max(28, spriteTop - 8 - 24 * progress); // ...et bouge vers le haut
-                context.strokeText(this.popupText, this.x + this.width / 2, popupY);
-                context.fillText(this.popupText, this.x + this.width / 2, popupY);
-                context.globalAlpha = 1;
-            }
+        }
+        const popupDelay = 600;
+        const popupDuration = 2400;
+        const popupElapsed = Date.now() - this.popupStart - popupDelay;
+        if (this.popupText && popupElapsed >= 0 && popupElapsed < popupDuration) {
+            const progress = popupElapsed / popupDuration;
+            const offsetY = this.offset ? this.offset.y : 0;
+            const spriteTop = this.y - offsetY;
+            context.font = "28px pirkkala";
+            context.textAlign = "center";
+            context.strokeStyle = "white";
+            context.fillStyle = this.popupText.startsWith("-") ? "red" : "green";
+            context.globalAlpha = 1 - progress; // le score disparaît progressivement...
+            const popupY = Math.max(28, spriteTop - 8 - 24 * progress); // ...et bouge vers le haut
+            context.strokeText(this.popupText, this.x + this.width / 2, popupY);
+            context.fillText(this.popupText, this.x + this.width / 2, popupY);
+            context.globalAlpha = 1;
         }
     }
 }
