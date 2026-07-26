@@ -2,14 +2,6 @@
 
 class Main {
     constructor() {
-        // this.callbacks = {
-        //     "buttonAction": (button, method) => this.buttonAction(button, method),
-        //     "setScreen": (screen) => this.setScreen(screen),
-        //     "getCurrentScreenName": () => this.getCurrentScreenName(),
-        //     "playSound": (sound) => this.playSound(sound),
-        //     "soundMute": () => this.toggleSoundMute(),
-        // }
-
         // Screens
         this.titleScreen = new Screen("titleScreen");
         this.title = new Title(this.titleScreen, () => { this.openIntroCallback(); });  // Note: remplacer par openCalendarCallback pour virer l'intro
@@ -39,31 +31,6 @@ class Main {
             this.photoGameScreen
         ];
 
-        // ********************************************
-        // TODO : TEMPORARY HELPER, DELETE LATER
-        // ********************************************
-        window.addEventListener("keydown", (event) => {
-            // console.log(`Pressed ${event.code}`);
-            if (event.code === "KeyP") {
-                this.setScreen("photoGameScreen");
-            } else if (event.code === "KeyO") {
-                this.setScreen("calendarScreen");
-            } else if (event.code === "KeyN") {
-                this.calendar.nextDay();
-            } else if (event.code === "KeyI") {
-                this.setScreen("titleScreen");
-            } else if (event.code === "KeyM") {
-                soundManager.toggleSoundMute();
-            } else if (event.code === "KeyK") {
-                this.openOutroCallback();
-            } else if (event.code === "KeyL") {
-                this.openOutroCallback(false);
-            }
-        });
-        // ********************************************
-        // ********************************************
-        // ********************************************
-
         this.setScreen("titleScreen");
     }
 
@@ -83,7 +50,6 @@ class Main {
     }
 
     openCalendarCallback() {
-        // soundManager.playSound("button");
         this.setScreen("calendarScreen");
         setTimeout(() => {
             this.calendar.start();
@@ -104,7 +70,6 @@ class Main {
         this.calendar.nextDay(total);
     }
 
-    // interactions
     stopAllScreens() {
         this.screens.forEach((screen) => screen.stop());
     }

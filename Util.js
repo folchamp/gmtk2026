@@ -103,6 +103,12 @@ class Util {
         }
     }
 
+    static createButton(name, parent, callback) {
+        const button = this.createDOMElement(name, "button", parent);
+        button.addEventListener("click", callback);
+        return button;
+    }
+
     static createDOMElement(name, type, parent) {
         const element = document.createElement(type);
         element.classList.add(name);

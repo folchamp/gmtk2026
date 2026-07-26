@@ -5,8 +5,7 @@ class Title {
         this.openCalendarCallback = openCalendarCallback;
         this.titleScreen = titleScreen;
 
-        this.startButton = Util.createDOMElement("startButton", "button", this.titleScreen.mainContainer);
-        this.startButton.addEventListener("click", () => {
+        this.startButton = Util.createButton("startButton", this.titleScreen.mainContainer, () => {
             soundManager.shutter();
             this.openCalendarCallback();
         });

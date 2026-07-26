@@ -33,17 +33,13 @@ class Intro {
             this.images.push(img);
         })
 
-        this.skipButton = Util.createDOMElement("skipButton", "button", this.introScreen.mainContainer);
-        this.skipButton.addEventListener("click", () => {
+        this.skipButton = Util.createButton("skipButton", this.introScreen.mainContainer, () => {
             soundManager.shutter();
             this.stop();
         });
-
-        this.stopped = false;
     }
 
     start() {
-        this.stopped = false;
         this.introAudio = soundManager.playSound("money_intro");
         this.frame = 0;
         clearTimeout(this.timeout);
@@ -51,17 +47,12 @@ class Intro {
     }
 
     stop() {
-        if (!this.stopped) { // j'ai ajouté la variable stopped parce que stopped est appelé lorsque tous les frames ont défilé
-            // et quand on skippe l'animation, le stop est tout de même déclenché à la fin des frames et donc déclenché deux fois, 
-            // ce qui peut couper un jeu en plein milieu et renvoie le joueur au calendrier
-            this.introAudio.pause();
-            this.openCalendarCallback();
-            for (let image of this.images) {
-                Util.hide(image);
-            }
+        this.introAudio.pause();
+        this.openCalendarCallback();
+        for (let image of this.images) {
+            Util.hide(image);
         }
-        this.stopped = true;
-        clearTimeout(this.timeout); // et j'ai ajouté un clearTimeout (qui suffit peut-être, je n'ai pas testé)
+        clearTimeout(this.timeout);
     }
 
     showNextFrame() {
