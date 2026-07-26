@@ -40,10 +40,10 @@ class Intro {
         this.frame = 0;
         clearTimeout(this.timeout);
         this.showNextFrame();
+        Util.setLocalStorageItem("skip_intro", true);
     }
 
     stop() {
-        Util.setLocalStorageItem("skip_intro", true);
         this.openCalendarCallback();
         for (image of images) {
             Util.hide(image);
