@@ -4,6 +4,7 @@ class MissionEight extends Mission {
     constructor() {
         super();
         this.countdownY = -47;
+        this.himPosition = MissionEight.missionData.himPosition;
     }
     getGameRules() {
         return "find him";
@@ -18,8 +19,8 @@ class MissionEight extends Mission {
         const minY = data.gameHeight - background.height;
         background.x = Math.min(0, Math.max(minX, background.x));
         background.y = Math.min(0, Math.max(minY, background.y));
-        him.x = background.x + MissionEight.missionData.himPosition.x;
-        him.y = background.y + MissionEight.missionData.himPosition.y;
+        him.x = background.x + this.himPosition.x;
+        him.y = background.y + this.himPosition.y;
         // petit hack : empêcher le background de passer devant les autres éléments
         gameObjects.sort((a, b) => a.zIndex - b.zIndex);
     }
@@ -41,7 +42,17 @@ class MissionEight extends Mission {
     }
     getMissionData() {
         const missionData = Util.deepCopy(MissionEight.missionData);
+        this.himPosition = this.pickHimPosition();
         return missionData;
+    }
+
+    pickHimPosition() {
+        let x, y;
+        do {
+            x = Util.randomValue(655, 3659);
+            y = Util.randomValue(403, 2649);
+        } while (x > 1846 && x < 3280 && y > 1338 && y < 2220); // empêcher qu'il soit visible dès le départ
+        return { x, y };
     }
 
     startMusic() {
