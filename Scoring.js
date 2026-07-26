@@ -135,6 +135,7 @@ class Scoring {
         this.clearScore();
         this.calcTotalScore(scores);
         this.scoringTotalText.innerText = `${this.total}€`;
+        this.scoringContainer.classList.add("closed");
         for (let index = 0; index < scores.length; index++) {
             setTimeout(() => { // montrer les éléments avec des flèches
                 const scoreData = scores[index];
@@ -167,5 +168,10 @@ class Scoring {
             }, data.scoringTimer * index);
         }
         this.scoringScreen.start();
+        // relever le smartphone à la fin du scoring
+        const scoringDuration = data.scoringTimer * (scores.length - 1) + data.scoreTimer;
+        setTimeout(() => {
+            this.scoringContainer.classList.remove("closed");
+        }, scoringDuration + 1500);
     }
 }
