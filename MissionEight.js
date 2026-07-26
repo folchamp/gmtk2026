@@ -102,9 +102,9 @@ class MissionEight extends Mission {
                 "id": "findSasook",
                 "bounds": {
                     "x": -2000,
-                    "y": -4000,
-                    "width": 5455,
-                    "height": 8179
+                    "y": -1500,
+                    "width": 4524,
+                    "height": 3206
                 },
                 "zIndex": -2,
                 "caracs": {
@@ -113,11 +113,11 @@ class MissionEight extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_eight/find_sasook.png"
+                    "imagePath": "mission_eight/find_sasook_full.png"
                 },
                 "idealPosition": {
-                    "x": -4110,
-                    "y": -5594
+                    "x": -3259,
+                    "y": -1498
                 },
                 "offset": {
                     "x": 0,
