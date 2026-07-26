@@ -295,18 +295,23 @@ body {
 /* ********************************************** */
 
 .titleScreenContainer {
-    background: url('images/title/title.png');
+    background: url('images/title/title_logo.png'), url('images/title/title_screen.png');
+    background-repeat: no-repeat no-repeat;
+    background-position: top center, center center;
 
     .startButton {
+        background: url(images/common/button.png);
         position: absolute;
-        top: 600px;
-        left: 550px;
-        width: 180px;
-        height: 80px;
-        background: red;
+        top: 350px;
+        left: 465px;
+        width: 414px;
+        height: 60px;
         cursor: pointer;
         transition: transform 0.1s;
         transform: scale(1);
+        border: none;
+        font-family: pirkkala;
+        font-size: 24px;
     }
 
     .startButton:hover {

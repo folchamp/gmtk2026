@@ -46,7 +46,7 @@ class Intro {
 
     stop() {
         this.openCalendarCallback();
-        for (let image of images) {
+        for (let image of this.images) {
             Util.hide(image);
         }
     }
