@@ -54,7 +54,13 @@ class Scoring {
         const gameObjects = main.photoGame.gameObjects;
         gameObjects.forEach((gameObject) => {
             if (gameObject.id === "field") {
-                this.downloadCrop(main.photoGame.photoGameCanvas, gameObject.x, gameObject.y, gameObject.width, gameObject.height);
+                // on copie la position du fiel, puis on le vire loin pour qu'il ne s'affiche pas dans le screenshot - pas encore testé
+                let temporaryObject = { x: gameObject.x, y: gameObject.y, width: gameObject.width, height: gameObject.height };
+                gameObject.x = 10000;
+                gameObject.y = 10000;
+                setTimeout(() => {
+                    this.downloadCrop(main.photoGame.photoGameCanvas, temporaryObject.x, temporaryObject.y, temporaryObject.width, temporaryObject.height);
+                }, 250);
             }
         });
     }

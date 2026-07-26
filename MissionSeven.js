@@ -63,162 +63,164 @@ class MissionSeven extends Mission {
     static missionData = {
         movingMountainsAchievement: 25,
         maxScore: 25,
-        perfectDistance: 290,
+        perfectDistance: 226,
         pointsPerPixel: 4,
-        objectsData: [{
-            "id": "person1",
-            "bounds": {
-                "x": 1000,
-                "y": 437,
-                "width": 142,
-                "height": 234
+        objectsData: [
+            {
+                "id": "person1",
+                "bounds": {
+                    "x": 880,
+                    "y": 315,
+                    "width": 131,
+                    "height": 190
+                },
+                "zIndex": 3,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": true,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_seven/oldtourist.png"
+                },
+                "idealPosition": {
+                    "x": 880,
+                    "y": 315
+                },
+                "offset": {
+                    "x": 0,
+                    "y": 0
+                }
             },
-            "zIndex": 3,
-            "caracs": {
-                "isCollidable": false,
-                "isGravitable": true,
-                "isDraggable": true
+            {
+                "id": "tower",
+                "bounds": {
+                    "x": 670,
+                    "y": 123,
+                    "width": 119,
+                    "height": 386
+                },
+                "zIndex": 3,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": true,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_seven/pisa_tower.png"
+                },
+                "idealPosition": {
+                    "x": 670,
+                    "y": 123
+                },
+                "offset": {
+                    "x": 2,
+                    "y": 24
+                }
             },
-            "style": {
-                "imagePath": "mission_seven/oldtourist.png"
+            {
+                "id": "panel",
+                "bounds": {
+                    "x": 394,
+                    "y": 307,
+                    "width": 77,
+                    "height": 107
+                },
+                "zIndex": 3,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": true,
+                    "isDraggable": true
+                },
+                "style": {
+                    "imagePath": "mission_seven/signpost.png"
+                },
+                "idealPosition": {
+                    "x": 394.366624190196,
+                    "y": 307
+                },
+                "offset": {
+                    "x": -1,
+                    "y": 0
+                }
             },
-            "idealPosition": {
-                "x": 540,
-                "y": 437
+            {
+                "id": "field",
+                "bounds": {
+                    "x": 237,
+                    "y": 114,
+                    "width": 750,
+                    "height": 500
+                },
+                "zIndex": 99,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": false
+                },
+                "style": {
+                    "imagePath": "common/Camera_Overlay.png"
+                },
+                "idealPosition": {
+                    "x": 237,
+                    "y": 114
+                },
+                "offset": {
+                    "x": 264,
+                    "y": 102
+                }
             },
-            "offset": {
-                "x": 102,
-                "y": 35
+            {
+                "id": "background",
+                "bounds": {
+                    "x": 0,
+                    "y": 0,
+                    "width": 50,
+                    "height": 50
+                },
+                "zIndex": -2,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": false
+                },
+                "style": {
+                    "imagePath": "mission_seven/pisa_background.png"
+                },
+                "idealPosition": {
+                    "x": 0,
+                    "y": 0
+                },
+                "offset": {
+                    "x": 0,
+                    "y": 0
+                }
+            },
+            {
+                "id": "ground3",
+                "bounds": {
+                    "x": -112,
+                    "y": 546,
+                    "width": 1600,
+                    "height": 1000
+                },
+                "zIndex": 0,
+                "caracs": {
+                    "isCollidable": true,
+                    "isGravitable": false,
+                    "isDraggable": false
+                },
+                "style": {
+                },
+                "idealPosition": {
+                    "x": -91,
+                    "y": 549
+                },
+                "offset": {
+                    "x": 0,
+                    "y": 0
+                }
             }
-        }, {
-            "id": "panel",
-            "bounds": {
-                "x": 501,
-                "y": 263,
-                "width": 298,
-                "height": 239
-            },
-            "zIndex": 3,
-            "caracs": {
-                "isCollidable": false,
-                "isGravitable": true,
-                "isDraggable": true
-            },
-            "style": {
-                "imagePath": "mission_seven/signpost.png"
-            },
-            "idealPosition": {
-                "x": 801,
-                "y": 263
-            },
-            "offset": {
-                "x": 20,
-                "y": 10
-            }
-        },
-        {
-            "id": "tower",
-            "bounds": {
-                "x": 309,
-                "y": 123,
-                "width": 247,
-                "height": 423
-            },
-            "zIndex": 3,
-            "caracs": {
-                "isCollidable": false,
-                "isGravitable": true,
-                "isDraggable": true
-            },
-            "style": {
-                "imagePath": "mission_seven/tower.png"
-            },
-            "idealPosition": {
-                "x": 309,
-                "y": 123
-            },
-            "offset": {
-                "x": 20,
-                "y": 10
-            }
-        },
-        {
-            "id": "field",
-            "bounds": {
-                "x": 237,
-                "y": 114,
-                "width": 750,
-                "height": 500
-            },
-            "zIndex": 99,
-            "caracs": {
-                "isCollidable": false,
-                "isGravitable": false,
-                "isDraggable": false
-            },
-            "style": {
-                "imagePath": "common/Camera_Overlay.png"
-            },
-            "idealPosition": {
-                "x": 237,
-                "y": 114
-            },
-            "offset": {
-                "x": 264,
-                "y": 102
-            }
-        },
-        {
-            "id": "background",
-            "bounds": {
-                "x": 0,
-                "y": 0,
-                "width": 50,
-                "height": 50
-            },
-            "zIndex": -2,
-            "caracs": {
-                "isCollidable": false,
-                "isGravitable": false,
-                "isDraggable": false
-            },
-            "style": {
-                "imagePath": "mission_seven/pisa_background2.png"
-            },
-            "idealPosition": {
-                "x": 0,
-                "y": 0
-            },
-            "offset": {
-                "x": 0,
-                "y": 0
-            }
-        },
-        {
-            "id": "ground3",
-            "bounds": {
-                "x": -112,
-                "y": 546,
-                "width": 1600,
-                "height": 1000
-            },
-            "zIndex": 0,
-            "caracs": {
-                "isCollidable": true,
-                "isGravitable": false,
-                "isDraggable": false
-            },
-            "style": {
-            },
-            "idealPosition": {
-                "x": -91,
-                "y": 549
-            },
-            "offset": {
-                "x": 0,
-                "y": 0
-            }
-        }
         ]
     }
 }

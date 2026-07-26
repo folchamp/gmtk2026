@@ -6,7 +6,7 @@ class MissionEight extends Mission {
         this.countdownY = -47;
     }
     getGameRules() {
-        return "find Sasook";
+        return "find him";
     }
     missionMove(dt, gameObjects) {
     }
