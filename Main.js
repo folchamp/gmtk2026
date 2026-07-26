@@ -20,7 +20,7 @@ class Main {
         this.photoGame = new PhotoGame(this.photoGameScreen, this.levelEditorOverlay, this.scoring);
 
         this.actualMission = 0;
-        this.gameList = [new MissionEight(), new MissionFour(), new MissionFive(), new MissionSeven(), new MissionSix()]; //, new MissionOne(), new MissionThree(), new MissionTwo()];
+        this.gameList = [new MissionEight(), new MissionFive(), new MissionFour(), new MissionSeven(), new MissionSix()]; //, new MissionOne(), new MissionThree(), new MissionTwo()];
 
         this.screens = [
             this.titleScreen,
@@ -30,25 +30,6 @@ class Main {
             this.calendarScreen,
             this.photoGameScreen
         ];
-
-        window.addEventListener("keydown", (event) => {
-            // console.log(`Pressed ${event.code}`);
-            if (event.code === "KeyP") {
-                this.setScreen("photoGameScreen");
-            } else if (event.code === "KeyO") {
-                this.setScreen("calendarScreen");
-            } else if (event.code === "KeyN") {
-                this.calendar.nextDay();
-            } else if (event.code === "KeyI") {
-                this.setScreen("titleScreen");
-            } else if (event.code === "KeyM") {
-                soundManager.toggleSoundMute();
-            } else if (event.code === "KeyK") {
-                this.openOutroCallback();
-            } else if (event.code === "KeyL") {
-                this.openOutroCallback(false);
-            }
-        });
 
         this.setScreen("titleScreen");
     }
