@@ -82,10 +82,6 @@ class MissionEight extends Mission {
                 "style": {
                     "imagePath": "common/Camera_Overlay.png"
                 },
-                "idealPosition": {
-                    "x": 237,
-                    "y": 114
-                },
                 "offset": {
                     "x": 264,
                     "y": 102
@@ -108,10 +104,6 @@ class MissionEight extends Mission {
                 "style": {
                     "imagePath": "mission_eight/find_sasook_backgroundonly.png"
                 },
-                "idealPosition": {
-                    "x": -2000,
-                    "y": -1500
-                },
                 "offset": {
                     "x": 0,
                     "y": 0
@@ -120,8 +112,8 @@ class MissionEight extends Mission {
             {
                 "id": "him",
                 "bounds": {
-                    "x": 1200,
-                    "y": 600,
+                    "x": -200,
+                    "y": -200,
                     "width": 154,
                     "height": 162
                 },
@@ -133,10 +125,6 @@ class MissionEight extends Mission {
                 },
                 "style": {
                     "imagePath": "mission_eight/him.png"
-                },
-                "idealPosition": {
-                    "x": 1200,
-                    "y": 600
                 },
                 "offset": {
                     "x": 0,
