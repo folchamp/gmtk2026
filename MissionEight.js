@@ -36,7 +36,10 @@ class MissionEight extends Mission {
                 text: `Where is Sasook ? 🙂`,
                 total: MissionEight.missionData.maxScore,
                 value: Math.round(distance / MissionEight.missionData.minDistance * 100),
-                highlights: []
+                highlights: [him],
+                flash: true,
+                popupScoreTotal: true,
+                arrow: false
             }
         ];
     }

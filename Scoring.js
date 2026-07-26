@@ -149,12 +149,20 @@ class Scoring {
                 Util.show(explanationElement);
                 for (let index = 0; index < scoreData.highlights.length; index++) {
                     const element = scoreData.highlights[index];
-                    this.highlightObject(element);
+                    if (scoreData.arrow !== false) {
+                        this.highlightObject(element);
+                    }
                     if (scoreData.flash) {
                         element.flash(3000);
                     }
+                    let popupAmount;
                     if (scoreData.popupScore) {
-                        element.popup(scoreData.points < 0 ? `${scoreData.points}€` : `+${scoreData.points}€`);
+                        popupAmount = scoreData.points;
+                    } else if (scoreData.popupScoreTotal && index === 0) {
+                        popupAmount = scoreData.points * scoreData.value;
+                    }
+                    if (popupAmount !== undefined) {
+                        element.popup(popupAmount < 0 ? `${popupAmount}€` : `+${popupAmount}€`);
                     }
                 }
                 setTimeout(() => { // afficher le score final
