@@ -27,7 +27,6 @@ class Intro {
             const img = new Image();
             img.src = `${data.imagesPath}intro/${introFrame[0]}.png`;
             img.style.position = "absolute";
-            // objectData.style.image = img;
 
             Util.hide(img);
             this.introScreen.mainContainer.appendChild(img);
@@ -42,14 +41,14 @@ class Intro {
     }
 
     start() {
-        soundManager.playSound("money_intro");
-        this.introScreen.start();
+        this.introAudio = soundManager.playSound("money_intro");
         this.frame = 0;
         clearTimeout(this.timeout);
         this.showNextFrame();
     }
 
     stop() {
+        this.introAudio.pause();
         this.openCalendarCallback();
         for (let image of images) {
             Util.hide(image);

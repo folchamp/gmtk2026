@@ -58,11 +58,10 @@ class Main {
         // ********************************************
 
         this.setScreen("titleScreen");
-        // this.setScreen("calendarScreen");
     }
 
     openIntroCallback() {
-        this.setScreen("intro");
+        this.setScreen("introScreen");
         this.intro.start();
     }
 
