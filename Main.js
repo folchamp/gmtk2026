@@ -79,6 +79,7 @@ class Main {
 
     openTitleCallback() {
         this.setScreen("titleScreen");
+        this.calendar.reset();
     }
 
     openCalendarCallback() {
