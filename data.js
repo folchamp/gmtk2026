@@ -16,7 +16,8 @@ const data = {
 
     // missionDuration: 1000000, // testing
     // missionDuration: 10000, // production
-    missionDuration: 1000, // testing
+    // missionDuration: 1000, // testing
+    missionDuration: 4000, // testing
 
     imagesPath: "images/",
 

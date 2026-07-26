@@ -18,14 +18,26 @@ class MissionSeven extends Mission {
         //     }
         // });
         // const charactersSuperposed = this.getSuperposedSubjects(gameObjects, this.isCat);
+        let distance = 100;
+        let highlights = [];
+        gameObjects.forEach((gameObject) => {
+            gameObjects.forEach((gameObject2) => {
+                if (gameObject.id === "tower" && gameObject2.id === "person1") {
+                    distance = Util.distance(gameObject, gameObject2);
+                    highlights.push(gameObject);
+                    highlights.push(gameObject2);
+                }
+            });
+        });
+        console.log(distance);
 
         return [
             {
-                points: MissionSeven.missionData.pointsPerCharacterInField,
-                text: `Cats in field 🙂`,
-                total: MissionSeven.missionData.characters.length,
-                value: charactersInField.length,
-                highlights: charactersInField
+                points: MissionSeven.missionData.pointsPerPixel,
+                text: `Pixel Perfect Picture 🙂`,
+                total: MissionSeven.missionData.maxScore,
+                value: Math.max(0, 100 - (Math.abs(MissionSeven.missionData.perfectDistance - Math.round(distance)))),
+                highlights: highlights
             }
         ];
     }
@@ -50,8 +62,9 @@ class MissionSeven extends Mission {
     }
 
     static missionData = {
-        // pointsPerCharacterInField: 5,
-        // pointsPerSuperposition: -2,
+        maxScore: 100,
+        perfectDistance: 290,
+        pointsPerPixel: 1,
         characters: [
             // "cat1"
         ],
