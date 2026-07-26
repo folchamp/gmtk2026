@@ -80,7 +80,7 @@ class MissionSeven extends Mission {
                 "isDraggable": true
             },
             "style": {
-                "imagePath": "mission_seven/person.png"
+                "imagePath": "mission_seven/oldtourist.png"
             },
             "idealPosition": {
                 "x": 540,
@@ -105,7 +105,7 @@ class MissionSeven extends Mission {
                 "isDraggable": true
             },
             "style": {
-                "imagePath": "mission_seven/pizza_panel.png"
+                "imagePath": "mission_seven/signpost.png"
             },
             "idealPosition": {
                 "x": 801,
@@ -183,7 +183,7 @@ class MissionSeven extends Mission {
                 "isDraggable": false
             },
             "style": {
-                "imagePath": "mission_seven/pisa_background.png"
+                "imagePath": "mission_seven/pisa_background2.png"
             },
             "idealPosition": {
                 "x": 0,
