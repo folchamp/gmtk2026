@@ -15,16 +15,23 @@ class MissionSix extends Mission {
     getScore(gameObjects) {
         const field = this.getField(gameObjects);
         let charactersInField = [];
+        let partiallyOutside = [];
         gameObjects.forEach((gameObject) => {
             if (this.isCat(gameObject) && Util.rectsCollide(gameObject, field)) {
                 charactersInField.push(gameObject);
+                gameObjects.forEach((gameObject2) => {
+                    if (((gameObject2.id === "left_boundary") || (gameObject2.id === "right_boundary")) && Util.rectsCollide(gameObject, gameObject2)) {
+                        partiallyOutside.push(gameObject);
+                    }
+                });
             }
         });
         const charactersSuperposed = this.getSuperposedSubjects(gameObjects, this.isCat);
 
         return [
             { points: MissionSix.missionData.pointsPerCharacterInField, text: `Cats in field 🙂`, total: MissionSix.missionData.characters.length, value: charactersInField.length, highlights: charactersInField, flash: true, popupScore: true },
-            { points: MissionSix.missionData.pointsPerSuperposition, text: `Superpositions ☹️`, total: MissionSix.missionData.characters.length, value: charactersSuperposed.length, highlights: charactersSuperposed, flash: true, popupScore: true }
+            { points: MissionSix.missionData.pointsPerSuperposition, text: `Superpositions ☹️`, total: MissionSix.missionData.characters.length, value: charactersSuperposed.length, highlights: charactersSuperposed, flash: true, popupScore: true },
+            { points: MissionSix.missionData.pointsPerOutside, text: `Partially outside ☹️`, total: MissionSix.missionData.characters.length, value: partiallyOutside.length, highlights: partiallyOutside, flash: true, popupScore: true }
         ];
     }
     getMissionData() {
@@ -50,6 +57,7 @@ class MissionSix extends Mission {
     static missionData = {
         pointsPerCharacterInField: 5,
         pointsPerSuperposition: -2,
+        pointsPerOutside: -2,
         characters: [
             "cat1",
             "cat10",
@@ -610,6 +618,48 @@ class MissionSix extends Mission {
                 "offset": {
                     "x": 0,
                     "y": 0
+                }
+            },
+            {
+                "id": "right_boundary",
+                "bounds": {
+                    "x": 978,
+                    "y": -16,
+                    "width": 500,
+                    "height": 1000
+                },
+                "zIndex": 3,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": false
+                },
+                "style": {
+                },
+                "idealPosition": {
+                    "x": 992,
+                    "y": -14
+                }
+            },
+            {
+                "id": "left_boundary",
+                "bounds": {
+                    "x": -68,
+                    "y": -22,
+                    "width": 300,
+                    "height": 1000
+                },
+                "zIndex": 3,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": false
+                },
+                "style": {
+                },
+                "idealPosition": {
+                    "x": -11,
+                    "y": -22
                 }
             }
         ]

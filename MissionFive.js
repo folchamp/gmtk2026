@@ -343,7 +343,7 @@ class MissionFive extends Mission {
             "caracs": {
                 "isCollidable": false,
                 "isGravitable": false,
-                "isDraggable": true
+                "isDraggable": false
             },
             "style": {
             },
