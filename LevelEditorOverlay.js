@@ -23,7 +23,7 @@ class LevelEditorOverlay {
                 ["gameObjectZIndexLabel", "gameObjectZIndexText", "gameObjectZIndexInput"],
                 "setIdealButton",
                 ["gameObjectDownloadContainer", "gameObjectDownloadButton", "gameObjectDownloadFeedbackText"],
-                "dlPictureButton"
+                // "dlPictureButton"
             ]
 
 
@@ -53,9 +53,9 @@ class LevelEditorOverlay {
         this.gameObjectHeightInput.addEventListener("change", (event) => { this.change(); });
         this.gameObjectZIndexInput.addEventListener("change", (event) => { this.change(); });
 
-        this.dlPictureButton.addEventListener("click", (event) => {
-            this.downloadPicture();
-        });
+        // this.dlPictureButton.addEventListener("click", (event) => {
+            // this.downloadPicture();
+        // });
 
         this.downloadPositionButton.addEventListener("click", (event) => {
             this.downloadPosition();
@@ -108,40 +108,6 @@ class LevelEditorOverlay {
 
         // this level editor is a Screen.js, thus inactive when created
         this.active = false;
-    }
-
-    downloadPicture() {
-        const gameObjects = main.photoGame.gameObjects;
-        gameObjects.forEach((gameObject) => {
-            if (gameObject.id === "field") {
-                this.downloadCrop(main.photoGame.photoGameCanvas, gameObject.x, gameObject.y, gameObject.width, gameObject.height);
-            }
-        });
-    }
-
-    downloadCrop(sourceCanvas, x, y, width, height) {
-        const crop = document.createElement("canvas");
-        const context = crop.getContext("2d");
-
-        crop.width = width;
-        crop.height = height;
-
-        context.drawImage(
-            sourceCanvas,
-            x, y, width, height,
-            0, 0, width, height
-        );
-
-        crop.toBlob(blob => {
-            const url = URL.createObjectURL(blob);
-
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "crop.png";
-            a.click();
-
-            URL.revokeObjectURL(url);
-        });
     }
 
     toggleVisibility() {

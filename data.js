@@ -15,13 +15,14 @@ const data = {
     friction: 0.9,
 
     // missionDuration: 1000000, // testing
-    // missionDuration: 10000, // production
+    missionDuration: 10000, // production
     // missionDuration: 1000, // testing
-    missionDuration: 4000, // testing
+    // missionDuration: 4000, // testing
 
     imagesPath: "images/",
 
     sounds: [
+        "tarantelle2",
         "button",
         "aouh",
         "arghl",
@@ -80,6 +81,7 @@ const data = {
 Util.image("arrow", "images/common/arrow.png");
 
 Util.texts = {
+    "scoringDownloadButton": "download picture",
     "dlPictureButton": "download picture",
     "downloadPositionButton": "dl pos",
     "scoringTotalText": "Total :",

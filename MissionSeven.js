@@ -6,72 +6,66 @@ class MissionSeven extends Mission {
         this.countdownY = -47;
     }
     missionMove(dt, gameObjects) {
-        // gameObjects.forEach((gameObject) => {
-        // });
     }
     getScore(gameObjects) {
-        // const field = this.getField(gameObjects);
-        // let charactersInField = [];
-        // gameObjects.forEach((gameObject) => {
-        //     if (this.isCat(gameObject) && Util.rectsCollide(gameObject, field)) {
-        //         charactersInField.push(gameObject);
-        //     }
-        // });
-        // const charactersSuperposed = this.getSuperposedSubjects(gameObjects, this.isCat);
         let distance = 100;
         let highlights = [];
+        let scoring = [];
+        let mountainsMoved = false;
         gameObjects.forEach((gameObject) => {
             gameObjects.forEach((gameObject2) => {
                 if (gameObject.id === "tower" && gameObject2.id === "person1") {
                     distance = Util.distance(gameObject, gameObject2);
                     highlights.push(gameObject);
                     highlights.push(gameObject2);
+
+                    // easter egg
+                    if (gameObject.x !== gameObject.idealPosition.x) {
+                        mountainsMoved = true;
+                    }
                 }
             });
         });
-        console.log(distance);
 
-        return [
+        scoring.push(
             {
                 points: MissionSeven.missionData.pointsPerPixel,
                 text: `Pixel Perfect Picture 🙂`,
                 total: MissionSeven.missionData.maxScore,
-                value: Math.max(0, 100 - (Math.abs(MissionSeven.missionData.perfectDistance - Math.round(distance)))),
+                value: Math.max(0, MissionSeven.missionData.maxScore - (Math.abs(MissionSeven.missionData.perfectDistance - Math.round(distance)))),
                 highlights: highlights
             }
-        ];
+        );
+        if (mountainsMoved) {
+            scoring.push({
+                points: MissionSeven.missionData.movingMountainsAchievement,
+                text: `Moving Mountains 🙂`,
+                total: 1,
+                value: 1,
+                highlights: highlights
+            });
+        }
+
+        return scoring;
     }
     getMissionData() {
-        // copie des données de mission
         const missionData = Util.deepCopy(MissionSeven.missionData);
-        // missionData.objectsData.forEach((objectData) => {
-        //     if (MissionSeven.missionData.characters.includes(objectData.id)) {
-        //         objectData.bounds.x = Util.randomValue(0 + objectData.bounds.width, data.gameWidth - objectData.bounds.width);
-        //         objectData.bounds.y = Util.randomValue(0 + objectData.bounds.height, data.gameHeight - objectData.bounds.height);
-        //     }
-        // });
         return missionData;
     }
 
-    // isCat(gameObject) {
-    //     return MissionSeven.missionData.characters.includes(gameObject.id);
-    // }
-
     startMusic() {
-        // soundManager.playSound("cancan", 0.15);
+        soundManager.playSound("tarantelle2", 0.15);
     }
 
     static missionData = {
-        maxScore: 100,
+        movingMountainsAchievement: 25,
+        maxScore: 25,
         perfectDistance: 290,
-        pointsPerPixel: 1,
-        characters: [
-            // "cat1"
-        ],
+        pointsPerPixel: 4,
         objectsData: [{
             "id": "person1",
             "bounds": {
-                "x": 540.2249299292527,
+                "x": 1000,
                 "y": 437,
                 "width": 142,
                 "height": 234
@@ -86,7 +80,7 @@ class MissionSeven extends Mission {
                 "imagePath": "mission_seven/person.png"
             },
             "idealPosition": {
-                "x": 540.2249299292527,
+                "x": 540,
                 "y": 437
             },
             "offset": {
@@ -96,7 +90,7 @@ class MissionSeven extends Mission {
         }, {
             "id": "panel",
             "bounds": {
-                "x": 801,
+                "x": 501,
                 "y": 263,
                 "width": 298,
                 "height": 239
@@ -122,7 +116,7 @@ class MissionSeven extends Mission {
         {
             "id": "tower",
             "bounds": {
-                "x": 309.33370068570764,
+                "x": 309,
                 "y": 123,
                 "width": 247,
                 "height": 423
@@ -137,8 +131,8 @@ class MissionSeven extends Mission {
                 "imagePath": "mission_seven/tower.png"
             },
             "idealPosition": {
-                "x": 221,
-                "y": 137
+                "x": 309,
+                "y": 123
             },
             "offset": {
                 "x": 20,

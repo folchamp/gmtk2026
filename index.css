@@ -104,6 +104,29 @@ body {
         z-index: 10;
         background: url(images/common/endgame_smartphone.png);
 
+        .scoringDownloadButton {
+            font-family: pirkkala;
+            position: relative;
+            top: 410px;
+            left: 70px;
+            width: 414px;
+            height: 60px;
+            font-size: 20px;
+            border: none;
+            background: url(images/common/button.png);
+            transition: scale 0.1s;
+            cursor: pointer;
+            color: #d0f2bf;
+        }
+
+        .scoringDownloadButton:hover {
+            transform: scale(1.05);
+        }
+
+        .scoringDownloadButton:active {
+            transform: scale(0.95);
+        }
+
         .scoringNextDayButton {
             font-family: pirkkala;
             position: relative;

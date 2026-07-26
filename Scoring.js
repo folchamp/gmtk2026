@@ -10,7 +10,8 @@ class Scoring {
                     ["scoreExplanationsContainer", "scoreExplanationOneText", "scoreExplanationTwoText", "scoreExplanationThreeText", "scoreExplanationFourText"],
                     ["scorePointsContainer", "scoreOnePointsText", "scoreTwoPointsText", "scoreThreePointsText", "scoreFourPointsText"]],
                 "scoringTotalText",
-                "scoringNextDayButton"
+                "scoringNextDayButton",
+                "scoringDownloadButton"
             ]
         );
         // Util.quickStructure(scoringScreen.mainContainer, this,
@@ -44,7 +45,43 @@ class Scoring {
             this.endDay();
         });
 
+        this.scoringDownloadButton.addEventListener("click", () => { this.downloadPicture(); });
+
         this.total = 0;
+    }
+
+    downloadPicture() {
+        const gameObjects = main.photoGame.gameObjects;
+        gameObjects.forEach((gameObject) => {
+            if (gameObject.id === "field") {
+                this.downloadCrop(main.photoGame.photoGameCanvas, gameObject.x, gameObject.y, gameObject.width, gameObject.height);
+            }
+        });
+    }
+
+    downloadCrop(sourceCanvas, x, y, width, height) {
+        const crop = document.createElement("canvas");
+        const context = crop.getContext("2d");
+
+        crop.width = width;
+        crop.height = height;
+
+        context.drawImage(
+            sourceCanvas,
+            x, y, width, height,
+            0, 0, width, height
+        );
+
+        crop.toBlob(blob => {
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "SayCheesePicture.png";
+            a.click();
+
+            URL.revokeObjectURL(url);
+        });
     }
     endDay() {
         // passer au jour suivant

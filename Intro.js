@@ -38,6 +38,8 @@ class Intro {
             soundManager.shutter();
             this.stop();
         });
+
+        this.stopped = false;
     }
 
     start() {
@@ -48,11 +50,17 @@ class Intro {
     }
 
     stop() {
-        this.introAudio.pause();
-        this.openCalendarCallback();
-        for (let image of this.images) {
-            Util.hide(image);
+        if (!this.stopped) { // j'ai ajouté la variable stopped parce que stopped est appelé lorsque tous les frames ont défilé
+            // et quand on skippe l'animation, le stop est tout de même déclenché à la fin des frames et donc déclenché deux fois, 
+            // ce qui peut couper un jeu en plein milieu et renvoie le joueur au calendrier
+            this.introAudio.pause();
+            this.openCalendarCallback();
+            for (let image of this.images) {
+                Util.hide(image);
+            }
         }
+        this.stopped = true;
+        clearTimeout(this.timeout); // et j'ai ajouté un clearTimeout (qui suffit peut-être, je n'ai pas testé)
     }
 
     showNextFrame() {
