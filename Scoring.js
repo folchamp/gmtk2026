@@ -127,7 +127,11 @@ class Scoring {
                 const scoreData = scores[index];
                 const explanationElement = this.explanationElements[index];
                 const scoreElement = this.scoreElements[index];
-                explanationElement.innerText = `${scoreData.text} : ${scoreData.value}/${scoreData.total}`
+                if (scoreData.points < 0) {
+                    explanationElement.innerText = `${scoreData.text} : ${scoreData.value}`;
+                } else {
+                    explanationElement.innerText = `${scoreData.text} : ${scoreData.value}/${scoreData.total}`;
+                }
                 Util.show(explanationElement);
                 for (let index = 0; index < scoreData.highlights.length; index++) {
                     const element = scoreData.highlights[index];

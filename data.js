@@ -73,6 +73,8 @@ const data = {
     calendarLeftShift: 90,
     scoreTimer: 2000,
 
+    basicRules: "do something mysterious",
+
     sources: [
         "https://pixabay.com/sound-effects/technology-camera-13695/", // camera stutter effect
     ],

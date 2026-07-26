@@ -5,6 +5,9 @@ class MissionSeven extends Mission {
         super();
         this.countdownY = -47;
     }
+    getGameRules() {
+        return "be a tourist";
+    }
     missionMove(dt, gameObjects) {
     }
     getScore(gameObjects) {

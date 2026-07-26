@@ -7,7 +7,7 @@ class PhotoGame {
         this.levelEditorOverlay.insertGameObject = (gameObject) => { this.insertGameObject(gameObject) };
         this.scoring = scoring;
 
-        Util.quickStructure(this.photoGameScreen.mainContainer, this, ["photoGameCanvas"]);
+        Util.quickStructure(this.photoGameScreen.mainContainer, this, ["gameContainer", "photoGameCanvas", "gameRulesText"]);
 
         this.context = this.photoGameCanvas.getContext("2d");
 
@@ -58,7 +58,16 @@ class PhotoGame {
 
         this.loadMission(this.mission.getMissionData());
         this.mission.startMusic();
+        this.displayGameRules();
         this.resume();
+    }
+    displayGameRules() {
+        Util.show(this.gameRulesText);
+        this.gameRulesText.innerText = this.mission.getGameRules();
+
+        setTimeout(() => {
+            Util.hide(this.gameRulesText);
+        }, 2000);
     }
     getTimeElapsed() {
         const now = Date.now();

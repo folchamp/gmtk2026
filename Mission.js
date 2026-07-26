@@ -23,6 +23,9 @@ class Mission {
         });
         return gameObjectToReturn;
     }
+    getGameRules() {
+        return data.basicRules;
+    }
 
     // Retourne les sujets partiellement cachés par un autre sujet dans le cadre
     getSuperposedSubjects(gameObjects, isSubject) {

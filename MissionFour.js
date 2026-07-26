@@ -7,6 +7,9 @@ class MissionFour extends Mission {
         this.countdownX = 50;
         this.countdownY = -30;
     }
+    getGameRules() {
+        return "assemble the puzzle";
+    }
     startCooldownedChklok() {
         if (Date.now() - this.chklokTimestamp > data.chklokCooldown) {
             this.chklokTimestamp = Date.now();

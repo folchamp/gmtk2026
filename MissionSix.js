@@ -5,6 +5,9 @@ class MissionSix extends Mission {
         super();
         this.countdownY = -47;
     }
+    getGameRules() {
+        return "snap the cats";
+    }
     missionMove(dt, gameObjects) {
         gameObjects.forEach((gameObject) => {
         });

@@ -5,6 +5,9 @@ class MissionEight extends Mission {
         super();
         this.countdownY = -47;
     }
+    getGameRules() {
+        return "find Sasook";
+    }
     missionMove(dt, gameObjects) {
     }
     getScore(gameObjects) {

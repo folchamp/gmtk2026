@@ -5,6 +5,9 @@ class MissionFive extends Mission {
         super();
         this.countdownY = -47;
     }
+    getGameRules() {
+        return "regroup the animals";
+    }
     getScore(gameObjects) {
         const field = this.getField(gameObjects);
         let animalsInField = [];
