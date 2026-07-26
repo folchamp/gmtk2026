@@ -27,24 +27,28 @@ class Intro {
             const img = new Image();
             img.src = `${data.imagesPath}intro/${introFrame[0]}.png`;
             img.style.position = "absolute";
-            // objectData.style.image = img;
 
             Util.hide(img);
             this.introScreen.mainContainer.appendChild(img);
             this.images.push(img);
         })
+
+        this.skipButton = Util.createDOMElement("skipButton", "button", this.introScreen.mainContainer);
+        this.skipButton.addEventListener("click", () => {
+            soundManager.shutter();
+            this.stop();
+        });
     }
 
     start() {
-        soundManager.playSound("money_intro");
-        this.introScreen.start();
+        this.introAudio = soundManager.playSound("money_intro");
         this.frame = 0;
         clearTimeout(this.timeout);
         this.showNextFrame();
-        Util.setLocalStorageItem("skip_intro", true);
     }
 
     stop() {
+        this.introAudio.pause();
         this.openCalendarCallback();
         for (let image of this.images) {
             Util.hide(image);

@@ -61,7 +61,6 @@ const data = {
 
     scoringTimer: 3000,
     arrowTimer: 2000,
-    scoreTimer: 2000,
 
     weekLength: 5,
     amountOfWeeks: 1,
@@ -85,6 +84,7 @@ Util.texts = {
     "scoringTotalText": "Total :",
     "scoringNextDayButton": "Go to bed",
     "startButton": "Start",
+    "skipButton": "Skip",
     "scoreExplanationOneText": "blah blah",
     "scoreExplanationTwoText": "blah blahblah blah",
     "scoreExplanationThreeText": "blah blahblah blah",

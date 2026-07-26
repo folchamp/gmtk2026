@@ -58,17 +58,11 @@ class Main {
         // ********************************************
 
         this.setScreen("titleScreen");
-        // this.setScreen("calendarScreen");
     }
 
     openIntroCallback() {
-        console.log(Util.getLocalStorageItem("skip_intro"));
-        if (Util.getLocalStorageItem("skip_intro")) {
-            this.openCalendarCallback();
-        } else {
-            this.setScreen("intro");
-            this.intro.start();
-        }
+        this.setScreen("introScreen");
+        this.intro.start();
     }
 
     openCalendarCallback() {
