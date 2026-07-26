@@ -79,9 +79,9 @@ class LevelEditorOverlay {
 
         window.addEventListener("keydown", (event) => {
             // console.log(event.code);
-            if (event.code === "KeyE") {
-                this.toggleVisibility();
-            }
+            // if (event.code === "KeyE") {
+            //     this.toggleVisibility();
+            // }
             if (event.code === "Semicolon") {
                 this.levelEditorOverlayScreen.mainContainer.classList.toggle("right");
             }
