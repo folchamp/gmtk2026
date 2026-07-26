@@ -6,7 +6,7 @@ class MissionFive extends Mission {
         this.countdownY = -47;
     }
     getGameRules() {
-        return "regroup the animals";
+        return "get them in frame";
     }
     getScore(gameObjects) {
         const field = this.getField(gameObjects);
@@ -334,8 +334,8 @@ class MissionFive extends Mission {
         {
             "id": "right_boundary",
             "bounds": {
-                "x": 992,
-                "y": -14,
+                "x": 978,
+                "y": -16,
                 "width": 500,
                 "height": 1000
             },
@@ -343,7 +343,7 @@ class MissionFive extends Mission {
             "caracs": {
                 "isCollidable": false,
                 "isGravitable": false,
-                "isDraggable": false
+                "isDraggable": true
             },
             "style": {
             },
@@ -354,7 +354,7 @@ class MissionFive extends Mission {
         }, {
             "id": "left_boundary",
             "bounds": {
-                "x": -11,
+                "x": -68,
                 "y": -22,
                 "width": 300,
                 "height": 1000
