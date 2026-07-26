@@ -1,6 +1,8 @@
 "use strict";
 
 const data = {
+    localStoragePrefix: "saycheese_",
+
     startingMoney: -300,
 
     gameWidth: 1280,

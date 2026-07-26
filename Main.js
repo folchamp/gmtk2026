@@ -12,8 +12,9 @@ class Main {
 
         // Screens
         this.titleScreen = new Screen("titleScreen");
-        this.title = new Title(this.titleScreen, () => { this.openCalendarCallback(); });
-        this.introScreen = new IntroScreen("introScreen");
+        this.title = new Title(this.titleScreen, () => { this.openIntroCallback(); });  // Note: remplacer par openCalendarCallback pour virer l'intro
+        this.introScreen = new Screen("introScreen");
+        this.intro = new Intro(this.introScreen, () => { this.openCalendarCallback(); });
 
         this.levelEditorOverlayScreen = new Screen("levelEditorOverlayScreen");
         this.levelEditorOverlay = new LevelEditorOverlay(this.levelEditorOverlayScreen);
@@ -29,6 +30,7 @@ class Main {
 
         this.screens = [
             this.titleScreen,
+            this.introScreen,
             this.levelEditorOverlayScreen,
             this.calendarScreen,
             this.photoGameScreen
@@ -57,6 +59,16 @@ class Main {
 
         this.setScreen("titleScreen");
         // this.setScreen("calendarScreen");
+    }
+
+    openIntroCallback() {
+        console.log(Util.getLocalStorageItem("skip_intro"));
+        if (Util.getLocalStorageItem("skip_intro")) {
+            this.openCalendarCallback();
+        } else {
+            this.setScreen("intro");
+            this.intro.start();
+        }
     }
 
     openCalendarCallback() {
