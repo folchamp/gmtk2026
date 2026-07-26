@@ -317,3 +317,26 @@ body {
         transform: scale(0.95);
     }
 }
+
+.introScreenContainer {
+    .skipButton {
+        position: absolute;
+        bottom: 40px;
+        left: 40px;
+        width: 140px;
+        height: 70px;
+        border: 1px solid #111;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: transform 0.1s;
+        transform: scale(1);
+    }
+
+    .skipButton:hover {
+        transform: scale(1.05);
+    }
+
+    .skipButton:active {
+        transform: scale(0.95);
+    }
+}

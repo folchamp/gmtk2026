@@ -62,13 +62,8 @@ class Main {
     }
 
     openIntroCallback() {
-        console.log(Util.getLocalStorageItem("skip_intro"));
-        if (Util.getLocalStorageItem("skip_intro")) {
-            this.openCalendarCallback();
-        } else {
-            this.setScreen("intro");
-            this.intro.start();
-        }
+        this.setScreen("intro");
+        this.intro.start();
     }
 
     openCalendarCallback() {

@@ -33,6 +33,12 @@ class Intro {
             this.introScreen.mainContainer.appendChild(img);
             this.images.push(img);
         })
+
+        this.skipButton = Util.createDOMElement("skipButton", "button", this.introScreen.mainContainer);
+        this.skipButton.addEventListener("click", () => {
+            soundManager.shutter();
+            this.stop();
+        });
     }
 
     start() {
@@ -41,7 +47,6 @@ class Intro {
         this.frame = 0;
         clearTimeout(this.timeout);
         this.showNextFrame();
-        Util.setLocalStorageItem("skip_intro", true);
     }
 
     stop() {
