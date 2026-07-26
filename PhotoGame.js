@@ -31,6 +31,7 @@ class PhotoGame {
         });
 
         this.gameObjects = [];
+        this.gameRulesTimeout = false;
         this.loop();
     }
 
@@ -47,27 +48,20 @@ class PhotoGame {
         this.missionDurationLeft = data.missionDuration;
 
         this.mission = givenMission;
-        // *************************
-        // TESTING START
-        // *************************
-        // this.missionDurationLeft = 999999;
-        // this.missionDurationLeft = 30000;
-        // *************************
-        // TESTING STOP
-        // *************************
 
         this.loadMission(this.mission.getMissionData());
         this.mission.startMusic();
         this.displayGameRules();
-        this.resume();
+
+        clearTimeout(this.gameRulesTimeout);
+        this.gameRulesTimeout = setTimeout(() => {
+            this.resume();
+            Util.hide(this.gameRulesText);
+        }, 3000);
     }
     displayGameRules() {
         Util.show(this.gameRulesText);
         this.gameRulesText.innerText = this.mission.getGameRules();
-
-        setTimeout(() => {
-            Util.hide(this.gameRulesText);
-        }, 2000);
     }
     getTimeElapsed() {
         const now = Date.now();
