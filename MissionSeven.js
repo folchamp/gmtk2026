@@ -11,24 +11,11 @@ class MissionSeven extends Mission {
     missionMove(dt, gameObjects) {
     }
     getScore(gameObjects) {
-        let distance = 100;
-        let highlights = [];
-        let scoring = [];
-        let mountainsMoved = false;
-        gameObjects.forEach((gameObject) => {
-            gameObjects.forEach((gameObject2) => {
-                if (gameObject.id === "tower" && gameObject2.id === "person1") {
-                    distance = Util.distance(gameObject, gameObject2);
-                    highlights.push(gameObject);
-                    highlights.push(gameObject2);
-
-                    // easter egg
-                    if (gameObject.x !== gameObject.idealPosition.x) {
-                        mountainsMoved = true;
-                    }
-                }
-            });
-        });
+        const tower = gameObjects.find((gameObject) => gameObject.id === "tower");
+        const person = gameObjects.find((gameObject) => gameObject.id === "person1");
+        const distance = Util.distance(tower, person);
+        const mountainsMoved = tower.x !== tower.idealPosition.x; // easter egg
+        const scoring = [];
 
         scoring.push(
             {
@@ -36,7 +23,8 @@ class MissionSeven extends Mission {
                 text: `Pixel Perfect Picture 🙂`,
                 total: MissionSeven.missionData.maxScore,
                 value: Math.max(0, MissionSeven.missionData.maxScore - (Math.abs(MissionSeven.missionData.perfectDistance - Math.round(distance)))),
-                highlights: highlights
+                highlights: [tower, person],
+                flash: true
             }
         );
         if (mountainsMoved) {
@@ -45,7 +33,8 @@ class MissionSeven extends Mission {
                 text: `Moving Mountains 🙂`,
                 total: 1,
                 value: 1,
-                highlights: highlights
+                highlights: [tower],
+                flash: true
             });
         }
 

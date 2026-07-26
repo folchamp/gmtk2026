@@ -136,6 +136,9 @@ class Scoring {
                 for (let index = 0; index < scoreData.highlights.length; index++) {
                     const element = scoreData.highlights[index];
                     this.highlightObject(element);
+                    if (scoreData.flash) {
+                        element.flash(2000);
+                    }
                 }
                 setTimeout(() => { // afficher le score final
                     const partialScore = scoreData.points * scoreData.value;
