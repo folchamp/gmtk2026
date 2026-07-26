@@ -48,18 +48,26 @@ class Scoring {
         this.scoringDownloadButton.addEventListener("click", () => { this.downloadPicture(); });
 
         this.total = 0;
+        this.pictureBeingTaken = false;
     }
 
     downloadPicture() {
         const gameObjects = main.photoGame.gameObjects;
         gameObjects.forEach((gameObject) => {
             if (gameObject.id === "field") {
-                // on copie la position du fiel, puis on le vire loin pour qu'il ne s'affiche pas dans le screenshot - pas encore testé
+                // on copie la position du field, puis on le vire loin pour qu'il ne s'affiche pas dans le screenshot - pas encore testé
                 let temporaryObject = { x: gameObject.x, y: gameObject.y, width: gameObject.width, height: gameObject.height };
+                this.pictureBeingTaken = true;
                 gameObject.x = 10000;
                 gameObject.y = 10000;
                 setTimeout(() => {
                     this.downloadCrop(main.photoGame.photoGameCanvas, temporaryObject.x, temporaryObject.y, temporaryObject.width, temporaryObject.height);
+                    setTimeout(() => {
+                        gameObject.x = temporaryObject.x;
+                        gameObject.y = temporaryObject.y;
+                        this.pictureBeingTaken = false;
+                        console.log(gameObject)
+                    }, 500);
                 }, 250);
             }
         });

@@ -79,15 +79,17 @@ class PhotoGame {
         this.context.clearRect(0, 0, this.photoGameCanvas.width, this.photoGameCanvas.height);
     }
     drawTimeLeft(dt) {
-        this.context.font = "42px countdownfont";
-        this.context.textAlign = "center";
-        this.context.textBaseline = "middle";
-        this.context.fillStyle = "#ff5597";
-        this.context.strokeStyle = "white";
-        this.context.lineWidth = 3;
-        if (this.mission !== undefined) {
-            this.context.fillText(Math.ceil(Math.max(this.missionDurationLeft, 0) / 1000), 930 + this.mission.countdownX, 190 + this.mission.countdownY);
-            this.context.strokeText(Math.ceil(Math.max(this.missionDurationLeft, 0) / 1000), 930 + this.mission.countdownX, 190 + this.mission.countdownY);
+        if (!this.scoring.pictureBeingTaken) { // when the player downloads a picture, we don't want to draw the timer
+            this.context.font = "42px countdownfont";
+            this.context.textAlign = "center";
+            this.context.textBaseline = "middle";
+            this.context.fillStyle = "#ff5597";
+            this.context.strokeStyle = "white";
+            this.context.lineWidth = 3;
+            if (this.mission !== undefined) {
+                this.context.fillText(Math.ceil(Math.max(this.missionDurationLeft, 0) / 1000), 930 + this.mission.countdownX, 190 + this.mission.countdownY);
+                this.context.strokeText(Math.ceil(Math.max(this.missionDurationLeft, 0) / 1000), 930 + this.mission.countdownX, 190 + this.mission.countdownY);
+            }
         }
     }
     pause() {
