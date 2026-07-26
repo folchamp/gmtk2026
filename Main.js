@@ -15,6 +15,8 @@ class Main {
         this.title = new Title(this.titleScreen, () => { this.openIntroCallback(); });  // Note: remplacer par openCalendarCallback pour virer l'intro
         this.introScreen = new Screen("introScreen");
         this.intro = new Intro(this.introScreen, () => { this.openCalendarCallback(); });
+        this.outroScreen = new Screen("outroScreen");
+        this.outro = new Outro(this.outroScreen, () => { this.openTitleCallback(); });
 
         this.levelEditorOverlayScreen = new Screen("levelEditorOverlayScreen");
         this.levelEditorOverlay = new LevelEditorOverlay(this.levelEditorOverlayScreen);
@@ -31,6 +33,7 @@ class Main {
         this.screens = [
             this.titleScreen,
             this.introScreen,
+            this.outroScreen,
             this.levelEditorOverlayScreen,
             this.calendarScreen,
             this.photoGameScreen
@@ -51,6 +54,10 @@ class Main {
                 this.setScreen("titleScreen");
             } else if (event.code === "KeyM") {
                 soundManager.toggleSoundMute();
+            } else if (event.code === "KeyK") {
+                this.openOutroCallback();
+            } else if (event.code === "KeyL") {
+                this.openOutroCallback(false);
             }
         });
         // ********************************************
@@ -63,6 +70,15 @@ class Main {
     openIntroCallback() {
         this.setScreen("introScreen");
         this.intro.start();
+    }
+
+    openOutroCallback(win=true) {
+        this.setScreen("outroScreen");
+        this.outro.start(win);
+    }
+
+    openTitleCallback() {
+        this.setScreen("titleScreen");
     }
 
     openCalendarCallback() {

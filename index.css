@@ -360,7 +360,7 @@ body {
     }
 }
 
-.introScreenContainer {
+.introScreenContainer, .outroScreenContainer {
     .skipButton {
         position: absolute;
         bottom: 40px;
