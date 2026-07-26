@@ -23,7 +23,7 @@ class Main {
         this.scoringScreen = new Screen("scoringScreen");
         this.scoring = new Scoring(this.scoringScreen, (total) => { this.startNextDayCallback(total); });
         this.calendarScreen = new Screen("calendarScreen");
-        this.calendar = new Calendar(this.calendarScreen, () => { this.startTheDayMissionCallback(); });
+        this.calendar = new Calendar(this.calendarScreen, () => { this.startTheDayMissionCallback(); }, (win) => { this.openOutroCallback(win); });
         this.photoGameScreen = new Screen("photoGameScreen");
         this.photoGame = new PhotoGame(this.photoGameScreen, this.levelEditorOverlay, this.scoring);
 

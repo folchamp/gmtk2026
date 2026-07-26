@@ -1,9 +1,10 @@
 "use strict";
 
 class Calendar {
-    constructor(calendarScreen, startTheDayMissionCallback) {
+    constructor(calendarScreen, startTheDayMissionCallback, openOutroCallback) {
         this.calendarScreen = calendarScreen;
         this.startTheDayMissionCallback = startTheDayMissionCallback;
+        this.openOutroCallback = openOutroCallback;
         this.day = 1;
 
         this.money = data.startingMoney;
@@ -23,6 +24,9 @@ class Calendar {
         this.welcomeAudio = soundManager.playSound("evele", 0.15);
         this.circle.classList.add("circleAnimation");
         this.smartphone.classList.add("showSmartphone");
+        if (this.day >= data.totalGameDays){
+            console.log("outro time");  // TODO changer l'appareil en portefeuille
+        }
     }
 
     createMoneyDisplay() {
@@ -41,7 +45,11 @@ class Calendar {
         this.startDayButton.addEventListener("click", (event) => {
             this.welcomeAudio.pause();
             soundManager.shutter();
-            this.startTheDayMissionCallback();
+            if (this.day <= data.totalGameDays) {
+                this.startTheDayMissionCallback();
+            } else {
+                this.openOutroCallback(this.money > 0);
+            }
             this.circle.classList.remove("circleAnimation");
         });
     }
