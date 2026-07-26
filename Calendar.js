@@ -36,8 +36,8 @@ class Calendar {
         this.day = 1;
         this.moveCircle();
         this.money = data.startingMoney;
-        Util.show(this.payTaxesButton);
-        Util.hide(this.startDayButton);
+        Util.hide(this.payTaxesButton);
+        Util.show(this.startDayButton);
         for (const cross of this.crosses) {
             Util.hide(cross);
         }
