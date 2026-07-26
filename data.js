@@ -65,7 +65,7 @@ const data = {
     arrowTimer: 3000,
 
     weekLength: 5,
-    totalGameDays: 1,
+    totalGameDays: 10,
 
     calendarTopBaseOffset: 145,
     calendarTopShift: 70,

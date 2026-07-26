@@ -120,7 +120,7 @@ class Calendar {
             this.crosses.push(cross);
         }
         this.day += 1;
-        if (this.day >= data.totalGameDays) {
+        if (this.day > data.totalGameDays) {
             Util.show(this.payTaxesButton);
             Util.hide(this.startDayButton);
         }
