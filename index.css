@@ -325,6 +325,27 @@ body {
     .startDayButton:active {
         transform: scale(0.95);
     }
+
+    .payTaxesButton {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        background: url("images/calendar/paytaxes.png");
+        width: 514px;
+        height: 350px;
+        border: none;
+        cursor: pointer;
+        z-index: 5;
+        transition: transform 0.1s;
+    }
+
+    .payTaxesButton:hover {
+        transform: scale(1.05);
+    }
+
+    .payTaxesButton:active {
+        transform: scale(0.95);
+    }
 }
 
 /* ********************************************** */

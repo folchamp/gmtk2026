@@ -23,8 +23,8 @@ class MissionSix extends Mission {
         const charactersSuperposed = this.getSuperposedSubjects(gameObjects, this.isCat);
 
         return [
-            { points: MissionSix.missionData.pointsPerCharacterInField, text: `Cats in field 🙂`, total: MissionSix.missionData.characters.length, value: charactersInField.length, highlights: charactersInField, flash: true },
-            { points: MissionSix.missionData.pointsPerSuperposition, text: `Superpositions ☹️`, total: MissionSix.missionData.characters.length, value: charactersSuperposed.length, highlights: charactersSuperposed, flash: true }
+            { points: MissionSix.missionData.pointsPerCharacterInField, text: `Cats in field 🙂`, total: MissionSix.missionData.characters.length, value: charactersInField.length, highlights: charactersInField, flash: true, popupScore: true },
+            { points: MissionSix.missionData.pointsPerSuperposition, text: `Superpositions ☹️`, total: MissionSix.missionData.characters.length, value: charactersSuperposed.length, highlights: charactersSuperposed, flash: true, popupScore: true }
         ];
     }
     getMissionData() {

@@ -61,11 +61,11 @@ const data = {
     arrowAmplitude: 8,
     arrowSpeed: 0.010,
 
-    scoringTimer: 3000,
-    arrowTimer: 2000,
+    scoringTimer: 3500,
+    arrowTimer: 3000,
 
     weekLength: 5,
-    amountOfWeeks: 1,
+    totalGameDays: 1,
 
     calendarTopBaseOffset: 145,
     calendarTopShift: 70,

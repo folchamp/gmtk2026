@@ -1,9 +1,10 @@
 "use strict";
 
 class Calendar {
-    constructor(calendarScreen, startTheDayMissionCallback) {
+    constructor(calendarScreen, startTheDayMissionCallback, openOutroCallback) {
         this.calendarScreen = calendarScreen;
         this.startTheDayMissionCallback = startTheDayMissionCallback;
+        this.openOutroCallback = openOutroCallback;
         this.day = 1;
 
         this.money = data.startingMoney;
@@ -12,17 +13,34 @@ class Calendar {
 
         this.createCircle();
         this.createStartDayButton();
+        this.createPayTaxesButton();
         this.createMoneyDisplay();
 
         this.smartphone.addEventListener("click", (event) => {
             this.smartphone.classList.toggle("showSmartphone");
         });
+
+        this.crosses = [];
     }
 
     start() {
         this.welcomeAudio = soundManager.playSound("evele", 0.15);
         this.circle.classList.add("circleAnimation");
         this.smartphone.classList.add("showSmartphone");
+        if (this.day >= data.totalGameDays){
+            console.log("outro time");  // TODO changer l'appareil en portefeuille
+        }
+    }
+
+    reset() {
+        this.day = 1;
+        this.moveCircle();
+        this.money = data.startingMoney;
+        Util.hide(this.payTaxesButton);
+        Util.show(this.startDayButton);
+        for (const cross of this.crosses) {
+            Util.hide(cross);
+        }
     }
 
     createMoneyDisplay() {
@@ -41,9 +59,31 @@ class Calendar {
         this.startDayButton.addEventListener("click", (event) => {
             this.welcomeAudio.pause();
             soundManager.shutter();
-            this.startTheDayMissionCallback();
+            if (this.day <= data.totalGameDays) {
+                this.startTheDayMissionCallback();
+            } else {
+                this.openOutroCallback(this.money > 0);
+            }
             this.circle.classList.remove("circleAnimation");
         });
+    }
+
+    createPayTaxesButton() {
+        this.payTaxesButton = Util.createDOMElement("payTaxesButton", "div", this.calendarScreen.mainContainer);
+        this.payTaxesButton.innerText = "";
+
+        this.payTaxesButton.addEventListener("click", (event) => {
+            this.welcomeAudio.pause();
+            soundManager.shutter();
+            if (this.day <= data.totalGameDays) {
+                this.startTheDayMissionCallback();
+            } else {
+                this.openOutroCallback(this.money > 0);
+            }
+            this.circle.classList.remove("circleAnimation");
+        });
+
+        Util.hide(this.payTaxesButton);
     }
 
     createCircle() {
@@ -77,8 +117,13 @@ class Calendar {
             // setTimeout(() => {
             cross.classList.add("crossAnimation");
             // }, 250);
+            this.crosses.push(cross);
         }
         this.day += 1;
+        if (this.day >= data.totalGameDays) {
+            Util.show(this.payTaxesButton);
+            Util.hide(this.startDayButton);
+        }
         this.moveCircle();
         setTimeout(
             () => {
