@@ -65,12 +65,14 @@ body {
 .scoringScreenContainer.screen {
     position: absolute;
     top: 0;
-    left: 0;
+    /* left: 0; */
     z-index: 11;
     height: initial;
     width: initial;
     height: 720px;
     width: 1280px;
+    left: 50%;
+    transform: translateX(-50%);
 
     font-family: pirkkala;
     font-size: 20px;
@@ -82,10 +84,18 @@ body {
         height: 75px;
     }
 
+    .scoringContainer:active {
+        transform: scale(0.95);
+    }
+
+    .scoringContainer:hover {
+        transform: scale(1.05);
+    }
+
     .scoringContainer {
         z-index: 11;
         cursor: pointer;
-        transition: height ease-in-out 450ms;
+        transition: height ease-in-out 450ms, transform ease-in-out 0.1s;
         position: absolute;
         width: 540px;
         height: 602px;

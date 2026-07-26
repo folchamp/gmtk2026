@@ -25,7 +25,7 @@ class Main {
         this.photoGame = new PhotoGame(this.photoGameScreen, this.levelEditorOverlay, this.scoring);
 
         this.actualMission = 0;
-        this.gameList = [new MissionFive(), new MissionFour(), new MissionSix(), new MissionOne(), new MissionThree(), new MissionTwo()];
+        this.gameList = [new MissionSeven(), new MissionFive(), new MissionFour(), new MissionSix(), new MissionOne(), new MissionThree(), new MissionTwo()];
 
         this.screens = [
             this.titleScreen,

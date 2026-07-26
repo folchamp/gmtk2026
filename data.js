@@ -12,9 +12,9 @@ const data = {
     gravity: 0.008,
     friction: 0.9,
 
-    // missionDuration: 1000000, // testing
+    missionDuration: 1000000, // testing
     // missionDuration: 10000, // production
-    missionDuration: 1000, // testing
+    // missionDuration: 1000, // testing
 
     imagesPath: "images/",
 
