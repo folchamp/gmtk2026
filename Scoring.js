@@ -151,7 +151,10 @@ class Scoring {
                     const element = scoreData.highlights[index];
                     this.highlightObject(element);
                     if (scoreData.flash) {
-                        element.flash(2000);
+                        element.flash(3000);
+                    }
+                    if (scoreData.popupScore) {
+                        element.popup(scoreData.points < 0 ? `${scoreData.points}€` : `+${scoreData.points}€`);
                     }
                 }
                 setTimeout(() => { // afficher le score final
