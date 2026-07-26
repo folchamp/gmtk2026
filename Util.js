@@ -24,21 +24,22 @@ class Util {
         return Util.images[name];
     }
 
-    static saveToLocalStorage(name, data) {
-        if (Settings.appName === undefined) {
-            throw "Util.js requires an app name";
-        }
-        localStorage.setItem(`${Settings.appName}_${name}`, JSON.stringify(data));
-    }
-
-    static getFromLocalStorage(name) {
+    static getLocalStorageItem(name) {
         let item;
         try {
-            item = JSON.parse(localStorage.getItem(`${Settings.appName}_${name}`));
+            item = JSON.parse(localStorage.getItem(`${data.localStoragePrefix}${name}`));
         } catch (error) {
             console.log(`Error, ${name} in localStorage couldn"t be fetched`);
         }
         return item;
+    }
+
+    static setLocalStorageItem(name, value) {
+        return localStorage.setItem(`${data.localStoragePrefix}${name}`, JSON.stringify(value));
+    }
+
+    static removeLocalStorageItem(name) {
+        return localStorage.removeItem(`${data.localStoragePrefix}${name}`);
     }
 
     static deepCopy(something) {
