@@ -19,14 +19,13 @@ class Outro {
             ["outro10w", 200],
             ["outro11w", 400],
             ["outro12w", 400],
-            ["outro13w", 400],
             ["outro14w", 600],
             ["outro15w", 400],
             ["outro16w", 400],
             ["outro17w", 400],
             ["outro18w", 1500],
             ["outro19w", 1500],
-            ["outro20w", 2000],
+            ["outro20w", 2300],
         ]
         this.imagesWin = []
         this.imageListWin.forEach((outroFrame) => {
