@@ -9,19 +9,27 @@ class MissionEight extends Mission {
         return "find him";
     }
     missionMove(dt, gameObjects) {
+        const background = gameObjects.find((gameObject) => gameObject.id === "background");
+        const him = gameObjects.find((gameObject) => gameObject.id === "him");
+        if (background === undefined || him === undefined) {
+            return;
+        }
+        const minX = data.gameWidth - background.width;
+        const minY = data.gameHeight - background.height;
+        background.x = Math.min(0, Math.max(minX, background.x));
+        background.y = Math.min(0, Math.max(minY, background.y));
+        him.x = background.x + MissionEight.missionData.himPosition.x;
+        him.y = background.y + MissionEight.missionData.himPosition.y;
+        // petit hack : empêcher le background de passer devant les autres éléments
+        gameObjects.sort((a, b) => a.zIndex - b.zIndex);
     }
     getScore(gameObjects) {
-        let distance = 100;
-        let highlights = [];
-        let scoring = [];
-        gameObjects.forEach((gameObject) => {
-            if (gameObject.id === "findSasook") {
-                distance = MissionEight.missionData.minDistance - Math.min(MissionEight.missionData.minDistance, Util.distance(gameObject, gameObject.idealPosition));
-                console.log(Util.distance(gameObject, gameObject.idealPosition));
-                console.log(distance);
-            }
-        });
-        scoring.push(
+        const field = this.getField(gameObjects);
+        const him = gameObjects.find((gameObject) => gameObject.id === "him");
+        const reticle = { x: field.x + field.width / 2, y: field.y + field.height / 2 };
+        const himCenter = { x: him.x + him.width / 2, y: him.y + him.height / 2 };
+        const distance = MissionEight.missionData.minDistance - Math.min(MissionEight.missionData.minDistance, Util.distance(himCenter, reticle));
+        return [
             {
                 points: MissionEight.missionData.pointsPerPixel,
                 text: `Where is Sasook ? 🙂`,
@@ -29,8 +37,7 @@ class MissionEight extends Mission {
                 value: Math.round(distance / MissionEight.missionData.minDistance * 100),
                 highlights: []
             }
-        );
-        return scoring;
+        ];
     }
     getMissionData() {
         const missionData = Util.deepCopy(MissionEight.missionData);
@@ -45,6 +52,7 @@ class MissionEight extends Mission {
         minDistance: 720,
         maxScore: 100,
         pointsPerPixel: 1,
+        himPosition: { x: 3700, y: 1781 },
         objectsData: [
             {
                 "id": "field",
@@ -73,33 +81,7 @@ class MissionEight extends Mission {
                 }
             },
             {
-                "id": "black_background",
-                "bounds": {
-                    "x": -0,
-                    "y": -0,
-                    "width": 1280,
-                    "height": 720
-                },
-                "zIndex": -3,
-                "caracs": {
-                    "isCollidable": false,
-                    "isGravitable": false,
-                    "isDraggable": false
-                },
-                "style": {
-                    color: "black",
-                },
-                "idealPosition": {
-                    "x": 0,
-                    "y": 0
-                },
-                "offset": {
-                    "x": 0,
-                    "y": 0
-                }
-            },
-            {
-                "id": "findSasook",
+                "id": "background",
                 "bounds": {
                     "x": -2000,
                     "y": -1500,
@@ -113,11 +95,37 @@ class MissionEight extends Mission {
                     "isDraggable": true
                 },
                 "style": {
-                    "imagePath": "mission_eight/find_sasook_full.png"
+                    "imagePath": "mission_eight/find_sasook_backgroundonly.png"
                 },
                 "idealPosition": {
-                    "x": -3259,
-                    "y": -1498
+                    "x": -2000,
+                    "y": -1500
+                },
+                "offset": {
+                    "x": 0,
+                    "y": 0
+                }
+            },
+            {
+                "id": "him",
+                "bounds": {
+                    "x": 1200,
+                    "y": 600,
+                    "width": 154,
+                    "height": 162
+                },
+                "zIndex": -1,
+                "caracs": {
+                    "isCollidable": false,
+                    "isGravitable": false,
+                    "isDraggable": false
+                },
+                "style": {
+                    "imagePath": "mission_eight/him.png"
+                },
+                "idealPosition": {
+                    "x": 1200,
+                    "y": 600
                 },
                 "offset": {
                     "x": 0,
