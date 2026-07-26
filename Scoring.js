@@ -66,7 +66,6 @@ class Scoring {
                         gameObject.x = temporaryObject.x;
                         gameObject.y = temporaryObject.y;
                         this.pictureBeingTaken = false;
-                        console.log(gameObject)
                     }, 500);
                 }, 250);
             }

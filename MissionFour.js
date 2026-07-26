@@ -53,8 +53,6 @@ class MissionFour extends Mission {
                     objectData.bounds.y = objectData.idealPosition.y;
                 } else {
                     let randomPosition = missionData.randomPositions.shift();
-                    console.log(missionData.randomPositions);
-                    console.log(index);
                     objectData.bounds.x = randomPosition.x;
                     objectData.bounds.y = randomPosition.y;
                 }
