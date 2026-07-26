@@ -31,7 +31,6 @@ class PhotoGame {
         });
 
         this.gameObjects = [];
-        this.gameRulesTimeout = false;
         this.loop();
     }
 
@@ -52,16 +51,15 @@ class PhotoGame {
         this.loadMission(this.mission.getMissionData());
         this.mission.startMusic();
         this.displayGameRules();
-
-        clearTimeout(this.gameRulesTimeout);
-        this.gameRulesTimeout = setTimeout(() => {
-            this.resume();
-            Util.hide(this.gameRulesText);
-        }, 3000);
+        this.resume();
     }
     displayGameRules() {
         Util.show(this.gameRulesText);
         this.gameRulesText.innerText = this.mission.getGameRules();
+
+        setTimeout(() => {
+            Util.hide(this.gameRulesText);
+        }, 2000);
     }
     getTimeElapsed() {
         const now = Date.now();
@@ -169,9 +167,6 @@ class PhotoGame {
         this.lastMousePos = mousePos;
     }
     mousemove(event) {
-        if(this.state != "playing") {
-            return;
-        }
         const mousePos = Util.getMousePosition(this.photoGameCanvas, event);
         const deltaPos = { x: mousePos.x - this.lastMousePos.x, y: mousePos.y - this.lastMousePos.y };
 
