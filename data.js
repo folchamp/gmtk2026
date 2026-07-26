@@ -3,7 +3,7 @@
 const data = {
     localStoragePrefix: "saycheese_",
 
-    startingMoney: -300,
+    startingMoney: -700,
 
     gameWidth: 1280,
     gameHeight: 720,
