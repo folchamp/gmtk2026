@@ -50,7 +50,8 @@ const data = {
         "ugh",
         "ugh2",
         "yay",
-        "evele"
+        "evele",
+        "money_intro"
     ],
 
     chklokCooldown: 350,

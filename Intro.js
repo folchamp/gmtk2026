@@ -36,6 +36,7 @@ class Intro {
     }
 
     start() {
+        soundManager.playSound("money_intro");
         this.introScreen.start();
         this.frame = 0;
         clearTimeout(this.timeout);
@@ -45,7 +46,7 @@ class Intro {
 
     stop() {
         this.openCalendarCallback();
-        for (image of images) {
+        for (let image of images) {
             Util.hide(image);
         }
     }
