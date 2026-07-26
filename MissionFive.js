@@ -27,11 +27,11 @@ class MissionFive extends Mission {
         });
         const superpositions = this.getSuperposedSubjects(gameObjects, (gameObject) => this.isAnimal(gameObject));
 
-        score.push({ points: MissionFive.missionData.pointsPerCharacterInField, text: `Animals in field 🙂`, total: MissionFive.missionData.allAnimals.length, value: animalsInField.length, highlights: animalsInField });
-        score.push({ points: MissionFive.missionData.pointsPerSuperposition, text: `Superpositions ☹️`, total: MissionFive.missionData.allAnimals.length, value: superpositions.length, highlights: superpositions });
-        score.push({ points: MissionFive.missionData.pointsPerOutside, text: `Partially outside ☹️`, total: MissionFive.missionData.allAnimals.length, value: partiallyOutside.length, highlights: partiallyOutside });
+        score.push({ points: MissionFive.missionData.pointsPerCharacterInField, text: `Animals in field 🙂`, total: MissionFive.missionData.allAnimals.length, value: animalsInField.length, highlights: animalsInField, flash: true });
+        score.push({ points: MissionFive.missionData.pointsPerSuperposition, text: `Superpositions ☹️`, total: MissionFive.missionData.allAnimals.length, value: superpositions.length, highlights: superpositions, flash: true });
+        score.push({ points: MissionFive.missionData.pointsPerOutside, text: `Partially outside ☹️`, total: MissionFive.missionData.allAnimals.length, value: partiallyOutside.length, highlights: partiallyOutside, flash: true });
         if (this.isMoneyGrabbed(gameObjects)) {
-            score.push({ points: MissionFive.missionData.pointsIfMoneyGrabbed, text: `Money grabbed 🙂`, total: 1, value: 1, highlights: [this.getMoney(gameObjects)] });
+            score.push({ points: MissionFive.missionData.pointsIfMoneyGrabbed, text: `Money grabbed 🙂`, total: 1, value: 1, highlights: [this.getMoney(gameObjects)], flash: true });
         }
         return score;
     }
