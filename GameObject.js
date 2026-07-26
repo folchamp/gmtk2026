@@ -24,6 +24,7 @@ class GameObject {
         // TODO weigth
 
         this.highlighted = false;
+        this.flashUntil = 0;
 
         GameObject.loadImage(this);
     }
@@ -85,16 +86,27 @@ class GameObject {
         }
     }
 
+    flash(duration) {
+        this.flashUntil = Date.now() + duration;
+    }
+
     draw(context) {
         if (this.style.color !== undefined) {
             context.fillStyle = this.style.color;
             context.fillRect(this.x, this.y, this.width, this.height);
         }
         if (this.style.image !== undefined) {
+            const flashing = Date.now() < this.flashUntil;
+            if (flashing) {
+                context.globalAlpha = 0.25 + 0.75 * Math.abs(Math.sin(Date.now() / 100));
+            }
             if (this.offset !== undefined) {
                 context.drawImage(this.style.image, this.x - this.offset.x, this.y - this.offset.y);
             } else {
                 context.drawImage(this.style.image, this.x, this.y);
+            }
+            if (flashing) {
+                context.globalAlpha = 1;
             }
         }
         if (this.highlighted) {
