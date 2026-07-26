@@ -43,6 +43,7 @@ class Intro {
     }
 
     start() {
+        this.stopped = false;
         this.introAudio = soundManager.playSound("money_intro");
         this.frame = 0;
         clearTimeout(this.timeout);
