@@ -31,6 +31,25 @@ class Main {
             this.photoGameScreen
         ];
 
+        window.addEventListener("keydown", (event) => {
+            // console.log(`Pressed ${event.code}`);
+            if (event.code === "KeyP") {
+                this.setScreen("photoGameScreen");
+            } else if (event.code === "KeyO") {
+                this.setScreen("calendarScreen");
+            } else if (event.code === "KeyN") {
+                this.calendar.nextDay();
+            } else if (event.code === "KeyI") {
+                this.setScreen("titleScreen");
+            } else if (event.code === "KeyM") {
+                soundManager.toggleSoundMute();
+            } else if (event.code === "KeyK") {
+                this.openOutroCallback();
+            } else if (event.code === "KeyL") {
+                this.openOutroCallback(false);
+            }
+        });
+
         this.setScreen("titleScreen");
     }
 
@@ -39,7 +58,7 @@ class Main {
         this.intro.start();
     }
 
-    openOutroCallback(win=true) {
+    openOutroCallback(win = true) {
         this.setScreen("outroScreen");
         this.outro.start(win);
     }

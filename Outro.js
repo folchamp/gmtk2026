@@ -68,7 +68,12 @@ class Outro {
         });
     }
 
-    start(win=true) {
+    start(win = true) {
+        if (win) {
+            soundManager.playSound("outro_win");
+        } else {
+            soundManager.playSound("outro_lose");
+        }
         this.win = win;
         this.frame = 0;
         clearTimeout(this.timeout);

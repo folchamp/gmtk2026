@@ -22,6 +22,8 @@ const data = {
     imagesPath: "images/",
 
     sounds: [
+        "outro_lose",
+        "outro_win",
         "tarantelle2",
         "button",
         "aouh",

@@ -90,7 +90,7 @@ class MissionFive extends Mission {
         pointsPerCharacterInField: 20,
         pointsPerSuperposition: -5,
         pointsPerOutside: -5,
-        pointsIfMoneyGrabbed: 100,
+        pointsIfMoneyGrabbed: 50,
         grabDistance: 10,
         runDistance: 30,
         acceleration: { chicken: 0.06, cow: 0.08, donkey: 0.18, wolf: 0.12 },
